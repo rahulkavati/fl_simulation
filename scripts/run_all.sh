@@ -1,17 +1,32 @@
 #!/usr/bin/env bash
 set -e
 
+# FL Simulation Framework - Complete Workflow
+# Author: Rahul Kavati
+
+echo "🚀 Starting FL Simulation Framework..."
+
 # 1) Generate synthetic client datasets
-python data/simulate_health_data.py --clients 5 --outdir data/clients
+echo "📊 Generating synthetic health data..."
+python3 data/simulate_health_data.py --clients 5 --outdir data/clients
 
-# 2) Rahul: run federated client sim (produces plaintext updates + a simple server apply)
-python rahul/client_simulation.py --rounds 3 --lr 0.1 --batch_size 128
+# 2) Run federated learning simulation (produces plaintext updates + server aggregation)
+echo "🔬 Running FL simulation..."
+python3 simulation/client_simulation.py
 
-# 3) Huzaif: encrypt updates (CKKS via TenSEAL if installed; otherwise DRY-RUN base64)
-python huzaif/router_encrypt.py --in_dir data/updates --out_dir data/updates_encrypted
+# 3) Analyze efficiency metrics and generate visualizations
+echo "📈 Analyzing efficiency metrics..."
+python3 visualize/metrics_analysis.py
 
-# 4) Sriven: aggregate encrypted updates per round (homomorphic add if TenSEAL available)
-python sriven/switch_aggregate.py --in_dir data/updates_encrypted --out_path data/aggregations/round_agg.enc.json
+# 4) Display results summary
+echo "✅ FL Simulation completed successfully!"
+echo "📁 Check the following directories for results:"
+echo "   - updates/: Model updates and aggregations"
+echo "   - metrics/: Efficiency metrics and visualizations"
+echo "   - data/clients/: Client datasets"
 
-# 5) Cloud: decrypt aggregated ciphertext and update global model
-python cloud/server_update.py --agg_dir data/aggregations --global_model data/global_model.json
+echo ""
+echo "🎯 Next steps:"
+echo "   - View metrics: open metrics/accuracy_analysis.png"
+echo "   - Run experiments: python3 scripts/run_experiments.py"
+echo "   - Run tests: python3 tests/run_tests.py --coverage"
