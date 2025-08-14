@@ -1,16 +1,23 @@
 import os
+import sys
 import json
 import numpy as np
+import time
 from sklearn.linear_model import LogisticRegression
 import warnings
+
+# Add project root to Python path
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from common.efficiency_metrics import FLEfficiencyCalculator
 
 # Suppress convergence warnings if they still occur
 warnings.filterwarnings('ignore', category=UserWarning, module='sklearn')
 
 # Paths
-DATA_DIR = "data/clients"      # Where simulate_health_data.py saved client CSVs
-OUTPUT_JSON = "updates/json"
-OUTPUT_NPY = "updates/numpy"
+DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "clients")
+OUTPUT_JSON = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "updates", "json")
+OUTPUT_NPY = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "updates", "numpy")
 
 NUM_ROUNDS = 3
 
@@ -39,6 +46,11 @@ def load_client_data():
 # ---------- Main simulation ----------
 def main():
     print("Starting Federated Learning Simulation...")
+    start_time = time.time()
+    
+    # Initialize efficiency calculator
+    efficiency_calc = FLEfficiencyCalculator(DATA_DIR, "updates")
+    
     clients_data = load_client_data()
 
     # Initialize global model (random start)
@@ -97,9 +109,34 @@ def main():
         
         print(f"  Global model updated. Weight norm: {np.linalg.norm(global_model.coef_):.4f}")
     
+    total_training_time = time.time() - start_time
+    
     print("\nSimulation completed successfully!")
     print(f"Final global model - Weight norm: {np.linalg.norm(global_model.coef_):.4f}")
     print(f"Bias: {global_model.intercept_[0]:.4f}")
+    print(f"Total training time: {total_training_time:.2f} seconds")
+    
+    # Calculate and save efficiency metrics
+    print("\nCalculating efficiency metrics...")
+    metrics = efficiency_calc.calculate_efficiency_metrics(
+        clients_data, global_model, NUM_ROUNDS, total_training_time
+    )
+    
+    # Save metrics with experiment name
+    experiment_name = f"fl_simulation_{NUM_ROUNDS}rounds_{len(clients_data)}clients"
+    efficiency_calc.save_metrics(metrics, experiment_name)
+    
+    # Display key metrics
+    print("\n" + "="*50)
+    print("FL EFFICIENCY METRICS SUMMARY")
+    print("="*50)
+    print(f"Communication Rounds: {metrics.total_communication_rounds}")
+    print(f"Bytes Transferred: {metrics.bytes_transferred/1024:.2f} KB")
+    print(f"Final Accuracy: {metrics.final_accuracy:.4f}")
+    print(f"Accuracy Improvement: {metrics.accuracy_improvement:.4f}")
+    print(f"Convergence Round: {metrics.convergence_rounds or 'Not reached'}")
+    print(f"Memory Usage: {metrics.memory_usage:.4f} MB")
+    print("="*50)
 
 if __name__ == "__main__":
     main()
