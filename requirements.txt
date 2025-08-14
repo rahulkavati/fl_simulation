@@ -10,4 +10,20 @@ seaborn>=0.12
 # Data handling
 dataclasses  # Built-in for Python 3.7+
 
+# Testing and Development
+pytest>=7.0
+pytest-cov>=4.0
+coverage>=7.0
+pytest-mock>=3.10
+
+# Code Quality
+flake8>=6.0
+black>=23.0
+isort>=5.12
+mypy>=1.0
+
+# Security
+bandit>=1.7
+safety>=2.3
+
 

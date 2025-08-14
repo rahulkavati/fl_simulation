@@ -1,17 +1,17 @@
 {
   "total_experiments": 1,
-  "last_updated": "2025-08-14T11:11:55.846314",
+  "last_updated": "2025-08-14T11:23:29.969145",
   "experiments": [
     {
-      "timestamp": "2025-08-14T11:11:55.840056",
+      "timestamp": "2025-08-14T11:23:29.962320",
       "num_clients": 5,
       "num_rounds": 3,
       "total_samples": 1000,
       "total_communication_rounds": 15,
       "bytes_transferred": 15360,
       "communication_overhead": 1.46484375,
-      "total_training_time": 0.17377996444702148,
-      "avg_training_time_per_round": 0.05792665481567383,
+      "total_training_time": 0.18131470680236816,
+      "avg_training_time_per_round": 0.06043823560078939,
       "convergence_rounds": null,
       "initial_accuracy": 0.5,
       "final_accuracy": 0.798,
