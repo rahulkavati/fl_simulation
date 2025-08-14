@@ -1,0 +1,21 @@
+# Basic sim config
+seed: 42
+num_clients: 5
+rounds: 3
+lr: 0.1  # client learning rate
+batch_size: 64
+feature_dim: 6
+
+# File formats and I/O
+io:
+  updates_dir: "data/updates"
+  encrypted_dir: "data/updates_encrypted"
+  aggregations_dir: "data/aggregations"
+  global_model_path: "data/global_model.json"
+
+# Encryption settings (stubs; fill if using TenSEAL or Pyfhel)
+encryption:
+  scheme: CKKS
+  poly_mod_degree: 8192
+  coeff_mod_bit_sizes: [60, 40, 40, 60]
+  scale: 2.0e40
