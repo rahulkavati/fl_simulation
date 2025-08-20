@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -e
+set -e  
 
 # FL Simulation Framework - Complete Workflow
 # Author: Rahul Kavati
