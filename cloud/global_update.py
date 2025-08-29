@@ -14,9 +14,27 @@ class CloudServer:
 
     def apply_update(self, aggregated_update):
         with torch.no_grad():
+            # Map parameter names to the expected keys in aggregated_update
+            param_mapping = {
+                'weight': 'weight_delta',
+                'bias': 'bias_delta'
+            }
+            
             for name, param in self.global_model.named_parameters():
-                delta = aggregated_update[name]
-                param.add_(torch.tensor(delta, dtype=torch.float32))
+                if name in param_mapping:
+                    key = param_mapping[name]
+                    if key in aggregated_update:
+                        delta = aggregated_update[key]
+                        # Ensure delta has the right shape
+                        if name == 'weight':
+                            delta = np.array(delta).reshape(param.shape)
+                        else:
+                            delta = np.array(delta)
+                        param.add_(torch.tensor(delta, dtype=torch.float32))
+                    else:
+                        print(f"Warning: {key} not found in aggregated_update")
+                else:
+                    print(f"Warning: Unknown parameter name: {name}")
 
     def evaluate(self, X_test, y_test):
         with torch.no_grad():
@@ -67,6 +85,10 @@ if __name__ == "__main__":
 
     cloud = CloudServer(input_dim=5)
 
-    agg_update = load_aggregated_update("switch/agg_round_1.npz")
+    # Create sample aggregated update for testing
+    sample_agg_update = {
+        "weight_delta": [0.1, -0.2, 0.3, -0.1, 0.05],
+        "bias_delta": 0.02
+    }
 
-    cloud.update_global_model(agg_update, X_test, y_test)
+    cloud.update_global_model(sample_agg_update, X_test, y_test)
