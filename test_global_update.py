@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """
 Test script for global update functionality
+
+⚠️  SECURITY NOTE: This test uses decrypted aggregation data.
+   For secure global updates, use test_encrypted_global_update.py instead.
 """
 
 import os
@@ -141,5 +144,8 @@ if __name__ == "__main__":
     print("   1. python simulation/client_simulation.py")
     print("   2. python Huzaif/encrypt_update.py --in <file> --out <file>")
     print("   3. python Sriven/smart_switch_tenseal.py --fedl_dir updates/encrypted --ctx_b64 Huzaif/keys/params.ctx.b64 --out_dir Sriven/outbox")
-    print("   4. python Huzaif/decrypt.py --in <agg_file> --out <decrypted_file>")
+    print("   4. python Huzaif/decrypt.py --in <agg_file> --out <decrypted_file> (OPTIONAL)")
     print("   5. python test_global_update.py")
+    print("\n🔒 SECURE ALTERNATIVE (Recommended):")
+    print("   Skip step 4 (decryption) and use encrypted aggregation directly:")
+    print("   python test_encrypted_global_update.py")
