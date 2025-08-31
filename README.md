@@ -1,17 +1,19 @@
 # 🚀 Federated Learning Simulation Framework
 
-A comprehensive, production-ready federated learning simulation framework with advanced efficiency metrics, testing, and visualization capabilities.
+A comprehensive, production-ready federated learning simulation framework with **advanced encryption/decryption**, **secure aggregation**, **global model updates**, and **comprehensive testing capabilities**.
 
 **Author**: Rahul Kavati  
-**Status**: 🟢 Production Ready with Comprehensive Testing
+**Status**: 🟢 Production Ready with Advanced Security Features
 
 ## 🌟 Key Features
 
 - **🔬 FL Simulation**: Complete federated learning workflow with synthetic health data
+- **🔐 Advanced Security**: CKKS homomorphic encryption and secure aggregation
+- **🌐 Global Model Updates**: Cloud-based model aggregation and updates
 - **📊 Efficiency Metrics**: Comprehensive performance analysis and benchmarking
-- **🧪 Testing Framework**: 80%+ code coverage with unit, integration, and performance tests
+- **🧪 Testing Framework**: Comprehensive testing with multiple test suites
 - **📈 Visualization**: Advanced metrics analysis and plotting capabilities
-- **🔒 Security Ready**: Designed for future integration with CKKS encryption
+- **📁 Federated Artifacts**: Complete audit trail and model history tracking
 - **🚀 CI/CD**: Automated testing and quality assurance via GitHub Actions
 - **📚 Documentation**: Comprehensive guides and API documentation
 
@@ -19,7 +21,16 @@ A comprehensive, production-ready federated learning simulation framework with a
 
 ```
 fl_simulation/
-├── 📁 common/                 # Core utilities and schemas
+├── 📁 cloud/                  # Global model management
+│   └── global_update.py      # Cloud server and model updates
+├── 📁 Huzaif/                # Encryption/Decryption system
+│   ├── encrypt_update.py     # Client update encryption
+│   ├── decrypt.py            # Aggregated result decryption
+│   └── keys/                 # Encryption keys and parameters
+├── 📁 Sriven/                # Secure aggregation system
+│   ├── smart_switch_tenseal.py # Aggregation with TenSEAL
+│   └── outbox/               # Aggregated results output
+├── 📁 common/                # Core utilities and schemas
 │   ├── schemas.py            # Data structures and validation
 │   └── efficiency_metrics.py # FL performance analysis
 ├── 📁 simulation/            # FL simulation engine
@@ -29,7 +40,10 @@ fl_simulation/
 │   └── simulate_health_data.py
 ├── 📁 updates/               # Model updates storage
 │   ├── json/                 # Human-readable updates
-│   └── numpy/                # Binary updates for processing
+│   ├── numpy/                # Binary updates for processing
+│   └── encrypted/            # Encrypted client updates
+├── 📁 federated_artifacts/   # FL process artifacts
+│   └── global/               # Global model snapshots per round
 ├── 📁 visualize/             # Analysis and visualization
 │   └── metrics_analysis.py   # Metrics plotting and analysis
 ├── 📁 tests/                 # Comprehensive testing suite
@@ -40,6 +54,23 @@ fl_simulation/
 │   └── run_experiments.py    # Multi-experiment runner
 └── 📁 .github/workflows/     # CI/CD automation
 ```
+
+## 🔐 Security Architecture
+
+### **Encryption Pipeline (Huzaif)**
+- **Client Update Encryption**: Secure client contributions using CKKS
+- **Key Management**: Public/private key infrastructure
+- **Format Support**: JSON and binary encryption
+
+### **Secure Aggregation (Sriven)**
+- **TenSEAL Integration**: Homomorphic encryption for secure aggregation
+- **Multi-Round Support**: Process multiple FL rounds
+- **Output Management**: Structured aggregation results
+
+### **Global Model Updates (Cloud)**
+- **Model Management**: PyTorch-based global model
+- **Update Application**: Secure parameter updates
+- **Round Tracking**: Complete training round history
 
 ## 🚀 Quick Start
 
@@ -53,151 +84,173 @@ cd fl_simulation
 # Install dependencies
 pip install -r requirements.txt
 
+# Install additional security packages
+pip install tenseal torch scikit-learn
+
 # Verify installation
-python3 tests/run_tests.py --check-deps
+python tests/run_tests.py --check-deps
 ```
 
 ### 2. Run Basic Simulation
 
 ```bash
-# Run FL simulation with 5 clients, 3 rounds
-python3 simulation/client_simulation.py
+# Run FL simulation with 5 clients, 5 rounds
+python simulation/client_simulation.py
 
 # Expected output:
 # Starting Federated Learning Simulation...
 # Loaded data for 5 clients
 # Initialized global model with 4 features
-# --- Round 1/3 ---
+# --- Round 1/5 ---
 #   Training client client_0 with 200 samples...
 #   ...
 # Simulation completed successfully!
 ```
 
-### 3. Analyze Results
+### 3. Test Global Update System
 
 ```bash
-# Generate efficiency metrics and visualizations
-python3 visualize/metrics_analysis.py
+# Test global update functionality
+python test_global_update_comprehensive.py
 
-# View generated plots in metrics/ directory
-open metrics/accuracy_analysis.png
-open metrics/efficiency_metrics.png
+# Test multiple rounds simulation
+python test_multiple_rounds.py
+
+# Test step-by-step global updates
+python test_global_update_simple.py
 ```
 
-## 📊 Efficiency Metrics
+### 4. Run Complete Pipeline
 
-Our framework provides comprehensive FL efficiency analysis:
+```bash
+# Run the complete FL pipeline (encryption → aggregation → decryption → global update)
+python test_integration.py
 
-### **Communication Efficiency**
-- Total communication rounds
-- Bytes transferred
-- Communication overhead percentage
+# This will test:
+# 1. Client simulation
+# 2. Update encryption
+# 3. Secure aggregation
+# 4. Result decryption
+# 5. Global model updates
+```
 
-### **Training Efficiency**
-- Training time per round
-- Convergence analysis
-- Resource utilization
+## 🔍 Understanding Federated Artifacts
 
-### **Model Performance**
-- Accuracy improvement tracking
-- Weight convergence analysis
-- Loss reduction metrics
+### **What Are Federated Artifacts?**
+Federated Artifacts are files and data structures that capture the complete history and state of the federated learning process. They serve as the 'memory' of the FL system.
 
-### **Resource Metrics**
-- Memory usage optimization
-- CPU utilization tracking
-- Scalability analysis
+### **Types of Artifacts in Your System:**
+
+1. **🔐 Client Updates** (`updates/json/`): Individual client model updates for each round
+2. **🔒 Encrypted Updates** (`updates/encrypted/`): Secure, encrypted client contributions
+3. **📦 Aggregated Results** (`Sriven/outbox/`): Combined client updates after aggregation
+4. **🌐 Global Model Snapshots** (`federated_artifacts/global/`): Global model state after each update
+5. **📊 Metrics & Analytics** (`metrics/`): Performance measurements and analysis
+6. **🔑 Encryption Keys** (`Huzaif/keys/`): Public/private keys for secure communication
+
+### **Benefits of Federated Artifacts:**
+- **🔍 Transparency**: Complete audit trail of model evolution
+- **📈 Reproducibility**: Recreate experiments exactly
+- **🚀 Debugging**: Identify issues in specific rounds
+- **📊 Analysis**: Analyze learning patterns and convergence
+- **🔒 Compliance**: Meet regulatory requirements
 
 ## 🧪 Testing Framework
 
-### **Test Coverage: 80%+ Target**
+### **Test Suites Available**
 
 ```bash
-# Run all tests
-python3 tests/run_tests.py
+# Comprehensive global update testing
+python test_global_update_comprehensive.py
 
-# Run with coverage reporting
-python3 tests/run_tests.py --coverage
+# Multiple rounds simulation testing
+python test_multiple_rounds.py
 
-# Run specific test modules
-python3 tests/run_tests.py --module test_efficiency_metrics
+# Step-by-step global update testing
+python test_global_update_simple.py
 
-# Performance testing
-python3 tests/run_tests.py --performance
+# Complete pipeline integration testing
+python test_integration.py
+
+# Traditional unit and integration tests
+python tests/run_tests.py --coverage
 ```
 
 ### **Test Categories**
 
+- **Global Update Tests**: Cloud server functionality and model updates
+- **Encryption Tests**: Client update encryption and decryption
+- **Aggregation Tests**: Secure aggregation with TenSEAL
+- **Pipeline Tests**: End-to-end FL workflow validation
 - **Unit Tests**: Individual component validation
 - **Integration Tests**: Component interaction testing
-- **Performance Tests**: Speed and efficiency benchmarks
-- **Edge Case Tests**: Error handling and boundary conditions
-
-### **Automated Quality Assurance**
-
-- **GitHub Actions**: Automated testing on every push/PR
-- **Code Coverage**: Track test coverage over time
-- **Linting**: Code quality and style enforcement
-- **Security**: Vulnerability scanning and dependency checks
 
 ## 🔬 Advanced Usage
+
+### **Global Update System**
+
+```python
+from cloud.global_update import CloudServer
+
+# Initialize cloud server
+cloud = CloudServer(input_dim=4)
+
+# Apply aggregated update
+update = {
+    "weight_delta": [0.1, -0.2, 0.3, -0.1],
+    "bias_delta": 0.05
+}
+
+# Update global model
+accuracy = cloud.update_global_model(update, X_test, y_test)
+print(f"Round {cloud.round} accuracy: {accuracy:.4f}")
+```
+
+### **Encryption Pipeline**
+
+```bash
+# Encrypt client update
+python Huzaif/encrypt_update.py --in updates/json/client_0_round_0.json --out updates/encrypted/enc_client_0_round_0.json
+
+# Aggregate encrypted updates
+python Sriven/smart_switch_tenseal.py --fedl_dir updates/encrypted --ctx_b64 Huzaif/keys/params.ctx.b64 --out_dir Sriven/outbox
+
+# Decrypt aggregated result
+python Huzaif/decrypt.py --in Sriven/outbox/agg_round_0.json --out Sriven/outbox/agg_round_0.decrypted.json
+```
 
 ### **Multi-Experiment Runner**
 
 ```bash
 # Run multiple experiments with different configurations
-python3 scripts/run_experiments.py
+python scripts/run_experiments.py
 
 # This will run simulations with:
-# - 2 rounds, 3 rounds, 4 rounds, 5 rounds
+# - Multiple rounds (2, 3, 4, 5)
 # - Generate comprehensive metrics for comparison
 # - Save results for analysis
 ```
 
-### **Custom Configurations**
-
-```python
-# Modify simulation parameters in simulation/client_simulation.py
-NUM_ROUNDS = 5          # Number of FL rounds
-DATA_DIR = "data/clients"  # Client data directory
-OUTPUT_JSON = "updates/json"  # JSON output location
-OUTPUT_NPY = "updates/numpy"  # NumPy output location
-```
-
-### **Future Integration Ready**
-
-The framework is designed to be easily extended for future collaborative work:
-
-```python
-# Updates are saved in standardized formats:
-# JSON: Human-readable for debugging
-# NumPy: Binary format for encryption processing
-
-# Example update structure:
-{
-    "client_id": "client_0",
-    "round_id": 0,
-    "weight_delta": [0.1, -0.2, 0.3, -0.1],
-    "bias_delta": 0.05,
-    "num_samples": 200
-}
-```
-
-## 📈 Results and Analysis
+## 📊 Results and Analysis
 
 ### **Generated Files**
 
 After running simulations, you'll find:
 
 ```
-metrics/
-├── fl_simulation_3rounds_5clients.json  # Individual experiment
-├── metrics_summary.json                  # Aggregated results
-├── metrics_history.csv                   # CSV for analysis
-├── accuracy_analysis.png                 # Accuracy plots
-├── efficiency_metrics.png                # Efficiency plots
-├── convergence_trends.png                # Convergence analysis
-└── analysis_report.json                  # Detailed report
+federated_artifacts/
+├── global/                    # Global model snapshots
+│   ├── global_round_1.npz    # Round 1 model state
+│   ├── global_round_2.npz    # Round 2 model state
+│   └── ...
+updates/
+├── json/                      # Plaintext client updates
+├── encrypted/                 # Encrypted client updates
+└── numpy/                     # Binary format updates
+Sriven/outbox/                 # Aggregated results
+├── agg_round_0.json          # Encrypted aggregation
+└── agg_round_0.decrypted.json # Decrypted aggregation
+metrics/                       # Performance metrics and plots
 ```
 
 ### **Key Metrics Output**
@@ -206,8 +259,8 @@ metrics/
 ==================================================
 FL EFFICIENCY METRICS SUMMARY
 ==================================================
-Communication Rounds: 15
-Bytes Transferred: 15.00 KB
+Communication Rounds: 25
+Bytes Transferred: 25.00 KB
 Final Accuracy: 0.7980
 Accuracy Improvement: 0.2980
 Convergence Round: Not reached
@@ -226,7 +279,7 @@ Memory Usage: 0.0000 MB
 
 ### **Code Quality Standards**
 
-- **Test Coverage**: Maintain 80%+ coverage
+- **Test Coverage**: Maintain comprehensive testing
 - **Linting**: Follow PEP 8 standards
 - **Type Hints**: Use type annotations
 - **Documentation**: Comprehensive docstrings
@@ -235,9 +288,10 @@ Memory Usage: 0.0000 MB
 
 ```bash
 # Before committing:
-python3 tests/run_tests.py --coverage
-python3 -m flake8 common simulation visualize
-python3 -m black --check common simulation visualize
+python test_global_update_comprehensive.py
+python test_integration.py
+python tests/run_tests.py --coverage
+python -m flake8 cloud Huzaif Sriven common simulation
 ```
 
 ## 🔧 Configuration
@@ -269,6 +323,15 @@ global_model = LogisticRegression(
 
 ### **Core Classes**
 
+#### `CloudServer`
+```python
+class CloudServer:
+    def __init__(self, input_dim, save_dir="federated_artifacts/global")
+    def update_global_model(self, aggregated_update, X_test=None, y_test=None)
+    def evaluate(self, X_test, y_test)
+    def save_snapshot(self, aggregated_update)
+```
+
 #### `FLEfficiencyMetrics`
 ```python
 @dataclass
@@ -278,14 +341,6 @@ class FLEfficiencyMetrics:
     num_rounds: int
     total_samples: int
     # ... and many more metrics
-```
-
-#### `FLEfficiencyCalculator`
-```python
-class FLEfficiencyCalculator:
-    def calculate_efficiency_metrics(self, clients_data, global_model, num_rounds, training_time=None)
-    def save_metrics(self, metrics, experiment_name=None)
-    def calculate_communication_efficiency(self, num_clients, num_rounds)
 ```
 
 ### **Main Simulation Functions**
@@ -308,15 +363,20 @@ def main():
 2. **Missing Dependencies**: Run `pip install -r requirements.txt`
 3. **Test Failures**: Check test output for specific error details
 4. **Performance Issues**: Verify system resources and data sizes
+5. **Encryption Errors**: Check encryption keys in `Huzaif/keys/`
 
 ### **Debug Mode**
 
 ```bash
 # Run with maximum verbosity
-python3 tests/run_tests.py --verbosity 2
+python test_global_update_comprehensive.py
 
-# Single test debugging
-python3 -m pytest tests/test_efficiency_metrics.py::TestFLEfficiencyMetrics::test_metrics_creation -s
+# Test specific components
+python test_global_update_simple.py
+python test_multiple_rounds.py
+
+# Check pipeline status
+python explain_federated_artifacts.py
 ```
 
 ### **Getting Help**
@@ -344,14 +404,12 @@ python3 -m pytest tests/test_efficiency_metrics.py::TestFLEfficiencyMetrics::tes
 - **Performance Analysis**: Comprehensive benchmarking tools
 - **Publication Ready**: Generate publication-quality plots
 
-### **Collaborative Extensions**
+### **Security Enhancements**
 
-The framework is designed to be easily extended for collaborative research:
-
-- **Encryption Layer**: Integration with CKKS homomorphic encryption
-- **Advanced Aggregation**: Custom aggregation algorithms
-- **Multi-Party Computation**: Secure multi-party FL protocols
+- **Advanced Encryption**: Additional homomorphic encryption schemes
+- **Secure Multi-Party Computation**: Multi-party FL protocols
 - **Blockchain Integration**: Decentralized FL coordination
+- **Privacy Preserving**: Differential privacy integration
 
 ## 🤝 Contributing
 
@@ -371,10 +429,10 @@ We welcome contributions! Please follow our development workflow:
 pip install -r requirements.txt
 
 # Run quality checks
-python3 tests/run_tests.py --coverage
-python3 -m flake8 common simulation visualize
-python3 -m black common simulation visualize
-python3 -m isort common simulation visualize
+python test_global_update_comprehensive.py
+python test_integration.py
+python tests/run_tests.py --coverage
+python -m flake8 cloud Huzaif Sriven common simulation
 ```
 
 ## 📄 License
@@ -392,7 +450,7 @@ For detailed author information and research background, see [AUTHOR.md](AUTHOR.
 
 ---
 
-**Ready to revolutionize your federated learning research? 🚀**
+**Ready to revolutionize your federated learning research with advanced security? 🚀🔐**
 
-Start with `python3 simulation/client_simulation.py` and explore the comprehensive testing framework with `python3 tests/run_tests.py --coverage`!
+Start with `python simulation/client_simulation.py` and explore the comprehensive testing framework with `python test_global_update_comprehensive.py`!
 
