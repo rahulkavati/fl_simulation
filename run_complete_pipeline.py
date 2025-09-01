@@ -262,7 +262,7 @@ def step6_global_model_update() -> bool:
         from cloud.global_update import CloudServer, load_encrypted_aggregation
         
         # Initialize cloud server
-        cloud = CloudServer(input_dim=4)
+        cloud = CloudServer()
         
         # Update global model for each round
         success_count = 0
