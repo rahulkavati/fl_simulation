@@ -314,7 +314,7 @@ def display_results():
     if os.path.exists(global_dir):
         print(f"\n🏆 Global Model Artifacts:")
         for file in os.listdir(global_dir):
-            if file.endswith('.pth'):
+            if file.endswith('.npz'):
                 print(f"  📁 {file}")
     
     print(f"\n🚀 Next Steps:")

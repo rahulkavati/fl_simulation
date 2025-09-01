@@ -42,7 +42,7 @@ def show_global_model_results():
         print("❌ Global model directory not found. Run the pipeline first.")
         return
     
-    model_files = [f for f in os.listdir(global_dir) if f.endswith('.pth')]
+    model_files = [f for f in os.listdir(global_dir) if f.endswith('.npz')]
     if not model_files:
         print("❌ No global model files found")
         return

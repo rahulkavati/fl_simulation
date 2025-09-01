@@ -260,7 +260,7 @@ def evaluate_global_model():
         print_error("Global model directory not found. Run the pipeline first.")
         return False
     
-    model_files = [f for f in os.listdir(global_dir) if f.endswith('.pth')]
+    model_files = [f for f in os.listdir(global_dir) if f.endswith('.npz')]
     print_info(f"Found {len(model_files)} global model snapshots")
     
     if not model_files:
@@ -346,7 +346,7 @@ def test_model_performance():
     
     # Load global model
     global_dir = "federated_artifacts/global"
-    model_files = [f for f in os.listdir(global_dir) if f.endswith('.pth')]
+    model_files = [f for f in os.listdir(global_dir) if f.endswith('.npz')]
     
     if not model_files:
         print_error("No global model found")
@@ -431,7 +431,7 @@ def compare_with_baseline():
     
     # Load federated model
     global_dir = "federated_artifacts/global"
-    model_files = [f for f in os.listdir(global_dir) if f.endswith('.pth')]
+    model_files = [f for f in os.listdir(global_dir) if f.endswith('.npz')]
     
     if model_files:
         latest_file = sorted(model_files)[-1]

@@ -118,6 +118,34 @@ class CloudServer:
             os.path.join(self.save_dir, f"global_round_{self.round}.npz"),
             **aggregated_update
         )
+    
+    def load_snapshot(self, snapshot_path):
+        """
+        Load a model snapshot from file
+        
+        Args:
+            snapshot_path: Path to the snapshot file (.npz format)
+        """
+        if not snapshot_path.endswith('.npz'):
+            raise ValueError("Snapshot must be in .npz format")
+        
+        # Load the snapshot data
+        snapshot_data = np.load(snapshot_path)
+        
+        # Extract weight and bias deltas
+        weight_delta = snapshot_data['weight_delta']
+        bias_delta = snapshot_data['bias_delta']
+        
+        # Apply the deltas to the current model
+        with torch.no_grad():
+            self.global_model.weight.data += torch.tensor(weight_delta, dtype=torch.float32).reshape_as(self.global_model.weight)
+            self.global_model.bias.data += torch.tensor(bias_delta, dtype=torch.float32).reshape_as(self.global_model.bias)
+        
+        # Extract round information if available
+        if 'round_id' in snapshot_data:
+            self.round = int(snapshot_data['round_id'])
+        
+        print(f"[Cloud] Loaded snapshot from {snapshot_path}")
 
     def update_global_model(self, aggregated_update, X_test=None, y_test=None):
         self.round += 1
