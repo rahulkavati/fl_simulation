@@ -1,6 +1,6 @@
 # 🚀 Federated Learning Simulation Framework
 
-A comprehensive, production-ready federated learning simulation framework with **advanced encryption/decryption**, **secure aggregation**, **global model updates**, and **comprehensive testing capabilities**.
+A comprehensive, production-ready federated learning simulation framework with **advanced encryption**, **secure aggregation**, and **encrypted global model updates**.
 
 **Author**: Rahul Kavati  
 **Status**: 🟢 Production Ready with Advanced Security Features
@@ -9,27 +9,34 @@ A comprehensive, production-ready federated learning simulation framework with *
 
 - **🔬 FL Simulation**: Complete federated learning workflow with synthetic health data
 - **🔐 Advanced Security**: CKKS homomorphic encryption and secure aggregation
-- **🌐 Global Model Updates**: Cloud-based model aggregation and updates
+- **🌐 Encrypted Global Updates**: Cloud-based model updates using encrypted aggregation
 - **📊 Efficiency Metrics**: Comprehensive performance analysis and benchmarking
-- **🧪 Testing Framework**: Comprehensive testing with multiple test suites
+- **🧪 Testing Framework**: Comprehensive testing with secure approach
 - **📈 Visualization**: Advanced metrics analysis and plotting capabilities
 - **📁 Federated Artifacts**: Complete audit trail and model history tracking
 - **🚀 CI/CD**: Automated testing and quality assurance via GitHub Actions
 - **📚 Documentation**: Comprehensive guides and API documentation
+
+## 🔐 Security-First Architecture
+
+This framework implements a **secure-by-design** approach where:
+- **Client updates are encrypted** before transmission
+- **Aggregation happens in encrypted domain** using homomorphic encryption
+- **Global updates use encrypted aggregation directly** - no decryption step
+- **Data never exists in plaintext** outside of individual clients
 
 ## 🏗️ Architecture Overview
 
 ```
 fl_simulation/
 ├── 📁 cloud/                  # Global model management
-│   └── global_update.py      # Cloud server and model updates
-├── 📁 Huzaif/                # Encryption/Decryption system
+│   └── global_update.py      # Secure cloud server with encrypted updates
+├── 📁 Huzaif/                # Encryption system
 │   ├── encrypt_update.py     # Client update encryption
-│   ├── decrypt.py            # Aggregated result decryption
 │   └── keys/                 # Encryption keys and parameters
 ├── 📁 Sriven/                # Secure aggregation system
 │   ├── smart_switch_tenseal.py # Aggregation with TenSEAL
-│   └── outbox/               # Aggregated results output
+│   └── outbox/               # Encrypted aggregated results
 ├── 📁 common/                # Core utilities and schemas
 │   ├── schemas.py            # Data structures and validation
 │   └── efficiency_metrics.py # FL performance analysis
@@ -65,12 +72,13 @@ fl_simulation/
 ### **Secure Aggregation (Sriven)**
 - **TenSEAL Integration**: Homomorphic encryption for secure aggregation
 - **Multi-Round Support**: Process multiple FL rounds
-- **Output Management**: Structured aggregation results
+- **Output Management**: Encrypted aggregation results
 
-### **Global Model Updates (Cloud)**
+### **Secure Global Model Updates (Cloud)**
 - **Model Management**: PyTorch-based global model
-- **Update Application**: Secure parameter updates
+- **Encrypted Updates**: Direct application of encrypted aggregation
 - **Round Tracking**: Complete training round history
+- **No Decryption**: Aggregated data never decrypted to plaintext
 
 ## 🚀 Quick Start
 
@@ -160,17 +168,8 @@ Federated Artifacts are files and data structures that capture the complete hist
 ### **Test Suites Available**
 
 ```bash
-# Comprehensive global update testing
-python test_global_update_comprehensive.py
-
-# Multiple rounds simulation testing
-python test_multiple_rounds.py
-
-# Step-by-step global update testing
-python test_global_update_simple.py
-
-# Complete pipeline integration testing
-python test_integration.py
+# Secure global update testing (RECOMMENDED)
+python test_global_update.py
 
 # Traditional unit and integration tests
 python tests/run_tests.py --coverage
@@ -178,8 +177,8 @@ python tests/run_tests.py --coverage
 
 ### **Test Categories**
 
-- **Global Update Tests**: Cloud server functionality and model updates
-- **Encryption Tests**: Client update encryption and decryption
+- **Secure Global Update Tests**: Cloud server functionality with encrypted aggregation
+- **Encryption Tests**: Client update encryption
 - **Aggregation Tests**: Secure aggregation with TenSEAL
 - **Pipeline Tests**: End-to-end FL workflow validation
 - **Unit Tests**: Individual component validation
@@ -187,36 +186,35 @@ python tests/run_tests.py --coverage
 
 ## 🔬 Advanced Usage
 
-### **Global Update System**
+### **Secure Global Update System**
 
 ```python
-from cloud.global_update import CloudServer
+from cloud.global_update import CloudServer, load_encrypted_aggregation
+
+# Load encrypted aggregation directly
+encrypted_file = "Sriven/outbox/agg_round_0.json"
+encrypted_agg = load_encrypted_aggregation(encrypted_file)
 
 # Initialize cloud server
-cloud = CloudServer(input_dim=4)
+input_dim = encrypted_agg['layout']['weights']
+cloud = CloudServer(input_dim=input_dim)
 
-# Apply aggregated update
-update = {
-    "weight_delta": [0.1, -0.2, 0.3, -0.1],
-    "bias_delta": 0.05
-}
-
-# Update global model
-accuracy = cloud.update_global_model(update, X_test, y_test)
+# Update global model securely (NO DECRYPTION NEEDED)
+accuracy = cloud.update_global_model_encrypted(encrypted_agg, X_test, y_test)
 print(f"Round {cloud.round} accuracy: {accuracy:.4f}")
 ```
 
-### **Encryption Pipeline**
+### **Secure Encryption Pipeline**
 
 ```bash
 # Encrypt client update
-python Huzaif/encrypt_update.py --in updates/json/client_0_round_0.json --out updates/encrypted/enc_client_0_round_0.json
+python Huzaif/encrypt_update.py --in updates/json/client_0_round_0.json --out updates/encrypted/enc_client_0_round_0.json --ctx Huzaif/keys/secret.ctx
 
 # Aggregate encrypted updates
 python Sriven/smart_switch_tenseal.py --fedl_dir updates/encrypted --ctx_b64 Huzaif/keys/params.ctx.b64 --out_dir Sriven/outbox
 
-# Decrypt aggregated result
-python Huzaif/decrypt.py --in Sriven/outbox/agg_round_0.json --out Sriven/outbox/agg_round_0.decrypted.json
+# Update global model securely (NO DECRYPTION NEEDED)
+python test_global_update.py
 ```
 
 ### **Multi-Experiment Runner**
@@ -247,9 +245,9 @@ updates/
 ├── json/                      # Plaintext client updates
 ├── encrypted/                 # Encrypted client updates
 └── numpy/                     # Binary format updates
-Sriven/outbox/                 # Aggregated results
+Sriven/outbox/                 # Encrypted aggregated results
 ├── agg_round_0.json          # Encrypted aggregation
-└── agg_round_0.decrypted.json # Decrypted aggregation
+└── ...
 metrics/                       # Performance metrics and plots
 ```
 
@@ -288,8 +286,7 @@ Memory Usage: 0.0000 MB
 
 ```bash
 # Before committing:
-python test_global_update_comprehensive.py
-python test_integration.py
+python test_global_update.py
 python tests/run_tests.py --coverage
 python -m flake8 cloud Huzaif Sriven common simulation
 ```
@@ -327,7 +324,8 @@ global_model = LogisticRegression(
 ```python
 class CloudServer:
     def __init__(self, input_dim, save_dir="federated_artifacts/global")
-    def update_global_model(self, aggregated_update, X_test=None, y_test=None)
+    def update_global_model_encrypted(self, encrypted_aggregation, X_test=None, y_test=None)
+    def update_global_model(self, aggregated_update, X_test=None, y_test=None)  # Legacy
     def evaluate(self, X_test, y_test)
     def save_snapshot(self, aggregated_update)
 ```

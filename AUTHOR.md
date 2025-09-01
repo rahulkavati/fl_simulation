@@ -3,9 +3,9 @@
 ## 🧑‍💻 **Rahul Kavati**
 
 **Project**: Federated Learning Simulation Framework  
-**Status**: Individual Research Project  
+**Status**: Team Research Project  
 **Contact**: [Your contact information]  
-**Institution**: [Your institution]  
+**Institution**: California State University, Dominguez Hills  
 **Research Area**: Federated Learning, Machine Learning, Privacy-Preserving AI
 
 ## 📋 **Project Overview**
