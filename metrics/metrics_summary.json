@@ -1,34 +1,38 @@
 {
   "total_experiments": 1,
-  "last_updated": "2025-08-31T22:46:14.800376",
+  "last_updated": "2025-09-01T00:00:49.152312",
   "experiments": [
     {
-      "timestamp": "2025-08-31T22:46:14.800376",
-      "num_clients": 5,
-      "num_rounds": 3,
-      "total_samples": 1000,
-      "total_communication_rounds": 15,
-      "bytes_transferred": 15360,
-      "communication_overhead": 1.46484375,
-      "total_training_time": 0.259152889251709,
-      "avg_training_time_per_round": 0.08638429641723633,
+      "timestamp": "2025-09-01T00:00:49.133740",
+      "num_clients": 10,
+      "num_rounds": 5,
+      "total_samples": 2000,
+      "total_communication_rounds": 50,
+      "bytes_transferred": 51200,
+      "communication_overhead": 4.8828125,
+      "total_training_time": 2.764719247817993,
+      "avg_training_time_per_round": 0.5529438495635987,
       "convergence_rounds": null,
       "initial_accuracy": 0.5,
-      "final_accuracy": 0.798,
-      "accuracy_improvement": 0.29800000000000004,
-      "final_weight_norm": 1.0310106210091736,
-      "final_bias": -19.22287530762258,
+      "final_accuracy": 0.7855,
+      "accuracy_improvement": 0.2855,
+      "final_weight_norm": 0.9453014542042946,
+      "final_bias": -19.203112604790924,
       "memory_usage": 3.0517578125e-05,
       "cpu_utilization": 80.0,
       "weight_change_magnitude": [
-        123.37966847995816,
-        0.2206893977947452,
-        0.21902077849193535
+        354.5470229278042,
+        0.22485305178562406,
+        0.22484978442910317,
+        0.22485503086148087,
+        0.22485509175212873
       ],
       "loss_reduction": [
         0,
-        0.7793106022052548,
-        0.7809792215080646
+        0.7751469482143759,
+        0.7751502155708968,
+        0.7751449691385192,
+        0.7751449082478713
       ]
     }
   ]

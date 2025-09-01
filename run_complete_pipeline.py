@@ -71,7 +71,8 @@ def cleanup_outputs():
         "updates",
         "Sriven/outbox", 
         "federated_artifacts",
-        "metrics"
+        "metrics",
+        "data/clients"  # Also clean up data files to force regeneration
     ]
     
     for directory in cleanup_dirs:
@@ -129,8 +130,8 @@ def step1_generate_data(num_clients: int = 5) -> bool:
         print_info("Health data already exists, skipping generation")
         return True
     
-    cmd = f"python data/simulate_health_data.py"
-    return run_command(cmd, "Generate synthetic health data for federated learning")
+    cmd = f"python data/simulate_health_data.py --clients {num_clients}"
+    return run_command(cmd, f"Generate synthetic health data for {num_clients} clients")
 
 def step2_prepare_encryption_context() -> bool:
     """Step 2: Prepare TenSEAL encryption context"""
@@ -144,12 +145,12 @@ def step2_prepare_encryption_context() -> bool:
     cmd = "python Huzaif/prepare_ctx.py"
     return run_command(cmd, "Generate TenSEAL CKKS encryption context")
 
-def step3_run_client_simulation(num_rounds: int = 3) -> bool:
+def step3_run_client_simulation(num_rounds: int = 3, num_clients: int = 5) -> bool:
     """Step 3: Run federated learning client simulation"""
     print_step(3, 6, "Run Client Simulation")
     
-    cmd = f"python simulation/client_simulation.py"
-    return run_command(cmd, f"Run federated learning simulation for {num_rounds} rounds")
+    cmd = f"python simulation/client_simulation.py --rounds {num_rounds} --clients {num_clients}"
+    return run_command(cmd, f"Run federated learning simulation for {num_rounds} rounds with {num_clients} clients")
 
 def step4_encrypt_updates() -> bool:
     """Step 4: Encrypt all client updates"""
@@ -355,7 +356,7 @@ def main():
     steps = [
         lambda: step1_generate_data(args.clients),
         lambda: step2_prepare_encryption_context(),
-        lambda: step3_run_client_simulation(args.rounds),
+        lambda: step3_run_client_simulation(args.rounds, args.clients),
         lambda: step4_encrypt_updates(),
         lambda: step5_aggregate_updates(),
         lambda: step6_global_model_update()

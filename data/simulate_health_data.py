@@ -1,8 +1,11 @@
 import os
+import sys
+import argparse
 import numpy as np
 import pandas as pd
 
-NUM_CLIENTS = 5
+# Default values
+DEFAULT_CLIENTS = 5
 SAMPLES_PER_CLIENT = 200
 OUTPUT_DIR = "data/clients"
 
@@ -25,6 +28,14 @@ def generate_client_data(client_id):
     df.to_csv(output_path, index=False)
 
 if __name__ == "__main__":
-    for cid in range(NUM_CLIENTS):
+    # Parse command line arguments
+    parser = argparse.ArgumentParser(description="Generate synthetic health data for federated learning")
+    parser.add_argument("--clients", type=int, default=DEFAULT_CLIENTS, help=f"Number of clients to generate data for (default: {DEFAULT_CLIENTS})")
+    
+    args = parser.parse_args()
+    
+    print(f"Generating synthetic health data for {args.clients} clients...")
+    
+    for cid in range(args.clients):
         generate_client_data(cid)
-    print(f"✅ Generated {NUM_CLIENTS} synthetic client datasets in '{OUTPUT_DIR}'")
+    print(f"Generated {args.clients} synthetic client datasets in '{OUTPUT_DIR}'")

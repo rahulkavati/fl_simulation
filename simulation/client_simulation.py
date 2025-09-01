@@ -3,6 +3,7 @@ import sys
 import json
 import numpy as np
 import time
+import argparse
 from sklearn.linear_model import LogisticRegression
 import warnings
 
@@ -19,7 +20,9 @@ DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__
 OUTPUT_JSON = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "updates", "json")
 OUTPUT_NPY = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "updates", "numpy")
 
-NUM_ROUNDS = 3
+# Default values
+DEFAULT_ROUNDS = 3
+DEFAULT_CLIENTS = 5
 
 # ---------- Helpers ----------
 def save_json(obj, path):
@@ -45,13 +48,27 @@ def load_client_data():
 
 # ---------- Main simulation ----------
 def main():
+    # Parse command line arguments
+    parser = argparse.ArgumentParser(description="Federated Learning Client Simulation")
+    parser.add_argument("--rounds", type=int, default=DEFAULT_ROUNDS, help=f"Number of federated learning rounds (default: {DEFAULT_ROUNDS})")
+    parser.add_argument("--clients", type=int, default=DEFAULT_CLIENTS, help=f"Number of clients to simulate (default: {DEFAULT_CLIENTS})")
+    
+    args = parser.parse_args()
+    
     print("Starting Federated Learning Simulation...")
+    print(f"Configuration: {args.rounds} rounds, {args.clients} clients")
     start_time = time.time()
     
     # Initialize efficiency calculator
     efficiency_calc = FLEfficiencyCalculator(DATA_DIR, "updates")
     
     clients_data = load_client_data()
+    
+    # Limit clients if specified
+    if args.clients < len(clients_data):
+        client_keys = list(clients_data.keys())[:args.clients]
+        clients_data = {k: clients_data[k] for k in client_keys}
+        print(f"Limited to {args.clients} clients: {client_keys}")
 
     # Initialize global model (random start)
     sample_X, sample_y = next(iter(clients_data.values()))
@@ -61,8 +78,8 @@ def main():
     global_model.fit(sample_X[:10], sample_y[:10])  # dummy fit to set shapes
     print(f"Initialized global model with {sample_X.shape[1]} features")
 
-    for rnd in range(NUM_ROUNDS):
-        print(f"\n--- Round {rnd + 1}/{NUM_ROUNDS} ---")
+    for rnd in range(args.rounds):
+        print(f"\n--- Round {rnd + 1}/{args.rounds} ---")
         base_coef = np.copy(global_model.coef_)
         base_intercept = np.copy(global_model.intercept_)
 
@@ -119,11 +136,11 @@ def main():
     # Calculate and save efficiency metrics
     print("\nCalculating efficiency metrics...")
     metrics = efficiency_calc.calculate_efficiency_metrics(
-        clients_data, global_model, NUM_ROUNDS, total_training_time
+        clients_data, global_model, args.rounds, total_training_time
     )
     
     # Save metrics with experiment name
-    experiment_name = f"fl_simulation_{NUM_ROUNDS}rounds_{len(clients_data)}clients"
+    experiment_name = f"fl_simulation_{args.rounds}rounds_{len(clients_data)}clients"
     efficiency_calc.save_metrics(metrics, experiment_name)
     
     # Display key metrics
