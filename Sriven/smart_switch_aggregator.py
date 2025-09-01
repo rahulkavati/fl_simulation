@@ -85,9 +85,19 @@ def deserialize_ct(ctx, b64_ct: str):
     return ts.ckks_vector_from(ctx, raw)
 
 
-# ---------- Core aggregation ----------
+# ---------- Core aggregation (updated to avoid scale issues) ----------
 
 def aggregate_round(ctx, items: List[Dict[str, Any]], round_id: int) -> Dict[str, Any]:
+    """
+    Robust FedAvg in the encrypted domain.
+
+    Key differences vs. the earlier version:
+      - Two-pass approach: first compute total_samples, then sum each client
+        as (ct * (num_samples / total_samples)).
+      - Avoids in-place mul (e.g., ct.mul_ / *=), which can trigger CKKS
+        "scale out of bounds".
+      - Avoids multiplying by large then dividing by tiny scalar later.
+    """
     if not items:
         raise ValueError("No client items to aggregate")
 
@@ -95,10 +105,9 @@ def aggregate_round(ctx, items: List[Dict[str, Any]], round_id: int) -> Dict[str
     layout = items[0]["layout"]
     exp_len = vec_length_from_layout(layout)
 
+    # ---- first pass: validate & compute total_samples
     total_samples = 0
-    agg_vec = None
     client_ids: List[str] = []
-
     for obj in items:
         if obj["round_id"] != round_id:
             raise ValueError(f"Mixed rounds in batch: found {obj['round_id']} in round {round_id}")
@@ -112,32 +121,47 @@ def aggregate_round(ctx, items: List[Dict[str, Any]], round_id: int) -> Dict[str
             print(f"[warn] num_samples<=0 for client {obj.get('client_id')}, skipping")
             continue
 
+        total_samples += n
+        client_ids.append(str(obj["client_id"]))
+
+    if total_samples == 0:
+        raise ValueError("No valid updates after filtering (total_samples=0)")
+
+    # ---- second pass: weighted sum with normalized weights (one small multiply per client)
+    agg_vec = None
+    used_ids: List[str] = []
+    for obj in items:
+        n = int(obj["num_samples"])
+        if n <= 0:
+            continue
+
+        # weight in (0,1]; keeps scale moderate and stable
+        weight = float(n) / float(total_samples)
+
         ct = deserialize_ct(ctx, obj["ciphertext"])
 
-        # TenSEAL CKKSVector does not implement len(); use size()
+        # sanity-check length (TenSEAL CKKSVector lacks __len__, use size())
         try:
             ct_len = ct.size()
         except AttributeError:
-            # very old/new variants: try shape[0]
             ct_len = getattr(ct, "shape", [None])[0]
         if ct_len != exp_len:
             raise ValueError(f"ciphertext length {ct_len} != expected {exp_len}")
 
-        # Weighted addition: agg += n * ct
-        weighted = ct * float(n)
+        # Non-inplace multiply to avoid scale issues
+        term = ct * weight
+
         if agg_vec is None:
-            agg_vec = weighted
+            agg_vec = term
         else:
-            agg_vec += weighted
+            # Non-inplace add keeps things simple and avoids relying on mutating internal state
+            agg_vec = agg_vec + term
 
-        total_samples += n
-        client_ids.append(str(obj["client_id"]))
+        used_ids.append(str(obj["client_id"]))
 
-    if agg_vec is None or total_samples == 0:
-        raise ValueError("No valid updates after filtering")
+    if agg_vec is None:
+        raise ValueError("No terms produced for aggregation")
 
-    # Divide by total_samples to get FedAvg
-    agg_vec *= (1.0 / float(total_samples))
     agg_ct_b64 = base64.b64encode(agg_vec.serialize()).decode()
 
     return {
@@ -145,9 +169,9 @@ def aggregate_round(ctx, items: List[Dict[str, Any]], round_id: int) -> Dict[str
         "round_id": int(round_id),
         "ctx_ref": ctx_ref,
         "layout": layout,
-        "total_clients": len(client_ids),
+        "total_clients": len(used_ids),
         "total_samples": int(total_samples),
-        "client_ids": client_ids,  # remove if you prefer not to expose
+        "client_ids": used_ids,  # remove if you prefer not to expose
         "ciphertext": agg_ct_b64
     }
 
