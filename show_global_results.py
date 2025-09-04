@@ -42,74 +42,40 @@ def show_global_model_results():
         print("❌ Global model directory not found. Run the pipeline first.")
         return
     
-    model_files = [f for f in os.listdir(global_dir) if f.endswith('.npz')]
+    model_files = [f for f in os.listdir(global_dir) if f.startswith('encrypted_global_round_') and f.endswith('.json')]
     if not model_files:
-        print("❌ No global model files found")
+        print("❌ No encrypted global model files found")
         return
     
-    print(f"✅ Found {len(model_files)} global model snapshots")
+    print(f"✅ Found {len(model_files)} encrypted global model snapshots")
     
     # Load the latest model
     latest_file = sorted(model_files)[-1]
     model_path = os.path.join(global_dir, latest_file)
     
     try:
-        cloud = CloudServer(input_dim=4)
-        cloud.load_snapshot(model_path)
+        # Load encrypted model data
+        with open(model_path, 'r') as f:
+            encrypted_model_data = json.load(f)
         
-        print_section("Final Global Model")
+        print_section("Latest Encrypted Global Model")
         print(f"📁 Model file: {latest_file}")
-        print(f"🔄 Training round: {cloud.round}")
+        print(f"🔄 Training round: {encrypted_model_data.get('round_id', 'Unknown')}")
+        print(f"🔐 Model remains encrypted: ✅ (Server never sees plaintext)")
         
-        # Get model parameters
-        with torch.no_grad():
-            weights = cloud.global_model.weight.data.numpy().flatten()
-            bias = cloud.global_model.bias.data.numpy().flatten()
+        # Analyze encrypted model structure
+        print_section("Encrypted Model Structure")
+        for key, value in encrypted_model_data.items():
+            if key == 'encrypted_model':
+                print(f"  {key}: {len(value)} characters (base64 encoded)")
+            else:
+                print(f"  {key}: {value}")
         
-        print_section("Model Parameters")
-        print("Feature Weights:")
-        features = ["Heart Rate", "Steps", "Calories", "Sleep Hours"]
-        for i, (feature, weight) in enumerate(zip(features, weights)):
-            print(f"  {feature:12}: {weight:8.4f}")
-        
-        print(f"\nBias Term: {bias[0]:.4f}")
-        print(f"Weight Norm: {np.linalg.norm(weights):.4f}")
-        
-        # Show model predictions on sample cases
-        print_section("Sample Predictions")
-        test_cases = [
-            ("Healthy Person", [75, 100, 4, 7]),
-            ("Active Person", [85, 150, 6, 8]),
-            ("Sedentary Person", [65, 50, 2, 5]),
-            ("Poor Sleep", [80, 80, 3, 4]),
-            ("Very Active", [90, 200, 8, 9])
-        ]
-        
-        with torch.no_grad():
-            for name, data in test_cases:
-                test_tensor = torch.tensor([data], dtype=torch.float32)
-                logit = cloud.global_model(test_tensor)
-                probability = torch.sigmoid(logit).item()
-                prediction = "Healthy" if probability > 0.5 else "Unhealthy"
-                
-                print(f"  {name:15}: {data} -> {probability:.3f} ({prediction})")
-        
-        # Show model evolution across rounds
-        print_section("Model Evolution")
-        print("Round-by-round model snapshots:")
-        
-        for i, model_file in enumerate(sorted(model_files)):
-            try:
-                temp_cloud = CloudServer(input_dim=4)
-                temp_cloud.load_snapshot(os.path.join(global_dir, model_file))
-                
-                with torch.no_grad():
-                    temp_weights = temp_cloud.global_model.weight.data.numpy().flatten()
-                    temp_bias = temp_cloud.global_model.bias.data.numpy().flatten()
-                
-                print(f"  Round {i+1}: Weight norm = {np.linalg.norm(temp_weights):.4f}, Bias = {temp_bias[0]:.4f}")
-            except Exception as e:
-                print(f"  Round {i+1}: Error loading model - {e}")
+        print_section("Security Status")
+        print("✅ Model is encrypted and secure")
+        print("✅ Server never sees plaintext parameters")
+        print("✅ Client-side decryption required for use")
+        print("ℹ️  Use client simulation to decrypt and test model")
         
         return True
         

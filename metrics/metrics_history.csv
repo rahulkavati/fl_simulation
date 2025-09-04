@@ -1,2 +1,2 @@
 timestamp,num_clients,num_rounds,total_samples,total_communication_rounds,bytes_transferred,communication_overhead,total_training_time,avg_training_time_per_round,convergence_rounds,initial_accuracy,final_accuracy,accuracy_improvement,final_weight_norm,final_bias,memory_usage,cpu_utilization,weight_change_magnitude,loss_reduction
-2025-09-03T13:12:57.390502,3,1,600,3,3072,0.29296875,0.6645359992980957,0.6645359992980957,,0.5,0.7866666666666666,0.2866666666666666,1.0100649736923546,-18.798945673697744,3.0517578125e-05,80.0,[5568.344650879606],[0]
+2025-09-04T14:24:31.166706,2,1,400,2,2048,0.1953125,0.15883636474609375,0.15883636474609375,,0.5,0.79,0.29000000000000004,1.0140374344893588,-22.433212368103057,3.0517578125e-05,80.0,[48.54003908546432],[0]

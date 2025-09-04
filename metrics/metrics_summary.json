@@ -1,27 +1,27 @@
 {
   "total_experiments": 1,
-  "last_updated": "2025-09-03T13:12:57.407382",
+  "last_updated": "2025-09-04T14:24:31.175167",
   "experiments": [
     {
-      "timestamp": "2025-09-03T13:12:57.390502",
-      "num_clients": 3,
+      "timestamp": "2025-09-04T14:24:31.166706",
+      "num_clients": 2,
       "num_rounds": 1,
-      "total_samples": 600,
-      "total_communication_rounds": 3,
-      "bytes_transferred": 3072,
-      "communication_overhead": 0.29296875,
-      "total_training_time": 0.6645359992980957,
-      "avg_training_time_per_round": 0.6645359992980957,
+      "total_samples": 400,
+      "total_communication_rounds": 2,
+      "bytes_transferred": 2048,
+      "communication_overhead": 0.1953125,
+      "total_training_time": 0.15883636474609375,
+      "avg_training_time_per_round": 0.15883636474609375,
       "convergence_rounds": null,
       "initial_accuracy": 0.5,
-      "final_accuracy": 0.7866666666666666,
-      "accuracy_improvement": 0.2866666666666666,
-      "final_weight_norm": 1.0100649736923546,
-      "final_bias": -18.798945673697744,
+      "final_accuracy": 0.79,
+      "accuracy_improvement": 0.29000000000000004,
+      "final_weight_norm": 1.0140374344893588,
+      "final_bias": -22.433212368103057,
       "memory_usage": 3.0517578125e-05,
       "cpu_utilization": 80.0,
       "weight_change_magnitude": [
-        5568.344650879606
+        48.54003908546432
       ],
       "loss_reduction": [
         0
