@@ -15,6 +15,8 @@ import pandas as pd
 import torch
 from pathlib import Path
 from typing import Dict, List, Tuple, Optional
+from sklearn.metrics import accuracy_score, classification_report, f1_score, precision_score, recall_score, confusion_matrix
+import time
 
 # Add project root to path
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
@@ -476,6 +478,116 @@ def test_model_performance():
         print_error(f"Error testing model performance: {e}")
         return False
 
+def evaluate_model_performance_metrics():
+    """Evaluate model performance with comprehensive metrics (accuracy, F1, precision, recall)"""
+    print_header("Model Performance Metrics Evaluation")
+    
+    # Load test data
+    data_dir = "data/clients"
+    if not os.path.exists(data_dir):
+        print_error("No test data available")
+        return False
+    
+    # Combine all client data for testing
+    all_data = []
+    all_labels = []
+    
+    for i in range(5):  # Assuming 5 clients
+        client_file = os.path.join(data_dir, f"client_{i}.csv")
+        if os.path.exists(client_file):
+            df = pd.read_csv(client_file)
+            features = df[["heart_rate", "steps", "calories", "sleep_hours"]].values
+            labels = df["label"].values
+            all_data.append(features)
+            all_labels.append(labels)
+    
+    if not all_data:
+        print_error("No test data found")
+        return False
+    
+    X_test = np.vstack(all_data)
+    y_test = np.concatenate(all_labels)
+    
+    print_success(f"Test dataset: {X_test.shape[0]} samples, {X_test.shape[1]} features")
+    print_section("Dataset Distribution")
+    print(f"  Total samples: {len(y_test)}")
+    print(f"  Healthy (Class 1): {sum(y_test)} samples ({sum(y_test)/len(y_test)*100:.1f}%)")
+    print(f"  Unhealthy (Class 0): {len(y_test) - sum(y_test)} samples ({(len(y_test) - sum(y_test))/len(y_test)*100:.1f}%)")
+    
+    # Test federated model (client-side decryption)
+    print_section("Federated Model Evaluation")
+    
+    try:
+        # Import client decryption function
+        sys.path.append(os.path.join(os.path.dirname(__file__), 'simulation'))
+        from client_simulation import load_and_decrypt_global_model
+        
+        # Attempt client-side decryption
+        decrypted_model = load_and_decrypt_global_model()
+        
+        if decrypted_model is not None:
+            print_success("Successfully decrypted federated model")
+            
+            # Initialize model with decrypted parameters
+            from sklearn.linear_model import LogisticRegression
+            
+            model = LogisticRegression()
+            model.fit(X_test[:10], y_test[:10])  # Dummy fit to set shapes
+            model.coef_ = decrypted_model['weights']
+            model.intercept_ = decrypted_model['bias']
+            
+            # Make predictions
+            y_pred_federated = model.predict(X_test)
+            y_prob_federated = model.predict_proba(X_test)[:, 1]  # Probability of class 1
+            
+            # Calculate metrics
+            accuracy_federated = accuracy_score(y_test, y_pred_federated)
+            f1_federated = f1_score(y_test, y_pred_federated)
+            precision_federated = precision_score(y_test, y_pred_federated)
+            recall_federated = recall_score(y_test, y_pred_federated)
+            
+            print_section("Federated Model Metrics")
+            print(f"  Accuracy:  {accuracy_federated:.4f} ({accuracy_federated*100:.2f}%)")
+            print(f"  F1 Score:  {f1_federated:.4f} ({f1_federated*100:.2f}%)")
+            print(f"  Precision: {precision_federated:.4f} ({precision_federated*100:.2f}%)")
+            print(f"  Recall:    {recall_federated:.4f} ({recall_federated*100:.2f}%)")
+            
+            # Detailed classification report
+            print_section("Detailed Classification Report")
+            report = classification_report(y_test, y_pred_federated, 
+                                        target_names=['Unhealthy', 'Healthy'],
+                                        digits=4)
+            print(report)
+            
+            # Confusion Matrix
+            print_section("Confusion Matrix")
+            cm = confusion_matrix(y_test, y_pred_federated)
+            print("Predicted:")
+            print("           Unhealthy  Healthy")
+            print(f"Actual:    {cm[0,0]:8d}  {cm[0,1]:7d}")
+            print(f"Healthy:   {cm[1,0]:8d}  {cm[1,1]:7d}")
+            
+            # Model parameters analysis
+            print_section("Model Parameters Analysis")
+            weights = decrypted_model['weights'].flatten()
+            bias = decrypted_model['bias'][0]
+            features = ["Heart Rate", "Steps", "Calories", "Sleep Hours"]
+            
+            print("Feature Weights:")
+            for i, (feature, weight) in enumerate(zip(features, weights)):
+                print(f"  {feature:12}: {weight:8.4f}")
+            print(f"Bias: {bias:.4f}")
+            print(f"Weight Norm: {np.linalg.norm(weights):.4f}")
+            
+            return True
+        else:
+            print_error("Failed to decrypt federated model")
+            return False
+            
+    except Exception as e:
+        print_error(f"Error evaluating federated model: {e}")
+        return False
+
 def compare_with_baseline():
     """Compare federated learning results with centralized training"""
     print_header("Comparison with Centralized Training")
@@ -537,6 +649,145 @@ def compare_with_baseline():
         print_error("No federated model found for comparison")
         return False
 
+def compare_models_comprehensive():
+    """Compare federated learning with centralized training using comprehensive metrics"""
+    print_header("Comprehensive Model Comparison")
+    
+    # Load all data
+    data_dir = "data/clients"
+    if not os.path.exists(data_dir):
+        print_error("No data available for comparison")
+        return False
+    
+    all_data = []
+    all_labels = []
+    
+    for i in range(5):
+        client_file = os.path.join(data_dir, f"client_{i}.csv")
+        if os.path.exists(client_file):
+            df = pd.read_csv(client_file)
+            features = df[["heart_rate", "steps", "calories", "sleep_hours"]].values
+            labels = df["label"].values
+            all_data.append(features)
+            all_labels.append(labels)
+    
+    if not all_data:
+        print_error("No data found for comparison")
+        return False
+    
+    X_combined = np.vstack(all_data)
+    y_combined = np.concatenate(all_labels)
+    
+    print_success(f"Combined dataset: {X_combined.shape[0]} samples")
+    
+    # Train centralized model
+    print_section("Training Centralized Model")
+    centralized_model = LogisticRegression(random_state=42, max_iter=1000)
+    centralized_model.fit(X_combined, y_combined)
+    
+    # Test centralized model
+    y_pred_centralized = centralized_model.predict(X_combined)
+    y_prob_centralized = centralized_model.predict_proba(X_combined)[:, 1]
+    
+    # Calculate centralized metrics
+    accuracy_centralized = accuracy_score(y_combined, y_pred_centralized)
+    f1_centralized = f1_score(y_combined, y_pred_centralized)
+    precision_centralized = precision_score(y_combined, y_pred_centralized)
+    recall_centralized = recall_score(y_combined, y_pred_centralized)
+    
+    print_section("Centralized Model Metrics")
+    print(f"  Accuracy:  {accuracy_centralized:.4f} ({accuracy_centralized*100:.2f}%)")
+    print(f"  F1 Score:  {f1_centralized:.4f} ({f1_centralized*100:.2f}%)")
+    print(f"  Precision: {precision_centralized:.4f} ({precision_centralized*100:.2f}%)")
+    print(f"  Recall:    {recall_centralized:.4f} ({recall_centralized*100:.2f}%)")
+    
+    # Test federated model
+    print_section("Testing Federated Model")
+    try:
+        sys.path.append(os.path.join(os.path.dirname(__file__), 'simulation'))
+        from client_simulation import load_and_decrypt_global_model
+        
+        decrypted_model = load_and_decrypt_global_model()
+        
+        if decrypted_model is not None:
+            # Initialize federated model
+            federated_model = LogisticRegression()
+            federated_model.fit(X_combined[:10], y_combined[:10])  # Dummy fit
+            federated_model.coef_ = decrypted_model['weights']
+            federated_model.intercept_ = decrypted_model['bias']
+            
+            # Make predictions
+            y_pred_federated = federated_model.predict(X_combined)
+            y_prob_federated = federated_model.predict_proba(X_combined)[:, 1]
+            
+            # Calculate federated metrics
+            accuracy_federated = accuracy_score(y_combined, y_pred_federated)
+            f1_federated = f1_score(y_combined, y_pred_federated)
+            precision_federated = precision_score(y_combined, y_pred_federated)
+            recall_federated = recall_score(y_combined, y_pred_federated)
+            
+            print_section("Federated Model Metrics")
+            print(f"  Accuracy:  {accuracy_federated:.4f} ({accuracy_federated*100:.2f}%)")
+            print(f"  F1 Score:  {f1_federated:.4f} ({f1_federated*100:.2f}%)")
+            print(f"  Precision: {precision_federated:.4f} ({precision_federated*100:.2f}%)")
+            print(f"  Recall:    {recall_federated:.4f} ({recall_federated*100:.2f}%)")
+            
+            # Comparison
+            print_section("Model Comparison")
+            print("Metric          Centralized    Federated    Difference")
+            print("-" * 55)
+            print(f"Accuracy        {accuracy_centralized:.4f}      {accuracy_federated:.4f}      {accuracy_federated - accuracy_centralized:+.4f}")
+            print(f"F1 Score        {f1_centralized:.4f}      {f1_federated:.4f}      {f1_federated - f1_centralized:+.4f}")
+            print(f"Precision       {precision_centralized:.4f}      {precision_federated:.4f}      {precision_federated - precision_centralized:+.4f}")
+            print(f"Recall          {recall_centralized:.4f}      {recall_federated:.4f}      {recall_federated - recall_centralized:+.4f}")
+            
+            # Agreement analysis
+            agreement = np.mean(y_pred_federated == y_pred_centralized)
+            print(f"\nPrediction Agreement: {agreement:.4f} ({agreement*100:.2f}%)")
+            
+            # Save comparison results
+            comparison_results = {
+                "centralized": {
+                    "accuracy": accuracy_centralized,
+                    "f1_score": f1_centralized,
+                    "precision": precision_centralized,
+                    "recall": recall_centralized
+                },
+                "federated": {
+                    "accuracy": accuracy_federated,
+                    "f1_score": f1_federated,
+                    "precision": precision_federated,
+                    "recall": recall_federated
+                },
+                "difference": {
+                    "accuracy": accuracy_federated - accuracy_centralized,
+                    "f1_score": f1_federated - f1_centralized,
+                    "precision": precision_federated - precision_centralized,
+                    "recall": recall_federated - recall_centralized
+                },
+                "agreement": agreement,
+                "dataset_size": len(y_combined),
+                "timestamp": time.time()
+            }
+            
+            # Save to file
+            metrics_dir = "metrics"
+            os.makedirs(metrics_dir, exist_ok=True)
+            comparison_path = os.path.join(metrics_dir, "model_comparison.json")
+            with open(comparison_path, 'w') as f:
+                json.dump(comparison_results, f, indent=2)
+            
+            print_success(f"Comparison results saved to {comparison_path}")
+            
+            return True
+        else:
+            print_error("Failed to decrypt federated model for comparison")
+            return False
+            
+    except Exception as e:
+        print_error(f"Error comparing models: {e}")
+        return False
+
 def display_metrics():
     """Display performance metrics from the pipeline"""
     print_header("Performance Metrics")
@@ -576,6 +827,8 @@ def main():
     parser.add_argument("--test-model", action="store_true", help="Test model performance")
     parser.add_argument("--metrics", action="store_true", help="Show performance metrics")
     parser.add_argument("--test-decryption", action="store_true", help="Test client-side decryption")
+    parser.add_argument("--performance-metrics", action="store_true", help="Evaluate accuracy, F1, precision, recall")
+    parser.add_argument("--comprehensive-comparison", action="store_true", help="Compare FL vs centralized with all metrics")
     
     args = parser.parse_args()
     
@@ -617,6 +870,16 @@ def main():
     if args.test_decryption:
         print("\n" + "="*60)
         test_client_decryption()
+    
+    # Performance metrics evaluation
+    if args.performance_metrics:
+        print("\n" + "="*60)
+        evaluate_model_performance_metrics()
+    
+    # Comprehensive model comparison
+    if args.comprehensive_comparison:
+        print("\n" + "="*60)
+        compare_models_comprehensive()
     
     # Summary
     print_header("Evaluation Summary")
