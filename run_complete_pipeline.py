@@ -240,8 +240,8 @@ def step5_aggregate_updates() -> bool:
     return success_count == len(round_files)
 
 def step6_global_model_update() -> bool:
-    """Step 6: Update global model with aggregated results"""
-    print_step(6, 6, "Update Global Model")
+    """Step 6: Update global model with aggregated results and distribute back to clients"""
+    print_step(6, 6, "Update Global Model & Distribute")
     
     # Check if aggregated results exist
     outbox_dir = "Sriven/outbox"
@@ -274,12 +274,16 @@ def step6_global_model_update() -> bool:
                 # Load and apply encrypted aggregation
                 encrypted_agg = load_encrypted_aggregation(agg_path)
                 cloud.update_global_model_encrypted(encrypted_agg)
+                
+                # Distribute updated global model back to clients (ENCRYPTED)
+                distributed_model = cloud.distribute_encrypted_global_model()
+                
                 success_count += 1
-                print_success(f"Updated global model with {agg_file}")
+                print_success(f"Updated and distributed global model with {agg_file}")
             except Exception as e:
                 print_error(f"Failed to update with {agg_file}: {str(e)}")
         
-        print_success(f"Updated global model for {success_count}/{len(agg_files)} rounds")
+        print_success(f"Updated and distributed global model for {success_count}/{len(agg_files)} rounds")
         return success_count > 0
         
     except Exception as e:
@@ -314,7 +318,15 @@ def display_results():
     if os.path.exists(global_dir):
         print(f"\n🏆 Global Model Artifacts:")
         for file in os.listdir(global_dir):
-            if file.endswith('.npz'):
+            if file.endswith('.json'):
+                print(f"  📁 {file}")
+    
+    # Show distributed global models
+    distributed_dir = "updates/global_model"
+    if os.path.exists(distributed_dir):
+        print(f"\n📤 Distributed Global Models:")
+        for file in os.listdir(distributed_dir):
+            if file.endswith('.json'):
                 print(f"  📁 {file}")
     
     print(f"\n🚀 Next Steps:")

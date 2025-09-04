@@ -1,0 +1,25 @@
+{
+  "timestamp": "2025-09-03T13:12:57.390502",
+  "num_clients": 3,
+  "num_rounds": 1,
+  "total_samples": 600,
+  "total_communication_rounds": 3,
+  "bytes_transferred": 3072,
+  "communication_overhead": 0.29296875,
+  "total_training_time": 0.6645359992980957,
+  "avg_training_time_per_round": 0.6645359992980957,
+  "convergence_rounds": null,
+  "initial_accuracy": 0.5,
+  "final_accuracy": 0.7866666666666666,
+  "accuracy_improvement": 0.2866666666666666,
+  "final_weight_norm": 1.0100649736923546,
+  "final_bias": -18.798945673697744,
+  "memory_usage": 3.0517578125e-05,
+  "cpu_utilization": 80.0,
+  "weight_change_magnitude": [
+    5568.344650879606
+  ],
+  "loss_reduction": [
+    0
+  ]
+}

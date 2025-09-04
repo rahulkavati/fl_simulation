@@ -5,6 +5,7 @@ import numpy as np
 import torch
 from sklearn.metrics import accuracy_score
 import warnings
+import time
 
 # Try to import TenSEAL, but don't fail if not available
 try:
@@ -339,6 +340,52 @@ class CloudServer:
                 return acc
         
         return None
+
+    def distribute_encrypted_global_model(self, output_dir="updates/global_model"):
+        """
+        Distribute the encrypted global model to clients (MORE SECURE)
+        Clients will decrypt locally using their own secret keys
+        """
+        os.makedirs(output_dir, exist_ok=True)
+        
+        try:
+            if self.encrypted_model is None:
+                raise RuntimeError("No encrypted model to distribute")
+            
+            # Serialize encrypted model
+            encrypted_model_bytes = self.encrypted_model.serialize()
+            encrypted_model_b64 = base64.b64encode(encrypted_model_bytes).decode('utf-8')
+            
+            # Create encrypted model package for distribution
+            encrypted_model_data = {
+                "round_id": self.round,
+                "encrypted_model": encrypted_model_b64,
+                "model_type": "logistic_regression",
+                "input_dim": 4,
+                "output_dim": 1,
+                "timestamp": time.time(),
+                "distribution_info": {
+                    "total_clients": 5,
+                    "aggregation_method": "FedAvg",
+                    "encryption_used": True,
+                    "requires_client_decryption": True
+                }
+            }
+            
+            # Save encrypted model for distribution
+            model_path = os.path.join(output_dir, f"encrypted_global_model_round_{self.round}.json")
+            with open(model_path, "w") as f:
+                json.dump(encrypted_model_data, f, indent=2)
+            
+            print(f"[Cloud] Distributed ENCRYPTED global model to {model_path}")
+            print(f"[Cloud] Model remains encrypted - clients must decrypt locally")
+            print(f"[Cloud] Server never sees plaintext model parameters")
+            
+            return model_path
+            
+        except Exception as e:
+            print(f"Error distributing encrypted global model: {e}")
+            raise
 
 
 def load_aggregated_update(path):
