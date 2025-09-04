@@ -248,6 +248,56 @@ def evaluate_aggregation():
         print(f"  Aggregated rounds: {sorted(rounds)}")
         print(f"  Total aggregated rounds: {len(rounds)}")
         
+        # Analyze timing metrics
+        print_section("Aggregation Timing Analysis")
+        
+        timing_files = [f for f in os.listdir(outbox_dir) if f.startswith('timing_round_') and f.endswith('.json')]
+        
+        if timing_files:
+            print_success(f"Found {len(timing_files)} timing files")
+            
+            # Load timing data
+            timing_data = []
+            for timing_file in sorted(timing_files):
+                file_path = os.path.join(outbox_dir, timing_file)
+                with open(file_path, 'r') as f:
+                    data = json.load(f)
+                    timing_data.append(data)
+            
+            # Calculate timing statistics
+            agg_times = [d['aggregation_time_seconds'] for d in timing_data]
+            total_times = [d['total_time_seconds'] for d in timing_data]
+            num_clients = [d['num_clients'] for d in timing_data]
+            
+            print(f"  Average Aggregation Time: {np.mean(agg_times):.4f}s")
+            print(f"  Min Aggregation Time: {np.min(agg_times):.4f}s")
+            print(f"  Max Aggregation Time: {np.max(agg_times):.4f}s")
+            print(f"  Average Total Time: {np.mean(total_times):.4f}s")
+            print(f"  Average Clients: {np.mean(num_clients):.1f}")
+            
+            # Performance assessment
+            avg_agg_time = np.mean(agg_times)
+            if avg_agg_time < 1.0:
+                print("  🟢 Excellent aggregation performance (< 1s)")
+            elif avg_agg_time < 5.0:
+                print("  🟡 Good aggregation performance (1-5s)")
+            else:
+                print("  🔴 Poor aggregation performance (> 5s)")
+            
+            # Scalability analysis
+            avg_clients = np.mean(num_clients)
+            time_per_client = avg_agg_time / avg_clients if avg_clients > 0 else 0
+            print(f"  Time per Client: {time_per_client:.4f}s")
+            
+            if time_per_client < 0.2:
+                print("  🟢 Excellent scalability (< 0.2s per client)")
+            elif time_per_client < 1.0:
+                print("  🟡 Good scalability (0.2-1s per client)")
+            else:
+                print("  🔴 Poor scalability (> 1s per client)")
+        else:
+            print_info("No timing files found - run pipeline with timing enabled")
+        
         return True
     except Exception as e:
         print_error(f"Error analyzing aggregation: {e}")

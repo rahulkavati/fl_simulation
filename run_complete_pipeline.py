@@ -239,6 +239,37 @@ def step5_aggregate_updates() -> bool:
     print_success(f"Aggregated {success_count}/{len(round_files)} rounds")
     return success_count == len(round_files)
 
+def load_test_data_for_evaluation():
+    """Load test data for global model evaluation"""
+    try:
+        import numpy as np
+        import pandas as pd
+        
+        # Load all client data for testing
+        data_dir = "data/clients"
+        all_data = []
+        all_labels = []
+        
+        for i in range(5):  # Assuming 5 clients
+            client_file = os.path.join(data_dir, f"client_{i}.csv")
+            if os.path.exists(client_file):
+                df = pd.read_csv(client_file)
+                features = df[["heart_rate", "steps", "calories", "sleep_hours"]].values
+                labels = df["label"].values
+                all_data.append(features)
+                all_labels.append(labels)
+        
+        if not all_data:
+            return None, None
+        
+        X_test = np.vstack(all_data)
+        y_test = np.concatenate(all_labels)
+        
+        return X_test, y_test
+    except Exception as e:
+        print(f"Warning: Could not load test data: {e}")
+        return None, None
+
 def step6_global_model_update() -> bool:
     """Step 6: Update global model with aggregated results and distribute back to clients"""
     print_step(6, 6, "Update Global Model & Distribute")
@@ -273,7 +304,12 @@ def step6_global_model_update() -> bool:
             try:
                 # Load and apply encrypted aggregation
                 encrypted_agg = load_encrypted_aggregation(agg_path)
-                cloud.update_global_model_encrypted(encrypted_agg)
+                
+                # Load test data for evaluation (to enable timing metrics)
+                X_test, y_test = load_test_data_for_evaluation()
+                
+                # Update global model with test data for evaluation
+                cloud.update_global_model_encrypted(encrypted_agg, X_test, y_test)
                 
                 # Distribute updated global model back to clients (ENCRYPTED)
                 distributed_model = cloud.distribute_encrypted_global_model()

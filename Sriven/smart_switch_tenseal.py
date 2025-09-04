@@ -136,12 +136,41 @@ def parse_args():
 
 def main():
     args = parse_args()
+    
+    # Start timing
+    start_time = time.time()
+    
     ctx = load_ctx_from_b64(args.ctx_b64)
     clients = read_jsons(args.fedl_dir)
     round_id, layout, ctx_ref, prepared = validate_and_prepare(ctx, clients)
+    
+    # Time the aggregation process
+    aggregation_start = time.time()
     agg_ct = aggregate(prepared, ctx)
+    aggregation_time = time.time() - aggregation_start
+    
     write_output(args.out_dir, round_id, layout, ctx_ref, agg_ct)
+    
+    # Calculate total time
+    total_time = time.time() - start_time
+    
     print(f"[Switch] Done. Round {round_id}, Clients {len(prepared)}")
+    print(f"[Switch] Aggregation Time: {aggregation_time:.4f}s")
+    print(f"[Switch] Total Time: {total_time:.4f}s")
+    
+    # Save timing metrics
+    timing_metrics = {
+        "round_id": round_id,
+        "num_clients": len(prepared),
+        "aggregation_time_seconds": aggregation_time,
+        "total_time_seconds": total_time,
+        "timestamp": int(time.time())
+    }
+    
+    timing_file = os.path.join(args.out_dir, f"timing_round_{round_id}.json")
+    with open(timing_file, "w") as f:
+        json.dump(timing_metrics, f, indent=2)
+    print(f"[Switch] Timing metrics saved: {timing_file}")
 
 if __name__ == "__main__":
     main()

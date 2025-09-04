@@ -290,7 +290,7 @@ def evaluate_centralized_model(X, y):
     }
 
 def compare_models(federated_results, centralized_results):
-    """Compare federated and centralized models"""
+    """Compare federated and centralized models including timing metrics"""
     print_header("Model Comparison: Federated vs Centralized")
     
     if federated_results is None or centralized_results is None:
@@ -319,11 +319,81 @@ def compare_models(federated_results, centralized_results):
         else:
             print(f"              {'='*20} Centralized performs better")
     
+    # Add timing analysis
+    print_section("Timing Analysis")
+    
+    # Load aggregation timing data
+    timing_dir = "Sriven/outbox"
+    if os.path.exists(timing_dir):
+        timing_files = [f for f in os.listdir(timing_dir) if f.startswith('timing_round_') and f.endswith('.json')]
+        
+        if timing_files:
+            print_success("Aggregation timing data available")
+            
+            # Load timing data
+            timing_data = []
+            for timing_file in sorted(timing_files):
+                file_path = os.path.join(timing_dir, timing_file)
+                with open(file_path, 'r') as f:
+                    data = json.load(f)
+                    timing_data.append(data)
+            
+            # Calculate timing statistics
+            agg_times = [d['aggregation_time_seconds'] for d in timing_data]
+            total_times = [d['total_time_seconds'] for d in timing_data]
+            num_clients = [d['num_clients'] for d in timing_data]
+            
+            avg_agg_time = np.mean(agg_times)
+            avg_total_time = np.mean(total_times)
+            avg_clients = np.mean(num_clients)
+            time_per_client = avg_agg_time / avg_clients if avg_clients > 0 else 0
+            
+            print(f"  Average Aggregation Time: {avg_agg_time:.4f}s")
+            print(f"  Average Total Time: {avg_total_time:.4f}s")
+            print(f"  Time per Client: {time_per_client:.4f}s")
+            print(f"  Average Clients: {avg_clients:.1f}")
+            
+            # Performance assessment
+            if avg_agg_time < 1.0:
+                print("  🟢 Excellent aggregation performance (< 1s)")
+            elif avg_agg_time < 5.0:
+                print("  🟡 Good aggregation performance (1-5s)")
+            else:
+                print("  🔴 Poor aggregation performance (> 5s)")
+            
+            # Scalability assessment
+            if time_per_client < 0.2:
+                print("  🟢 Excellent scalability (< 0.2s per client)")
+            elif time_per_client < 1.0:
+                print("  🟡 Good scalability (0.2-1s per client)")
+            else:
+                print("  🔴 Poor scalability (> 1s per client)")
+            
+            # Add timing to comparison results
+            timing_metrics = {
+                "average_aggregation_time": avg_agg_time,
+                "average_total_time": avg_total_time,
+                "time_per_client": time_per_client,
+                "average_clients": avg_clients
+            }
+        else:
+            print_info("No timing files found")
+            timing_metrics = None
+    else:
+        print_info("No timing directory found")
+        timing_metrics = None
+    
     print_section("Interpretation")
     print("🔐 Privacy vs Performance Trade-off:")
     print("  • Federated Learning: Preserves data privacy")
     print("  • Centralized Training: Potentially better performance")
     print("  • Goal: Minimize performance gap while maintaining privacy")
+    
+    if timing_metrics:
+        print("⏱️  Timing Performance:")
+        print(f"  • Aggregation: {timing_metrics['average_aggregation_time']:.4f}s")
+        print(f"  • Scalability: {timing_metrics['time_per_client']:.4f}s per client")
+        print("  • Encryption overhead: Acceptable for privacy protection")
     
     # Save comparison results
     comparison_results = {
@@ -337,6 +407,10 @@ def compare_models(federated_results, centralized_results):
         },
         "timestamp": time.time()
     }
+    
+    # Add timing metrics if available
+    if timing_metrics:
+        comparison_results["timing"] = timing_metrics
     
     # Save to file
     metrics_dir = "metrics"

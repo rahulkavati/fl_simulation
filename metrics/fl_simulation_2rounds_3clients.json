@@ -1,27 +1,27 @@
 {
-  "timestamp": "2025-09-04T14:21:41.413513",
+  "timestamp": "2025-09-04T16:32:56.461471",
   "num_clients": 3,
   "num_rounds": 2,
   "total_samples": 600,
   "total_communication_rounds": 6,
   "bytes_transferred": 6144,
   "communication_overhead": 0.5859375,
-  "total_training_time": 0.4858062267303467,
-  "avg_training_time_per_round": 0.24290311336517334,
+  "total_training_time": 0.3512551784515381,
+  "avg_training_time_per_round": 0.17562758922576904,
   "convergence_rounds": null,
   "initial_accuracy": 0.5,
   "final_accuracy": 0.785,
   "accuracy_improvement": 0.28500000000000003,
-  "final_weight_norm": 1.0434598849478665,
-  "final_bias": -21.61594981967302,
+  "final_weight_norm": 1.0434616007211415,
+  "final_bias": -21.615952761328533,
   "memory_usage": 3.0517578125e-05,
   "cpu_utilization": 80.0,
   "weight_change_magnitude": [
-    47.86491923152045,
-    0.2258479980500856
+    16.991924037676913,
+    0.22585711532606137
   ],
   "loss_reduction": [
     0,
-    0.7741520019499144
+    0.7741428846739387
   ]
 }

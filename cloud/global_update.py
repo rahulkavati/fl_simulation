@@ -326,17 +326,43 @@ class CloudServer:
             y_test: Test labels for evaluation (optional)
             ctx_path: Path to TenSEAL context with secret key
         """
+        import time
+        
+        # Start timing
+        start_time = time.time()
+        
         # Use the truly encrypted update method
         success = self.apply_encrypted_update_secure(encrypted_aggregation, ctx_path)
         
         if success:
+            update_time = time.time() - start_time
             print(f"[Cloud] Round {self.round}: TRULY ENCRYPTED update applied.")
+            print(f"[Cloud] Update Time: {update_time:.4f}s")
             
             # Only decrypt for evaluation if test data is provided
             if X_test is not None and y_test is not None:
+                eval_start = time.time()
                 self.decrypt_model_for_inference(ctx_path)
                 acc = self.evaluate(X_test, y_test)
+                eval_time = time.time() - eval_start
                 print(f"[Cloud] Round {self.round}: Accuracy = {acc:.4f}")
+                print(f"[Cloud] Evaluation Time: {eval_time:.4f}s")
+                
+                # Save timing metrics
+                timing_metrics = {
+                    "round_id": self.round,
+                    "update_time_seconds": update_time,
+                    "evaluation_time_seconds": eval_time,
+                    "total_time_seconds": time.time() - start_time,
+                    "timestamp": int(time.time())
+                }
+                
+                timing_file = f"updates/global_model/timing_round_{self.round}.json"
+                os.makedirs(os.path.dirname(timing_file), exist_ok=True)
+                with open(timing_file, "w") as f:
+                    json.dump(timing_metrics, f, indent=2)
+                print(f"[Cloud] Timing metrics saved: {timing_file}")
+                
                 return acc
         
         return None
