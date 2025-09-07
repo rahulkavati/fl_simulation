@@ -4,6 +4,8 @@ import base64
 import numpy as np
 import torch
 from sklearn.metrics import accuracy_score
+from sklearn.linear_model import LogisticRegression
+from sklearn.preprocessing import StandardScaler
 import warnings
 import time
 
@@ -25,15 +27,24 @@ class CloudServer:
         """
         self.save_dir = save_dir
         os.makedirs(save_dir, exist_ok=True)
-        
-        # Initialize global model
+
+        # Initialize global model using LogisticRegression (same as client simulation)
         if model_path and os.path.exists(model_path):
-            self.global_model = torch.load(model_path)
+            # Load existing model
+            with open(model_path, 'rb') as f:
+                import pickle
+                self.global_model = pickle.load(f)
             print(f"[Cloud] Loaded global model from {model_path}")
         else:
-            # Initialize with random weights (will be updated by clients)
-            self.global_model = torch.nn.Linear(4, 1)  # 4 features -> 1 output
-            print("[Cloud] Initialized new global model")
+            # Initialize with LogisticRegression (same as client simulation)
+            self.global_model = LogisticRegression(
+                penalty=None, fit_intercept=True, solver="lbfgs", max_iter=5000, random_state=42
+            )
+            # Initialize with dummy data to set shapes
+            dummy_X = np.random.randn(10, 4)
+            dummy_y = np.random.randint(0, 2, 10)
+            self.global_model.fit(dummy_X, dummy_y)
+            print("[Cloud] Initialized new global model with LogisticRegression")
         
         # Track current round
         self.round = 0
@@ -60,10 +71,9 @@ class CloudServer:
             if not self.encryption_ctx.has_secret_key():
                 raise RuntimeError("Context does not have secret key")
             
-            # Get current model parameters
-            with torch.no_grad():
-                weights = self.global_model.weight.data.flatten().numpy()
-                bias = self.global_model.bias.data.flatten().numpy()
+            # Get current model parameters from LogisticRegression
+            weights = self.global_model.coef_.flatten()
+            bias = self.global_model.intercept_
             
             # Encrypt the model parameters
             model_params = np.concatenate([weights, bias])
@@ -157,16 +167,15 @@ class CloudServer:
             # Decrypt the model parameters
             decrypted_params = self.encrypted_model.decrypt()
             
-            # Update the PyTorch model
+            # Update the LogisticRegression model
             layout = {"weights": len(decrypted_params) - 1, "bias": 1}
             w_len = layout["weights"]
             
             weights = decrypted_params[:w_len]
-            bias = decrypted_params[w_len:]
+            bias = decrypted_params[w_len]
             
-            with torch.no_grad():
-                self.global_model.weight.data = torch.tensor(weights, dtype=torch.float32).reshape_as(self.global_model.weight)
-                self.global_model.bias.data = torch.tensor(bias, dtype=torch.float32).reshape_as(self.global_model.bias)
+            self.global_model.coef_ = np.array(weights).reshape(self.global_model.coef_.shape)
+            self.global_model.intercept_ = np.array([bias])
             
             print(f"[Cloud] Decrypted model for inference (round {self.round})")
             return True
@@ -238,34 +247,19 @@ class CloudServer:
             raise
 
     def apply_update(self, aggregated_update):
-        with torch.no_grad():
-            # Map parameter names to the expected keys in aggregated_update
-            param_mapping = {
-                'weight': 'weight_delta',
-                'bias': 'bias_delta'
-            }
-            
-            for name, param in self.global_model.named_parameters():
-                if name in param_mapping:
-                    key = param_mapping[name]
-                    if key in aggregated_update:
-                        delta = aggregated_update[key]
-                        # Ensure delta has the right shape
-                        if name == 'weight':
-                            delta = np.array(delta).reshape(param.shape)
-                        else:
-                            delta = np.array(delta)
-                        param.add_(torch.tensor(delta, dtype=torch.float32))
-                    else:
-                        print(f"Warning: {key} not found in aggregated_update")
-                else:
-                    print(f"Warning: Unknown parameter name: {name}")
+        # Apply updates to LogisticRegression model
+        if 'weight_delta' in aggregated_update:
+            weight_delta = np.array(aggregated_update['weight_delta']).reshape(self.global_model.coef_.shape)
+            self.global_model.coef_ += weight_delta
+        
+        if 'bias_delta' in aggregated_update:
+            bias_delta = aggregated_update['bias_delta']
+            self.global_model.intercept_ += bias_delta
 
     def evaluate(self, X_test, y_test):
-        with torch.no_grad():
-            logits = self.global_model(torch.tensor(X_test, dtype=torch.float32))
-            preds = (torch.sigmoid(logits).numpy() > 0.5).astype(int)
-            acc = accuracy_score(y_test, preds)
+        # Evaluate LogisticRegression model
+        preds = self.global_model.predict(X_test)
+        acc = accuracy_score(y_test, preds)
         return acc
 
     def save_snapshot(self, aggregated_update):

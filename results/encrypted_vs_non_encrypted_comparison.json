@@ -1,0 +1,26 @@
+{
+  "non_encrypted": {
+    "final_accuracy": 0.8499780026396833,
+    "final_precision": 0.8430155210643016,
+    "final_recall": 0.8528488111260655,
+    "final_f1": 0.8479036574487065,
+    "avg_aggregation_time": 0.1181988000869751
+  },
+  "encrypted": {
+    "final_accuracy": 0.8499780026396833,
+    "final_precision": 0.8430155210643016,
+    "final_recall": 0.8528488111260655,
+    "final_f1": 0.8479036574487065,
+    "avg_aggregation_time": 0.0002157449722290039,
+    "avg_encryption_time": 0.12093360424041748,
+    "avg_decryption_time": 0.0
+  },
+  "comparison": {
+    "accuracy_diff": 0.0,
+    "precision_diff": 0.0,
+    "recall_diff": 0.0,
+    "f1_diff": 0.0,
+    "timing_overhead_pct": 2.4962597957849506
+  },
+  "timestamp": 1757114360.3282466
+}

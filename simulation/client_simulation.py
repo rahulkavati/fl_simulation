@@ -5,6 +5,8 @@ import numpy as np
 import time
 import argparse
 from sklearn.linear_model import LogisticRegression
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import accuracy_score, f1_score
 import warnings
 import base64
 
@@ -22,7 +24,7 @@ OUTPUT_JSON = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 OUTPUT_NPY = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "updates", "numpy")
 
 # Default values
-DEFAULT_ROUNDS = 3
+DEFAULT_ROUNDS = 10  # Increased for better convergence
 DEFAULT_CLIENTS = 5
 
 # ---------- Helpers ----------
@@ -37,15 +39,67 @@ def save_npy(array, path):
 
 # ---------- Load client data ----------
 def load_client_data():
-    clients = {}
-    for fname in os.listdir(DATA_DIR):
-        if fname.endswith(".csv"):
-            cid = fname.replace(".csv", "")
-            arr = np.loadtxt(os.path.join(DATA_DIR, fname), delimiter=",", skiprows=1)
-            X, y = arr[:, :-1], arr[:, -1]
-            clients[cid] = (X, y)
-    print(f"Loaded data for {len(clients)} clients")
-    return clients
+    """
+    Load client data from health fitness dataset
+    COMMENTED OUT: Data generation is no longer needed - using real health_fitness_dataset.csv
+    """
+    # OLD CODE (COMMENTED OUT - NO LONGER NEEDED):
+    # clients = {}
+    # all_X = []
+    # 
+    # # First pass: collect all data for scaling
+    # for fname in os.listdir(DATA_DIR):
+    #     if fname.endswith(".csv"):
+    #         cid = fname.replace(".csv", "")
+    #         arr = np.loadtxt(os.path.join(DATA_DIR, fname), delimiter=",", skiprows=1)
+    #         X, y = arr[:, :-1], arr[:, -1]
+    #         clients[cid] = (X, y)
+    #         all_X.append(X)
+    # 
+    # # Fit scaler on all data
+    # if all_X:
+    #     scaler = StandardScaler()
+    #     scaler.fit(np.vstack(all_X))
+    #     
+    #     # Apply scaling to each client's data
+    #     for cid in clients:
+    #         X, y = clients[cid]
+    #         x_scaled = scaler.transform(X)
+    #         clients[cid] = (x_scaled, y)
+    # 
+    # print(f"Loaded and scaled data for {len(clients)} clients")
+    # return clients
+    
+    # NEW CODE: Load from health fitness dataset
+    print("Loading health fitness dataset...")
+    
+    # Import the health fitness data loading function
+    try:
+        from health_fitness_fl_comparison import load_health_fitness_data, create_client_datasets, scale_client_data
+        import pandas as pd
+        
+        # Load the health fitness dataset
+        df, feature_columns = load_health_fitness_data()
+        if df is None:
+            print("Failed to load health fitness dataset")
+            return {}
+        
+        # Create client datasets
+        clients_data = create_client_datasets(df, feature_columns, DEFAULT_CLIENTS)
+        if not clients_data:
+            print("Failed to create client datasets")
+            return {}
+        
+        # Scale the data
+        scaled_clients, scaler = scale_client_data(clients_data)
+        
+        print(f"Loaded health fitness data for {len(scaled_clients)} clients")
+        return scaled_clients
+        
+    except ImportError:
+        print("Could not import health fitness data loading functions")
+        print("Please run: python health_fitness_fl_comparison.py")
+        return {}
 
 # ---------- Load and decrypt global model ----------
 def load_and_decrypt_global_model(round_id=None, ctx_path="Huzaif/keys/secret.ctx"):
@@ -165,7 +219,7 @@ def main():
         bias = global_model_data["bias"]
         
         global_model = LogisticRegression(
-            penalty=None, fit_intercept=True, solver="lbfgs", max_iter=1000, warm_start=True, random_state=42
+            penalty=None, fit_intercept=True, solver="lbfgs", max_iter=5000, warm_start=True, random_state=42
         )
         global_model.fit(sample_X[:10], sample_y[:10])  # dummy fit to set shapes
         global_model.coef_ = weights
@@ -173,12 +227,14 @@ def main():
         
         print(f"Initialized global model from decrypted distributed model (round {global_model_data['round_id']})")
     else:
-        # Initialize with random weights
+        # Initialize with proper training on sample data
         global_model = LogisticRegression(
-            penalty=None, fit_intercept=True, solver="lbfgs", max_iter=1000, warm_start=True, random_state=42
+            penalty=None, fit_intercept=True, solver="lbfgs", max_iter=5000, warm_start=True, random_state=42
         )
-        global_model.fit(sample_X[:10], sample_y[:10])  # dummy fit to set shapes
-        print(f"Initialized global model with random weights")
+        # Use more samples for better initialization
+        init_samples = min(50, len(sample_X))
+        global_model.fit(sample_X[:init_samples], sample_y[:init_samples])
+        print(f"Initialized global model with {init_samples} samples")
     
     print(f"Global model has {sample_X.shape[1]} features")
 
@@ -190,12 +246,13 @@ def main():
         for cid, (X_train, y_train) in clients_data.items():
             print(f"  Training client {cid} with {len(X_train)} samples...")
             local_model = LogisticRegression(
-                penalty=None, fit_intercept=True, solver="lbfgs", max_iter=1000, warm_start=True, random_state=42
+                penalty=None, fit_intercept=True, solver="lbfgs", max_iter=5000, warm_start=True, random_state=42
             )
             local_model.classes_ = np.array([0, 1])
             local_model.coef_ = np.copy(base_coef)
             local_model.intercept_ = np.copy(base_intercept)
 
+            # Train with better convergence settings
             local_model.fit(X_train, y_train)
 
             weight_delta = (local_model.coef_ - base_coef).flatten().tolist()
@@ -215,20 +272,44 @@ def main():
             npy_path = os.path.join(OUTPUT_NPY, f"{cid}_round_{rnd}.npy")
             save_npy(np.array(weight_delta + [bias_delta]), npy_path)
 
-        # Simple FedAvg (plaintext)
+        # Weighted FedAvg based on sample count (plaintext)
         print("  Aggregating client updates...")
         all_w = []
         all_b = []
+        sample_counts = []
+        
         for cid in clients_data:
             arr = np.load(os.path.join(OUTPUT_NPY, f"{cid}_round_{rnd}.npy"))
             all_w.append(arr[:-1])
             all_b.append(arr[-1])
-        avg_w = np.mean(all_w, axis=0)
-        avg_b = np.mean(all_b)
+            sample_counts.append(len(clients_data[cid][0]))
+        
+        # Weighted average based on sample count
+        total_samples = sum(sample_counts)
+        weights = np.array(sample_counts) / total_samples
+        
+        avg_w = np.average(all_w, axis=0, weights=weights)
+        avg_b = np.average(all_b, weights=weights)
+        
         global_model.coef_ = base_coef + avg_w.reshape(1, -1)
         global_model.intercept_ = base_intercept + avg_b
         
+        # Evaluate model performance
+        all_x_test = []
+        all_y_test = []
+        for cid, (X, y) in clients_data.items():
+            all_x_test.append(X)
+            all_y_test.append(y)
+        
+        x_test = np.vstack(all_x_test)
+        y_test = np.concatenate(all_y_test)
+        
+        y_pred = global_model.predict(x_test)
+        accuracy = accuracy_score(y_test, y_pred)
+        f1 = f1_score(y_test, y_pred)
+        
         print(f"  Global model updated. Weight norm: {np.linalg.norm(global_model.coef_):.4f}")
+        print(f"  Round {rnd + 1} - Accuracy: {accuracy:.4f}, F1: {f1:.4f}")
     
     total_training_time = time.time() - start_time
     

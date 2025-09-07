@@ -1,0 +1,57 @@
+[
+  {
+    "round": 1,
+    "accuracy": 0.8037342596613113,
+    "f1_score": 0.8038194444444444,
+    "precision": 0.803122289679098,
+    "recall": 0.8045178105994787,
+    "encryption_time": 0.08290505409240723,
+    "aggregation_time": 0.0,
+    "decryption_time": 0.0,
+    "total_time": 0.08290505409240723
+  },
+  {
+    "round": 2,
+    "accuracy": 0.8037342596613113,
+    "f1_score": 0.8038194444444444,
+    "precision": 0.803122289679098,
+    "recall": 0.8045178105994787,
+    "encryption_time": 0.08697962760925293,
+    "aggregation_time": 0.0,
+    "decryption_time": 0.0,
+    "total_time": 0.08697962760925293
+  },
+  {
+    "round": 3,
+    "accuracy": 0.8037342596613113,
+    "f1_score": 0.8038194444444444,
+    "precision": 0.803122289679098,
+    "recall": 0.8045178105994787,
+    "encryption_time": 0.08134341239929199,
+    "aggregation_time": 0.0,
+    "decryption_time": 0.0,
+    "total_time": 0.08134341239929199
+  },
+  {
+    "round": 4,
+    "accuracy": 0.8037342596613113,
+    "f1_score": 0.8038194444444444,
+    "precision": 0.803122289679098,
+    "recall": 0.8045178105994787,
+    "encryption_time": 0.08169984817504883,
+    "aggregation_time": 0.0,
+    "decryption_time": 0.0,
+    "total_time": 0.08169984817504883
+  },
+  {
+    "round": 5,
+    "accuracy": 0.8037342596613113,
+    "f1_score": 0.8038194444444444,
+    "precision": 0.803122289679098,
+    "recall": 0.8045178105994787,
+    "encryption_time": 0.07974839210510254,
+    "aggregation_time": 0.0,
+    "decryption_time": 0.0,
+    "total_time": 0.07974839210510254
+  }
+]

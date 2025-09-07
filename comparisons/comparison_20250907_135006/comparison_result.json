@@ -1,0 +1,19 @@
+{
+  "comparison_id": "comparison_20250907_135006",
+  "timestamp": "2025-09-07T13:50:09.347663",
+  "metrics": {
+    "accuracy_diff": 0.0,
+    "f1_score_diff": 0.0,
+    "precision_diff": 0.0,
+    "recall_diff": 0.0,
+    "training_time_overhead": -100.0,
+    "aggregation_time_overhead": NaN,
+    "total_time_overhead": 4.65109982032303,
+    "communication_overhead": 0.0,
+    "bytes_transferred_overhead": 0.0,
+    "memory_overhead": null,
+    "cpu_overhead": null,
+    "energy_overhead": null,
+    "accuracy_p_value": NaN,
+    "f1_score_p_value": NaN,
+    "statistical_significance": 

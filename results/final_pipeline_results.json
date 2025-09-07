@@ -1,0 +1,12 @@
+{
+  "final_accuracy": 0.8037342596613113,
+  "final_f1_score": 0.8038194444444444,
+  "final_precision": 0.803122289679098,
+  "final_recall": 0.8045178105994787,
+  "avg_encryption_time": 0.0825352668762207,
+  "avg_aggregation_time": 0.0,
+  "avg_decryption_time": 0.0,
+  "avg_total_time": 0.0825352668762207,
+  "total_rounds": 5,
+  "total_clients": 10
+}

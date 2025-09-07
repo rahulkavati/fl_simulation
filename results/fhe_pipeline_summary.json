@@ -1,0 +1,14 @@
+{
+  "total_rounds": 40,
+  "total_clients": 16,
+  "final_accuracy": 0.951875,
+  "final_f1_score": 0.9495081967213115,
+  "final_precision": 0.9164556962025316,
+  "final_recall": 0.9850340136054422,
+  "avg_encryption_time": 1.2079485833644867,
+  "avg_aggregation_time": 1.2035991370677948,
+  "avg_decryption_time": 0.0,
+  "avg_total_time": 2.4115477204322815,
+  "is_encrypted": true,
+  "timestamp": 1757281992.0214937
+}
