@@ -5,6 +5,8 @@ NO EARLY STOPPING - Continuous improvement through all rounds
 """
 
 import os
+import json
+import csv
 import time
 import numpy as np
 import pandas as pd
@@ -448,7 +450,11 @@ def main():
         pipeline = EnhancedFederatedLearningPipeline(fl_config, fhe_config)
         pipeline.patience = args.patience  # Set patience from command line
         round_results = pipeline.run_enhanced_federated_learning()
-        save_final_results(round_results, pipeline.clients_data)
+        # Prepare directory and timestamp for single-file output
+        os.makedirs('performance_results', exist_ok=True)
+        _ts = time.strftime('%Y%m%d_%H%M%S')
+
+        # (No separate per-round/final CSV/JSON files; we will emit ONE consolidated JSON only)
         print_final_summary(round_results, pipeline.clients_data)
         
         total_time = time.time() - start_time
@@ -465,6 +471,43 @@ def main():
         print(f"  Best Accuracy: {best_accuracy*100:.2f}%")
         print(f"  Total Improvement: {total_improvement*100:+.2f}%")
         print(f"  Rounds Completed: {len(round_results)}")
+
+        # Compute aggregate timing
+        avg_encryption_time = float(np.mean([r['encryption_time'] for r in round_results]))
+        avg_aggregation_time = float(np.mean([r['aggregation_time'] for r in round_results]))
+        avg_total_time = float(np.mean([r['total_time'] for r in round_results]))
+
+        # Build final summary structure
+        final_summary = {
+            'rounds_completed': len(round_results),
+            'initial_accuracy': round_results[0]['accuracy'],
+            'final_accuracy': final_accuracy,
+            'best_accuracy': best_accuracy,
+            'total_improvement': total_improvement,
+            'avg_encryption_time': avg_encryption_time,
+            'avg_aggregation_time': avg_aggregation_time,
+            'avg_total_time': avg_total_time,
+            'total_pipeline_time': total_time
+        }
+
+        # Consolidated single JSON containing rounds + final + config
+        consolidated_path = os.path.join('performance_results', f'pipeline_results_{args.clients}clients_{args.rounds}rounds_{_ts}.json')
+        consolidated = {
+            'timestamp': _ts,
+            'configuration': {
+                'rounds': args.rounds,
+                'clients': args.clients,
+                'patience': args.patience
+            },
+            'round_results': round_results,
+            'final_summary': final_summary
+        }
+        try:
+            with open(consolidated_path, 'w') as fcj:
+                json.dump(consolidated, fcj, indent=2)
+            print(f"💾 Saved consolidated results (rounds + final) to: {consolidated_path}")
+        except Exception as cons_err:
+            print(f"⚠️  Failed to save consolidated results: {cons_err}")
         
         if best_accuracy >= 0.95:
             print("🎯 SUCCESS! 95%+ accuracy achieved!")
