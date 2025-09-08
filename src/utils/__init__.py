@@ -18,6 +18,11 @@ def save_encrypted_round_data(round_id: int, encrypted_updates: List,
                              sample_counts: List[int], metrics: Dict[str, float],
                              global_model, output_dir: str = "updates"):
     """Save encrypted round data"""
+    # Create necessary directories
+    os.makedirs(f"{output_dir}/encrypted", exist_ok=True)
+    os.makedirs(f"{output_dir}/global_model", exist_ok=True)
+    os.makedirs("results", exist_ok=True)
+    
     # Save encrypted updates
     for client_id, encrypted_update in enumerate(encrypted_updates):
         update_data = {
@@ -62,6 +67,9 @@ def save_final_results(round_results: List[Dict[str, Any]],
     print(f"\n{'='*70}")
     print("STEP 4: Save ENCRYPTED Results")
     print(f"{'='*70}")
+    
+    # Create output directory if it doesn't exist
+    os.makedirs(output_dir, exist_ok=True)
     
     # Save complete results
     results_path = f"{output_dir}/fhe_pipeline_results.json"

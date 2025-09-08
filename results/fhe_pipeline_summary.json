@@ -1,14 +1,14 @@
 {
   "total_rounds": 40,
-  "total_clients": 16,
-  "final_accuracy": 0.951875,
-  "final_f1_score": 0.9495081967213115,
-  "final_precision": 0.9164556962025316,
-  "final_recall": 0.9850340136054422,
-  "avg_encryption_time": 1.2079485833644867,
-  "avg_aggregation_time": 1.2035991370677948,
+  "total_clients": 9,
+  "final_accuracy": 0.9222222222222223,
+  "final_f1_score": 0.9137931034482759,
+  "final_precision": 0.8412698412698413,
+  "final_recall": 1.0,
+  "avg_encryption_time": 0.6946620285511017,
+  "avg_aggregation_time": 0.690499073266983,
   "avg_decryption_time": 0.0,
-  "avg_total_time": 2.4115477204322815,
+  "avg_total_time": 1.3851611018180847,
   "is_encrypted": true,
-  "timestamp": 1757281992.0214937
+  "timestamp": 1757315854.07099
 }

@@ -1,0 +1,243 @@
+{
+  "experiment_info": {
+    "timestamp": "2025-09-07T16:03:44.354959",
+    "total_rounds": 2,
+    "total_smartwatches": 4,
+    "total_routers": 2,
+    "feature_dimension": 11
+  },
+  "performance_metrics": {
+    "avg_total_time_per_round": 1.514257550239563,
+    "avg_encryption_time": 0.007520854473114014,
+    "avg_aggregation_time": 0.0681908130645752,
+    "avg_decryption_time": 0.004738450050354004,
+    "fhe_performance": {
+      "encryption_time": 0.00726318359375,
+      "decryption_time": 0.005200862884521484,
+      "ciphertext_size": {
+        "weights_size": 295723,
+        "bias_size": 296403,
+        "total_size": 592126
+      },
+      "is_encrypted": true
+    }
+  },
+  "device_status": {
+    "smartwatch_status": {
+      "smartwatch_0": {
+        "device_id": "smartwatch_0",
+        "device_type": "smartwatch",
+        "battery_level": 67.86131494614895,
+        "processing_power": 1.1531901999323588,
+        "storage_capacity": 100,
+        "network_latency": 0.05
+      },
+      "smartwatch_1": {
+        "device_id": "smartwatch_1",
+        "device_type": "smartwatch",
+        "battery_level": 75.62016996306934,
+        "processing_power": 1.1473850315789882,
+        "storage_capacity": 100,
+        "network_latency": 0.05
+      },
+      "smartwatch_2": {
+        "device_id": "smartwatch_2",
+        "device_type": "smartwatch",
+        "battery_level": 70.75194251821539,
+        "processing_power": 0.925365345941468,
+        "storage_capacity": 100,
+        "network_latency": 0.05
+      },
+      "smartwatch_3": {
+        "device_id": "smartwatch_3",
+        "device_type": "smartwatch",
+        "battery_level": 70.70880792346651,
+        "processing_power": 0.807419278289763,
+        "storage_capacity": 100,
+        "network_latency": 0.05
+      }
+    },
+    "router_status": {
+      "home_router_0": {
+        "router_id": "home_router_0",
+        "fhe_capability": true,
+        "connected_devices": 2,
+        "encrypted_updates_count": 4,
+        "communication_log_count": 6,
+        "resource_usage": {
+          "cpu_usage": 95.0,
+          "memory_usage": 85.0,
+          "encryption_load": 6.0
+        },
+        "encryption_load": 6.0
+      },
+      "home_router_1": {
+        "router_id": "home_router_1",
+        "fhe_capability": true,
+        "connected_devices": 2,
+        "encrypted_updates_count": 4,
+        "communication_log_count": 6,
+        "resource_usage": {
+          "cpu_usage": 95.0,
+          "memory_usage": 85.0,
+          "encryption_load": 6.0
+        },
+        "encryption_load": 6.0
+      }
+    }
+  },
+  "detailed_results": [
+    {
+      "round": 1,
+      "smartwatch_training": {
+        "smartwatch_0": {
+          "training_time": 0.17343192823849105,
+          "sample_count": 100,
+          "battery_level": 79.86131494614895
+        },
+        "smartwatch_1": {
+          "training_time": 0.1743094031170753,
+          "sample_count": 100,
+          "battery_level": 87.62016996306934
+        },
+        "smartwatch_2": {
+          "training_time": 0.2161308513196155,
+          "sample_count": 100,
+          "battery_level": 82.75194251821539
+        },
+        "smartwatch_3": {
+          "training_time": 0.2477027801759087,
+          "sample_count": 100,
+          "battery_level": 82.70880792346651
+        }
+      },
+      "router_encryption": {
+        "home_router_0": {
+          "encryption_time": 0.004875898361206055,
+          "encryption_load": 2.0
+        },
+        "home_router_1": {
+          "encryption_time": 0.008413553237915039,
+          "encryption_load": 2.0
+        }
+      },
+      "server_aggregation": {
+        "aggregation_time": 0.06945228576660156,
+        "total_samples": 400,
+        "encrypted_updates_count": 4
+      },
+      "router_decryption": {
+        "home_router_0": {
+          "decryption_time": 0.005253791809082031,
+          "encryption_load": 3.0
+        },
+        "home_router_1": {
+          "decryption_time": 0.003174304962158203,
+          "encryption_load": 3.0
+        }
+      },
+      "smartwatch_updates": {
+        "smartwatch_0": {
+          "update_time": 0.05150151252746582,
+          "battery_level": 77.86131494614895
+        },
+        "smartwatch_1": {
+          "update_time": 0.050395965576171875,
+          "battery_level": 85.62016996306934
+        },
+        "smartwatch_2": {
+          "update_time": 0.05124402046203613,
+          "battery_level": 80.75194251821539
+        },
+        "smartwatch_3": {
+          "update_time": 0.05057024955749512,
+          "battery_level": 80.70880792346651
+        }
+      },
+      "timing": {
+        "total_time": 1.529486894607544,
+        "avg_smartwatch_training": 0.2028937407127726,
+        "avg_router_encryption": 0.0080605149269104,
+        "server_aggregation": 0.06945228576660156,
+        "avg_router_decryption": 0.004214048385620117,
+        "avg_smartwatch_update": 0.050927937030792236
+      }
+    },
+    {
+      "round": 2,
+      "smartwatch_training": {
+        "smartwatch_0": {
+          "training_time": 0.17343192823849105,
+          "sample_count": 100,
+          "battery_level": 69.86131494614895
+        },
+        "smartwatch_1": {
+          "training_time": 0.1743094031170753,
+          "sample_count": 100,
+          "battery_level": 77.62016996306934
+        },
+        "smartwatch_2": {
+          "training_time": 0.2161308513196155,
+          "sample_count": 100,
+          "battery_level": 72.75194251821539
+        },
+        "smartwatch_3": {
+          "training_time": 0.2477027801759087,
+          "sample_count": 100,
+          "battery_level": 72.70880792346651
+        }
+      },
+      "router_encryption": {
+        "home_router_0": {
+          "encryption_time": 0.0063288211822509766,
+          "encryption_load": 5.0
+        },
+        "home_router_1": {
+          "encryption_time": 0.008485078811645508,
+          "encryption_load": 5.0
+        }
+      },
+      "server_aggregation": {
+        "aggregation_time": 0.06692934036254883,
+        "total_samples": 400,
+        "encrypted_updates_count": 4
+      },
+      "router_decryption": {
+        "home_router_0": {
+          "decryption_time": 0.005324840545654297,
+          "encryption_load": 6.0
+        },
+        "home_router_1": {
+          "decryption_time": 0.005200862884521484,
+          "encryption_load": 6.0
+        }
+      },
+      "smartwatch_updates": {
+        "smartwatch_0": {
+          "update_time": 0.050977468490600586,
+          "battery_level": 67.86131494614895
+        },
+        "smartwatch_1": {
+          "update_time": 0.050646066665649414,
+          "battery_level": 75.62016996306934
+        },
+        "smartwatch_2": {
+          "update_time": 0.05049562454223633,
+          "battery_level": 70.75194251821539
+        },
+        "smartwatch_3": {
+          "update_time": 0.051370859146118164,
+          "battery_level": 70.70880792346651
+        }
+      },
+      "timing": {
+        "total_time": 1.499028205871582,
+        "avg_smartwatch_training": 0.2028937407127726,
+        "avg_router_encryption": 0.006981194019317627,
+        "server_aggregation": 0.06692934036254883,
+        "avg_router_decryption": 0.005262851715087891,
+        "avg_smartwatch_update": 0.05087250471115112
+      }
+    }
+  ]
+}

@@ -1,0 +1,419 @@
+{
+  "experiment_info": {
+    "timestamp": "2025-09-07T16:11:06.041398",
+    "total_rounds": 3,
+    "total_smartwatches": 6,
+    "total_routers": 2,
+    "feature_dimension": 11,
+    "data_source": "balanced_synthetic_data"
+  },
+  "performance_metrics": {
+    "avg_total_time_per_round": 2.812121311823527,
+    "avg_encryption_time": 0.009572519196404351,
+    "avg_aggregation_time": 0.09711360931396484,
+    "avg_decryption_time": 0.005457917849222819,
+    "fhe_performance": {
+      "encryption_time": 0.007874727249145508,
+      "decryption_time": 0.004162311553955078,
+      "ciphertext_size": {
+        "weights_size": 296388,
+        "bias_size": 296629,
+        "total_size": 593017
+      },
+      "is_encrypted": true
+    }
+  },
+  "model_performance": {
+    "final_accuracy": 0.49,
+    "best_accuracy": 0.49,
+    "final_f1_score": 0.5142857142857142,
+    "best_f1_score": 0.5142857142857142,
+    "accuracy_improvement": 0.0,
+    "f1_improvement": 0.0
+  },
+  "device_status": {
+    "smartwatch_status": {
+      "smartwatch_0": {
+        "device_id": "smartwatch_0",
+        "device_type": "smartwatch",
+        "battery_level": 56.28763416430873,
+        "processing_power": 1.091966251805031,
+        "storage_capacity": 100,
+        "network_latency": 0.05
+      },
+      "smartwatch_1": {
+        "device_id": "smartwatch_1",
+        "device_type": "smartwatch",
+        "battery_level": 68.06707225243233,
+        "processing_power": 1.1880258148080656,
+        "storage_capacity": 100,
+        "network_latency": 0.05
+      },
+      "smartwatch_2": {
+        "device_id": "smartwatch_2",
+        "device_type": "smartwatch",
+        "battery_level": 68.89899821157353,
+        "processing_power": 1.1189671635332994,
+        "storage_capacity": 100,
+        "network_latency": 0.05
+      },
+      "smartwatch_3": {
+        "device_id": "smartwatch_3",
+        "device_type": "smartwatch",
+        "battery_level": 64.65207898368593,
+        "processing_power": 1.1125840583322553,
+        "storage_capacity": 100,
+        "network_latency": 0.05
+      },
+      "smartwatch_4": {
+        "device_id": "smartwatch_4",
+        "device_type": "smartwatch",
+        "battery_level": 61.48125569278102,
+        "processing_power": 1.037910485916334,
+        "storage_capacity": 100,
+        "network_latency": 0.05
+      },
+      "smartwatch_5": {
+        "device_id": "smartwatch_5",
+        "device_type": "smartwatch",
+        "battery_level": 60.23049713708778,
+        "processing_power": 0.9306836859921531,
+        "storage_capacity": 100,
+        "network_latency": 0.05
+      }
+    },
+    "router_status": {
+      "home_router_0": {
+        "router_id": "home_router_0",
+        "fhe_capability": true,
+        "connected_devices": 3,
+        "encrypted_updates_count": 9,
+        "communication_log_count": 12,
+        "resource_usage": {
+          "cpu_usage": 95.0,
+          "memory_usage": 85.0,
+          "encryption_load": 12.0
+        },
+        "encryption_load": 12.0
+      },
+      "home_router_1": {
+        "router_id": "home_router_1",
+        "fhe_capability": true,
+        "connected_devices": 3,
+        "encrypted_updates_count": 9,
+        "communication_log_count": 12,
+        "resource_usage": {
+          "cpu_usage": 95.0,
+          "memory_usage": 85.0,
+          "encryption_load": 12.0
+        },
+        "encryption_load": 12.0
+      }
+    }
+  },
+  "detailed_results": [
+    {
+      "round": 1,
+      "smartwatch_training": {
+        "smartwatch_0": {
+          "training_time": 0.18315584357062137,
+          "sample_count": 100,
+          "battery_level": 78.28763416430873
+        },
+        "smartwatch_1": {
+          "training_time": 0.16834651024170844,
+          "sample_count": 100,
+          "battery_level": 90.06707225243233
+        },
+        "smartwatch_2": {
+          "training_time": 0.17873625475163302,
+          "sample_count": 100,
+          "battery_level": 90.89899821157353
+        },
+        "smartwatch_3": {
+          "training_time": 0.17976169845521303,
+          "sample_count": 100,
+          "battery_level": 86.65207898368593
+        },
+        "smartwatch_4": {
+          "training_time": 0.19269484480005727,
+          "sample_count": 100,
+          "battery_level": 83.48125569278102
+        },
+        "smartwatch_5": {
+          "training_time": 0.2148957836160956,
+          "sample_count": 100,
+          "battery_level": 82.23049713708778
+        }
+      },
+      "router_encryption": {
+        "home_router_0": {
+          "encryption_time": 0.01022958755493164,
+          "encryption_load": 3.0
+        },
+        "home_router_1": {
+          "encryption_time": 0.011395692825317383,
+          "encryption_load": 3.0
+        }
+      },
+      "server_aggregation": {
+        "aggregation_time": 0.10286450386047363,
+        "total_samples": 600,
+        "encrypted_updates_count": 6
+      },
+      "router_decryption": {
+        "home_router_0": {
+          "decryption_time": 0.006998777389526367,
+          "encryption_load": 4.0
+        },
+        "home_router_1": {
+          "decryption_time": 0.006003141403198242,
+          "encryption_load": 4.0
+        }
+      },
+      "smartwatch_updates": {
+        "smartwatch_0": {
+          "update_time": 0.051036834716796875,
+          "battery_level": 76.28763416430873
+        },
+        "smartwatch_1": {
+          "update_time": 0.05060744285583496,
+          "battery_level": 88.06707225243233
+        },
+        "smartwatch_2": {
+          "update_time": 0.050714731216430664,
+          "battery_level": 88.89899821157353
+        },
+        "smartwatch_3": {
+          "update_time": 0.050286293029785156,
+          "battery_level": 84.65207898368593
+        },
+        "smartwatch_4": {
+          "update_time": 0.050789833068847656,
+          "battery_level": 81.48125569278102
+        },
+        "smartwatch_5": {
+          "update_time": 0.05035138130187988,
+          "battery_level": 80.23049713708778
+        }
+      },
+      "performance_metrics": {
+        "accuracy": 0.49,
+        "f1_score": 0.5142857142857142,
+        "precision": 0.4909090909090909,
+        "recall": 0.54,
+        "test_samples": 100
+      },
+      "timing": {
+        "total_time": 2.9075746536254883,
+        "avg_smartwatch_training": 0.1862651559058881,
+        "avg_router_encryption": 0.0103759765625,
+        "server_aggregation": 0.10286450386047363,
+        "avg_router_decryption": 0.006500959396362305,
+        "avg_smartwatch_update": 0.050631086031595864
+      }
+    },
+    {
+      "round": 2,
+      "smartwatch_training": {
+        "smartwatch_0": {
+          "training_time": 0.18315584357062137,
+          "sample_count": 100,
+          "battery_level": 68.28763416430873
+        },
+        "smartwatch_1": {
+          "training_time": 0.16834651024170844,
+          "sample_count": 100,
+          "battery_level": 80.06707225243233
+        },
+        "smartwatch_2": {
+          "training_time": 0.17873625475163302,
+          "sample_count": 100,
+          "battery_level": 80.89899821157353
+        },
+        "smartwatch_3": {
+          "training_time": 0.17976169845521303,
+          "sample_count": 100,
+          "battery_level": 76.65207898368593
+        },
+        "smartwatch_4": {
+          "training_time": 0.19269484480005727,
+          "sample_count": 100,
+          "battery_level": 73.48125569278102
+        },
+        "smartwatch_5": {
+          "training_time": 0.2148957836160956,
+          "sample_count": 100,
+          "battery_level": 72.23049713708778
+        }
+      },
+      "router_encryption": {
+        "home_router_0": {
+          "encryption_time": 0.007350444793701172,
+          "encryption_load": 7.0
+        },
+        "home_router_1": {
+          "encryption_time": 0.006711006164550781,
+          "encryption_load": 7.0
+        }
+      },
+      "server_aggregation": {
+        "aggregation_time": 0.08664703369140625,
+        "total_samples": 600,
+        "encrypted_updates_count": 6
+      },
+      "router_decryption": {
+        "home_router_0": {
+          "decryption_time": 0.007236480712890625,
+          "encryption_load": 8.0
+        },
+        "home_router_1": {
+          "decryption_time": 0.00611114501953125,
+          "encryption_load": 8.0
+        }
+      },
+      "smartwatch_updates": {
+        "smartwatch_0": {
+          "update_time": 0.05161118507385254,
+          "battery_level": 66.28763416430873
+        },
+        "smartwatch_1": {
+          "update_time": 0.05152487754821777,
+          "battery_level": 78.06707225243233
+        },
+        "smartwatch_2": {
+          "update_time": 0.051087141036987305,
+          "battery_level": 78.89899821157353
+        },
+        "smartwatch_3": {
+          "update_time": 0.051200151443481445,
+          "battery_level": 74.65207898368593
+        },
+        "smartwatch_4": {
+          "update_time": 0.050241708755493164,
+          "battery_level": 71.48125569278102
+        },
+        "smartwatch_5": {
+          "update_time": 0.05072760581970215,
+          "battery_level": 70.23049713708778
+        }
+      },
+      "performance_metrics": {
+        "accuracy": 0.49,
+        "f1_score": 0.5142857142857142,
+        "precision": 0.4909090909090909,
+        "recall": 0.54,
+        "test_samples": 100
+      },
+      "timing": {
+        "total_time": 2.800826072692871,
+        "avg_smartwatch_training": 0.1862651559058881,
+        "avg_router_encryption": 0.009276866912841797,
+        "server_aggregation": 0.08664703369140625,
+        "avg_router_decryption": 0.0066738128662109375,
+        "avg_smartwatch_update": 0.05106544494628906
+      }
+    },
+    {
+      "round": 3,
+      "smartwatch_training": {
+        "smartwatch_0": {
+          "training_time": 0.18315584357062137,
+          "sample_count": 100,
+          "battery_level": 58.28763416430873
+        },
+        "smartwatch_1": {
+          "training_time": 0.16834651024170844,
+          "sample_count": 100,
+          "battery_level": 70.06707225243233
+        },
+        "smartwatch_2": {
+          "training_time": 0.17873625475163302,
+          "sample_count": 100,
+          "battery_level": 70.89899821157353
+        },
+        "smartwatch_3": {
+          "training_time": 0.17976169845521303,
+          "sample_count": 100,
+          "battery_level": 66.65207898368593
+        },
+        "smartwatch_4": {
+          "training_time": 0.19269484480005727,
+          "sample_count": 100,
+          "battery_level": 63.48125569278102
+        },
+        "smartwatch_5": {
+          "training_time": 0.2148957836160956,
+          "sample_count": 100,
+          "battery_level": 62.23049713708778
+        }
+      },
+      "router_encryption": {
+        "home_router_0": {
+          "encryption_time": 0.008997201919555664,
+          "encryption_load": 11.0
+        },
+        "home_router_1": {
+          "encryption_time": 0.009355306625366211,
+          "encryption_load": 11.0
+        }
+      },
+      "server_aggregation": {
+        "aggregation_time": 0.10182929039001465,
+        "total_samples": 600,
+        "encrypted_updates_count": 6
+      },
+      "router_decryption": {
+        "home_router_0": {
+          "decryption_time": 0.0022356510162353516,
+          "encryption_load": 12.0
+        },
+        "home_router_1": {
+          "decryption_time": 0.004162311553955078,
+          "encryption_load": 12.0
+        }
+      },
+      "smartwatch_updates": {
+        "smartwatch_0": {
+          "update_time": 0.05041217803955078,
+          "battery_level": 56.28763416430873
+        },
+        "smartwatch_1": {
+          "update_time": 0.05154299736022949,
+          "battery_level": 68.06707225243233
+        },
+        "smartwatch_2": {
+          "update_time": 0.050444602966308594,
+          "battery_level": 68.89899821157353
+        },
+        "smartwatch_3": {
+          "update_time": 0.05044436454772949,
+          "battery_level": 64.65207898368593
+        },
+        "smartwatch_4": {
+          "update_time": 0.050570011138916016,
+          "battery_level": 61.48125569278102
+        },
+        "smartwatch_5": {
+          "update_time": 0.05064988136291504,
+          "battery_level": 60.23049713708778
+        }
+      },
+      "performance_metrics": {
+        "accuracy": 0.49,
+        "f1_score": 0.5142857142857142,
+        "precision": 0.4909090909090909,
+        "recall": 0.54,
+        "test_samples": 100
+      },
+      "timing": {
+        "total_time": 2.7279632091522217,
+        "avg_smartwatch_training": 0.1862651559058881,
+        "avg_router_encryption": 0.009064714113871256,
+        "server_aggregation": 0.10182929039001465,
+        "avg_router_decryption": 0.003198981285095215,
+        "avg_smartwatch_update": 0.05067733923594157
+      }
+    }
+  ]
+}
