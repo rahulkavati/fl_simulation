@@ -1,6 +1,20 @@
 """
-Utilities Module
-Common utilities and helper functions
+Utilities Module for Federated Learning
+
+This module provides common utilities and helper functions for the federated learning pipeline:
+- Directory creation and management
+- Results saving and formatting
+- Final summary printing
+- Performance metrics calculation
+
+Key Functions:
+1. create_directories: Create necessary directories
+2. save_encrypted_round_data: Save encrypted round data
+3. save_final_results: Save final results and summary
+4. print_final_summary: Print comprehensive final summary
+
+Author: AI Assistant
+Date: 2025
 """
 
 import os
@@ -9,15 +23,37 @@ import time
 from typing import Dict, List, Any
 from pathlib import Path
 
+
 def create_directories(directories: List[str]):
-    """Create necessary directories for the pipeline"""
+    """
+    Create necessary directories for the pipeline
+    
+    Args:
+        directories: List of directory paths to create
+    """
     for directory in directories:
         os.makedirs(directory, exist_ok=True)
+
 
 def save_encrypted_round_data(round_id: int, encrypted_updates: List, 
                              sample_counts: List[int], metrics: Dict[str, float],
                              global_model, output_dir: str = "updates"):
-    """Save encrypted round data"""
+    """
+    Save encrypted round data for analysis and debugging
+    
+    This function saves:
+    - Encrypted client updates
+    - Encrypted global model state
+    - Round metrics and performance data
+    
+    Args:
+        round_id: Current round number
+        encrypted_updates: List of encrypted client updates
+        sample_counts: List of sample counts for each client
+        metrics: Performance metrics for the round
+        global_model: Encrypted global model
+        output_dir: Directory to save data
+    """
     # Save encrypted updates
     for client_id, encrypted_update in enumerate(encrypted_updates):
         update_data = {
@@ -55,10 +91,24 @@ def save_encrypted_round_data(round_id: int, encrypted_updates: List,
     with open(filename, 'w') as f:
         json.dump(metrics, f, indent=2)
 
+
 def save_final_results(round_results: List[Dict[str, Any]], 
                       clients_data: Dict[str, Any], 
                       output_dir: str = "results"):
-    """Save final results"""
+    """
+    Save final results and summary
+    
+    This function saves comprehensive results including:
+    - Complete round-by-round results
+    - Final summary with aggregated metrics
+    - Performance statistics
+    - Encryption status and timing
+    
+    Args:
+        round_results: List of results from all rounds
+        clients_data: Dictionary of client datasets
+        output_dir: Directory to save results
+    """
     print(f"\n{'='*70}")
     print("STEP 4: Save ENCRYPTED Results")
     print(f"{'='*70}")
@@ -91,25 +141,47 @@ def save_final_results(round_results: List[Dict[str, Any]],
     print(f"Complete ENCRYPTED results saved to {results_path}")
     print(f"ENCRYPTED summary saved to {summary_path}")
 
+
 def print_final_summary(round_results: List[Dict[str, Any]], clients_data: Dict[str, Any]):
-    """Print final summary"""
+    """
+    Print comprehensive final summary
+    
+    This function prints a detailed summary including:
+    - Performance metrics (Accuracy, F1-Score, Precision, Recall, AUC, MAE, RMSE)
+    - Timing performance (Encryption, Aggregation, Total times)
+    - FHE implementation status
+    - Privacy benefits and compliance
+    - Components executed
+    
+    Args:
+        round_results: List of results from all rounds
+        clients_data: Dictionary of client datasets
+    """
     print(f"\n{'='*70}")
     print("FHE PIPELINE EXECUTION SUMMARY")
     print(f"{'='*70}")
     
+    # Print basic statistics
     print(f"Total Rounds: {len(round_results)}")
     print(f"Total Clients: {len(clients_data)}")
+    
+    # Print performance metrics
     print(f"Final Accuracy: {round_results[-1]['accuracy']:.4f} ({round_results[-1]['accuracy']*100:.2f}%)")
     print(f"Final F1 Score: {round_results[-1]['f1_score']:.4f} ({round_results[-1]['f1_score']*100:.2f}%)")
     print(f"Final Precision: {round_results[-1]['precision']:.4f} ({round_results[-1]['precision']*100:.2f}%)")
     print(f"Final Recall: {round_results[-1]['recall']:.4f} ({round_results[-1]['recall']*100:.2f}%)")
+    print(f"Final AUC Score: {round_results[-1]['auc']:.4f} ({round_results[-1]['auc']*100:.2f}%)")
+    print(f"Final MAE: {round_results[-1]['mae']:.4f}")
+    print(f"Final RMSE: {round_results[-1]['rmse']:.4f}")
     
+    # Print timing performance
     print(f"\nTiming Performance:")
     print(f"  Average Encryption Time: {sum(r['encryption_time'] for r in round_results)/len(round_results):.4f}s")
     print(f"  Average Aggregation Time: {sum(r['aggregation_time'] for r in round_results)/len(round_results):.4f}s")
     print(f"  Average Decryption Time: 0.0000s (NO DECRYPTION)")
     print(f"  Average Total Time: {sum(r['total_time'] for r in round_results)/len(round_results):.4f}s")
     
+    # Print FHE implementation status
     print(f"\nCRITICAL: TRUE FHE Implementation:")
     print(f"  ✓ Global model remains ENCRYPTED throughout")
     print(f"  ✓ NO decryption during training")
@@ -117,6 +189,7 @@ def print_final_summary(round_results: List[Dict[str, Any]], clients_data: Dict[
     print(f"  ✓ Decryption ONLY for evaluation")
     print(f"  ✓ Complete privacy protection")
     
+    # Print components executed
     print(f"\nComponents Executed:")
     print(f"  ✓ Federated Learning with Health Fitness Data")
     print(f"  ✓ TRUE FHE CKKS Encryption")
@@ -125,6 +198,7 @@ def print_final_summary(round_results: List[Dict[str, Any]], clients_data: Dict[
     print(f"  ✓ Performance Metrics Analysis")
     print(f"  ✓ Complete Pipeline in Single File")
     
+    # Print privacy benefits
     print(f"\nPrivacy Benefits:")
     print(f"  ✓ Data never leaves clients in plaintext")
     print(f"  ✓ Server cannot see individual updates")
