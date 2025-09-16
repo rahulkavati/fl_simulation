@@ -209,7 +209,7 @@ class FHEEncryption:
             )
             self.context.generate_galois_keys()
             self.context.global_scale = 2**config.scale_bits
-            print("✅ Real FHE CKKS context initialized")
+            print("Real FHE CKKS context initialized")
         else:
             print("⚠️  TenSEAL not available - using simulation mode")
     

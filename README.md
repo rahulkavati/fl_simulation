@@ -21,8 +21,19 @@ pip install -r requirements.txt
 
 ### Run Federated Learning
 
+#### FHE Encrypted Pipeline
 ```bash
-python federated_learning_pipeline.py --rounds 10 --clients 20
+python run_fhe_fl.py --rounds 10 --clients 20
+```
+
+#### Plaintext Pipeline
+```bash
+python run_plaintext_fl.py --rounds 10 --clients 20
+```
+
+#### Compare Both Pipelines
+```bash
+python compare_fl_pipelines.py --rounds 10 --clients 20
 ```
 
 ### Command Line Options
@@ -30,6 +41,7 @@ python federated_learning_pipeline.py --rounds 10 --clients 20
 - `--rounds`: Number of federated learning rounds (default: 10)
 - `--clients`: Number of clients to simulate (default: 10)
 - `--patience`: Patience for convergence detection (default: 999 = disabled)
+- `--verbose`: Enable verbose output
 
 ## 📊 Example Output
 
@@ -65,18 +77,30 @@ Final Results:
 
 ### Core Components
 
-- **`federated_learning_pipeline.py`**: Main pipeline with true end-to-end encryption
+- **`federated_learning_pipeline.py`**: Main FHE pipeline with true end-to-end encryption
+- **`plaintext_federated_learning_pipeline.py`**: Plaintext pipeline for comparison
+- **`run_fhe_fl.py`**: Command-line interface for FHE pipeline
+- **`run_plaintext_fl.py`**: Command-line interface for plaintext pipeline
+- **`compare_fl_pipelines.py`**: Comparison script for both pipelines
 - **`src/encryption/`**: FHE CKKS implementation using TenSEAL
+- **`src/plaintext/`**: Plaintext aggregation implementation
 - **`src/fl/`**: Federated learning core functionality
 - **`src/utils/`**: Utilities including client statistics logging
 
 ### Data Flow
 
+#### FHE Pipeline
 1. **Client Training**: Local models trained on client data with one-class handling
 2. **Encryption**: Model updates encrypted using FHE CKKS
 3. **Aggregation**: Server aggregates encrypted updates (no decryption)
 4. **Global Update**: Global model updated with encrypted data
 5. **Evaluation**: Model decrypted only for performance evaluation
+
+#### Plaintext Pipeline
+1. **Client Training**: Local models trained on client data with one-class handling
+2. **Aggregation**: Server aggregates plaintext updates
+3. **Global Update**: Global model updated with plaintext data
+4. **Evaluation**: Model evaluated directly
 
 ## 🔒 Privacy Protection
 
@@ -108,12 +132,25 @@ Final Results:
 ## 📁 Project Structure
 
 ```
-federated_learning_pipeline.py    # Main pipeline
+federated_learning_pipeline.py              # Main FHE pipeline
+plaintext_federated_learning_pipeline.py     # Plaintext pipeline
+run_fhe_fl.py                               # FHE CLI interface
+run_plaintext_fl.py                         # Plaintext CLI interface
+compare_fl_pipelines.py                     # Comparison script
 src/
-├── encryption/__init__.py        # FHE CKKS implementation
-├── fl/__init__.py                 # FL core functionality
+├── encryption/__init__.py                  # FHE CKKS implementation
+├── plaintext/__init__.py                   # Plaintext aggregation
+├── fl/__init__.py                          # FL core functionality
 └── utils/
-    ├── __init__.py               # Utilities
+    ├── __init__.py                         # Utilities
+    └── client_statistics.py                # Client statistics logging
+data/
+├── health_fitness_data.csv                # Health fitness dataset
+└── clients/                                # Client data files
+performance_results/                        # Results and charts
+requirements.txt                            # Dependencies
+README.md                                   # This file
+```
     └── client_statistics.py      # Client statistics logging
 data/
 ├── health_fitness_data.csv       # Health fitness dataset

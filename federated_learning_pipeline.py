@@ -40,7 +40,9 @@ warnings.filterwarnings('ignore')
 # Import our custom modules
 from src.encryption import FHEConfig, EncryptedModel, EncryptionManager
 from src.fl import FLConfig, DataProcessor, ModelEvaluator
-from src.utils import print_final_summary
+from src.utils import (
+    print_final_summary, calculate_enhanced_metrics, create_subject_disjoint_splits
+)
 
 # Constants
 DEFAULT_ROUNDS = 10
@@ -626,6 +628,7 @@ class EnhancedFederatedLearningPipeline:
         print(f"Enhanced initialization data: {enhanced_init_data.shape}, classes: {np.unique(enhanced_init_data[:, -1])}")
         
         # Initialize encrypted model with random weights
+        np.random.seed(42)  # Ensure reproducible initialization
         initial_weights = np.random.normal(0, 0.1, len(feature_columns))
         initial_bias = 0.0
         
@@ -719,10 +722,16 @@ class EnhancedFederatedLearningPipeline:
             eval_model.intercept_ = np.array([decrypted_bias])
             eval_model.classes_ = np.array([0, 1])
             
-            # Evaluate on test data
+            # Evaluate on test data using enhanced metrics
             test_data = self._create_test_data()
             X_test, y_test = test_data['X'], test_data['y']
-            metrics = self.model_evaluator.evaluate_model(eval_model, X_test, y_test)
+            
+            # Get predictions and probabilities
+            y_pred = eval_model.predict(X_test)
+            y_pred_proba = eval_model.predict_proba(X_test)[:, 1]
+            
+            # Calculate enhanced metrics
+            metrics = calculate_enhanced_metrics(y_test, y_pred, y_pred_proba)
             
             # Re-encrypt the model after evaluation
             self.encryption_manager.re_encrypt_after_evaluation(
@@ -750,6 +759,9 @@ class EnhancedFederatedLearningPipeline:
                 'precision': metrics['precision'],
                 'recall': metrics['recall'],
                 'auc': metrics['auc'],
+                'pr_auc': metrics['pr_auc'],
+                'ece': metrics['ece'],
+                'mce': metrics['mce'],
                 'mae': metrics['mae'],
                 'rmse': metrics['rmse'],
                 'encryption_time': encryption_time,
@@ -904,14 +916,18 @@ def main():
         # Create and run enhanced pipeline
         pipeline = EnhancedFederatedLearningPipeline(fl_config, fhe_config)
         pipeline.patience = args.patience  # Set patience from command line
+        print("DEBUG: About to run federated learning")
         round_results = pipeline.run_enhanced_federated_learning()
+        print("DEBUG: Federated learning completed")
         
         # Prepare directory and timestamp for single-file output
         os.makedirs('performance_results', exist_ok=True)
         _ts = time.strftime('%Y%m%d_%H%M%S')
 
         # Print final summary
+        print("DEBUG: About to call print_final_summary")
         print_final_summary(round_results, pipeline.clients_data)
+        print("DEBUG: print_final_summary completed")
         
         total_time = time.time() - start_time
         print(f"\nTotal Pipeline Time: {total_time:.2f}s")
