@@ -96,7 +96,7 @@ Examples:
         )
         
         # Create and run pipeline
-        pipeline = PlaintextFederatedLearningPipeline(fl_config, plaintext_config)
+        pipeline = PlaintextFederatedLearningPipeline(fl_config, plaintext_config, patience=args.patience)
         results = pipeline.run_plaintext_federated_learning()
         
         # Generate structured summary

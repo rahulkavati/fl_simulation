@@ -231,7 +231,7 @@ class PlaintextFederatedLearningPipeline:
     - Fast execution without encryption overhead
     """
     
-    def __init__(self, fl_config: FLConfig, plaintext_config: PlaintextConfig):
+    def __init__(self, fl_config: FLConfig, plaintext_config: PlaintextConfig, patience: int = 999):
         """
         Initialize the plaintext federated learning pipeline
         
@@ -254,7 +254,8 @@ class PlaintextFederatedLearningPipeline:
         self.performance_history = []
         self.best_accuracy = 0.0
         self.convergence_threshold = 0.001  # 0.1% improvement threshold
-        self.patience = 999  # Disabled - run all rounds as requested
+        self.patience = patience  # Controlled via CLI; 999 disables early stop
+        self._no_improve_rounds = 0
         
         # One-class handling parameters
         self.l2_regularization = 1e-3      # L2 regularization strength
@@ -677,11 +678,15 @@ class PlaintextFederatedLearningPipeline:
             print(f"  Total: {round_result['total_time']:.4f}s")
             print()
             
-            # Check for convergence
-            if len(self.performance_history) > 1:
+            # Optional early stopping if patience is set lower than 999
+            if self.patience < 999 and len(self.performance_history) > 1:
                 improvement = metrics['accuracy'] - self.performance_history[-2]['accuracy']
                 if improvement < self.convergence_threshold:
-                    print(f"✅ Convergence detected (improvement: {improvement:.6f})")
+                    self._no_improve_rounds += 1
+                else:
+                    self._no_improve_rounds = 0
+                if self._no_improve_rounds >= self.patience:
+                    print(f"✅ Early stopping: no significant improvement for {self.patience} rounds")
                     break
         
         print("=" * 60)
