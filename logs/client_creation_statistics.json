@@ -1,14 +1,14 @@
 {
-  "total_clients": 30,
-  "one_class_clients": 8,
+  "total_clients": 60,
+  "one_class_clients": 17,
   "excluded_clients": 0,
   "insufficient_data_clients": 0,
   "class_distributions": {
-    "class_0": 3324,
-    "class_1": 2676
+    "class_0": 6219,
+    "class_1": 5781
   },
   "one_class_strategies": {
-    "combined": 8
+    "combined": 17
   },
   "round_statistics": [],
   "client_details": {
@@ -20,7 +20,7 @@
       },
       "is_one_class": false,
       "strategy_used": null,
-      "created_at": "2025-09-19T11:12:00.887761"
+      "created_at": "2025-09-19T11:42:11.427230"
     },
     "client_1": {
       "sample_count": 200,
@@ -29,7 +29,7 @@
       },
       "is_one_class": true,
       "strategy_used": "combined",
-      "created_at": "2025-09-19T11:12:00.907872"
+      "created_at": "2025-09-19T11:42:11.443056"
     },
     "client_2": {
       "sample_count": 200,
@@ -39,7 +39,7 @@
       },
       "is_one_class": false,
       "strategy_used": null,
-      "created_at": "2025-09-19T11:12:00.920178"
+      "created_at": "2025-09-19T11:42:11.462024"
     },
     "client_3": {
       "sample_count": 200,
@@ -49,7 +49,7 @@
       },
       "is_one_class": false,
       "strategy_used": null,
-      "created_at": "2025-09-19T11:12:00.939646"
+      "created_at": "2025-09-19T11:42:11.477481"
     },
     "client_4": {
       "sample_count": 200,
@@ -59,7 +59,7 @@
       },
       "is_one_class": false,
       "strategy_used": null,
-      "created_at": "2025-09-19T11:12:00.958050"
+      "created_at": "2025-09-19T11:42:11.488736"
     },
     "client_5": {
       "sample_count": 200,
@@ -69,7 +69,7 @@
       },
       "is_one_class": false,
       "strategy_used": null,
-      "created_at": "2025-09-19T11:12:00.971281"
+      "created_at": "2025-09-19T11:42:11.504871"
     },
     "client_6": {
       "sample_count": 200,
@@ -79,7 +79,7 @@
       },
       "is_one_class": false,
       "strategy_used": null,
-      "created_at": "2025-09-19T11:12:01.000281"
+      "created_at": "2025-09-19T11:42:11.522002"
     },
     "client_7": {
       "sample_count": 200,
@@ -89,7 +89,7 @@
       },
       "is_one_class": false,
       "strategy_used": null,
-      "created_at": "2025-09-19T11:12:01.025468"
+      "created_at": "2025-09-19T11:42:11.539155"
     },
     "client_8": {
       "sample_count": 200,
@@ -99,7 +99,7 @@
       },
       "is_one_class": false,
       "strategy_used": null,
-      "created_at": "2025-09-19T11:12:01.048538"
+      "created_at": "2025-09-19T11:42:11.554781"
     },
     "client_9": {
       "sample_count": 200,
@@ -109,7 +109,7 @@
       },
       "is_one_class": false,
       "strategy_used": null,
-      "created_at": "2025-09-19T11:12:01.067817"
+      "created_at": "2025-09-19T11:42:11.568115"
     },
     "client_10": {
       "sample_count": 200,
@@ -119,7 +119,7 @@
       },
       "is_one_class": false,
       "strategy_used": null,
-      "created_at": "2025-09-19T11:12:01.083377"
+      "created_at": "2025-09-19T11:42:11.582922"
     },
     "client_11": {
       "sample_count": 200,
@@ -128,7 +128,7 @@
       },
       "is_one_class": true,
       "strategy_used": "combined",
-      "created_at": "2025-09-19T11:12:01.102298"
+      "created_at": "2025-09-19T11:42:11.599718"
     },
     "client_12": {
       "sample_count": 200,
@@ -138,7 +138,7 @@
       },
       "is_one_class": false,
       "strategy_used": null,
-      "created_at": "2025-09-19T11:12:01.133500"
+      "created_at": "2025-09-19T11:42:11.616278"
     },
     "client_13": {
       "sample_count": 200,
@@ -148,7 +148,7 @@
       },
       "is_one_class": false,
       "strategy_used": null,
-      "created_at": "2025-09-19T11:12:01.161450"
+      "created_at": "2025-09-19T11:42:11.633330"
     },
     "client_14": {
       "sample_count": 200,
@@ -157,7 +157,7 @@
       },
       "is_one_class": true,
       "strategy_used": "combined",
-      "created_at": "2025-09-19T11:12:01.183438"
+      "created_at": "2025-09-19T11:42:11.648723"
     },
     "client_15": {
       "sample_count": 200,
@@ -167,7 +167,7 @@
       },
       "is_one_class": false,
       "strategy_used": null,
-      "created_at": "2025-09-19T11:12:01.201587"
+      "created_at": "2025-09-19T11:42:11.665334"
     },
     "client_16": {
       "sample_count": 200,
@@ -177,7 +177,7 @@
       },
       "is_one_class": false,
       "strategy_used": null,
-      "created_at": "2025-09-19T11:12:01.226645"
+      "created_at": "2025-09-19T11:42:11.681552"
     },
     "client_17": {
       "sample_count": 200,
@@ -186,7 +186,7 @@
       },
       "is_one_class": true,
       "strategy_used": "combined",
-      "created_at": "2025-09-19T11:12:01.250294"
+      "created_at": "2025-09-19T11:42:11.696251"
     },
     "client_18": {
       "sample_count": 200,
@@ -196,7 +196,7 @@
       },
       "is_one_class": false,
       "strategy_used": null,
-      "created_at": "2025-09-19T11:12:01.267841"
+      "created_at": "2025-09-19T11:42:11.710243"
     },
     "client_19": {
       "sample_count": 200,
@@ -206,7 +206,7 @@
       },
       "is_one_class": false,
       "strategy_used": null,
-      "created_at": "2025-09-19T11:12:01.280340"
+      "created_at": "2025-09-19T11:42:11.724771"
     },
     "client_20": {
       "sample_count": 200,
@@ -216,7 +216,7 @@
       },
       "is_one_class": false,
       "strategy_used": null,
-      "created_at": "2025-09-19T11:12:01.298402"
+      "created_at": "2025-09-19T11:42:11.734144"
     },
     "client_21": {
       "sample_count": 200,
@@ -226,7 +226,7 @@
       },
       "is_one_class": false,
       "strategy_used": null,
-      "created_at": "2025-09-19T11:12:01.316184"
+      "created_at": "2025-09-19T11:42:11.749426"
     },
     "client_22": {
       "sample_count": 200,
@@ -235,7 +235,7 @@
       },
       "is_one_class": true,
       "strategy_used": "combined",
-      "created_at": "2025-09-19T11:12:01.333923"
+      "created_at": "2025-09-19T11:42:11.765393"
     },
     "client_23": {
       "sample_count": 200,
@@ -244,7 +244,7 @@
       },
       "is_one_class": true,
       "strategy_used": "combined",
-      "created_at": "2025-09-19T11:12:01.372967"
+      "created_at": "2025-09-19T11:42:11.782218"
     },
     "client_24": {
       "sample_count": 200,
@@ -254,7 +254,7 @@
       },
       "is_one_class": false,
       "strategy_used": null,
-      "created_at": "2025-09-19T11:12:01.393890"
+      "created_at": "2025-09-19T11:42:11.797063"
     },
     "client_25": {
       "sample_count": 200,
@@ -263,7 +263,7 @@
       },
       "is_one_class": true,
       "strategy_used": "combined",
-      "created_at": "2025-09-19T11:12:01.407042"
+      "created_at": "2025-09-19T11:42:11.810892"
     },
     "client_26": {
       "sample_count": 200,
@@ -273,7 +273,7 @@
       },
       "is_one_class": false,
       "strategy_used": null,
-      "created_at": "2025-09-19T11:12:01.418803"
+      "created_at": "2025-09-19T11:42:11.828452"
     },
     "client_27": {
       "sample_count": 200,
@@ -282,7 +282,7 @@
       },
       "is_one_class": true,
       "strategy_used": "combined",
-      "created_at": "2025-09-19T11:12:01.434980"
+      "created_at": "2025-09-19T11:42:11.842196"
     },
     "client_28": {
       "sample_count": 200,
@@ -292,7 +292,7 @@
       },
       "is_one_class": false,
       "strategy_used": null,
-      "created_at": "2025-09-19T11:12:01.452486"
+      "created_at": "2025-09-19T11:42:11.858524"
     },
     "client_29": {
       "sample_count": 200,
@@ -302,8 +302,299 @@
       },
       "is_one_class": false,
       "strategy_used": null,
-      "created_at": "2025-09-19T11:12:01.469961"
+      "created_at": "2025-09-19T11:42:11.873009"
+    },
+    "client_30": {
+      "sample_count": 200,
+      "class_distribution": {
+        "0": 200
+      },
+      "is_one_class": true,
+      "strategy_used": "combined",
+      "created_at": "2025-09-19T11:42:11.886800"
+    },
+    "client_31": {
+      "sample_count": 200,
+      "class_distribution": {
+        "0": 142,
+        "1": 58
+      },
+      "is_one_class": false,
+      "strategy_used": null,
+      "created_at": "2025-09-19T11:42:11.903004"
+    },
+    "client_32": {
+      "sample_count": 200,
+      "class_distribution": {
+        "0": 45,
+        "1": 155
+      },
+      "is_one_class": false,
+      "strategy_used": null,
+      "created_at": "2025-09-19T11:42:11.915823"
+    },
+    "client_33": {
+      "sample_count": 200,
+      "class_distribution": {
+        "0": 175,
+        "1": 25
+      },
+      "is_one_class": false,
+      "strategy_used": null,
+      "created_at": "2025-09-19T11:42:11.932625"
+    },
+    "client_34": {
+      "sample_count": 200,
+      "class_distribution": {
+        "1": 200
+      },
+      "is_one_class": true,
+      "strategy_used": "combined",
+      "created_at": "2025-09-19T11:42:11.949231"
+    },
+    "client_35": {
+      "sample_count": 200,
+      "class_distribution": {
+        "0": 40,
+        "1": 160
+      },
+      "is_one_class": false,
+      "strategy_used": null,
+      "created_at": "2025-09-19T11:42:11.964705"
+    },
+    "client_36": {
+      "sample_count": 200,
+      "class_distribution": {
+        "0": 199,
+        "1": 1
+      },
+      "is_one_class": false,
+      "strategy_used": null,
+      "created_at": "2025-09-19T11:42:11.976141"
+    },
+    "client_37": {
+      "sample_count": 200,
+      "class_distribution": {
+        "0": 195,
+        "1": 5
+      },
+      "is_one_class": false,
+      "strategy_used": null,
+      "created_at": "2025-09-19T11:42:11.987467"
+    },
+    "client_38": {
+      "sample_count": 200,
+      "class_distribution": {
+        "0": 29,
+        "1": 171
+      },
+      "is_one_class": false,
+      "strategy_used": null,
+      "created_at": "2025-09-19T11:42:12.003996"
+    },
+    "client_39": {
+      "sample_count": 200,
+      "class_distribution": {
+        "0": 161,
+        "1": 39
+      },
+      "is_one_class": false,
+      "strategy_used": null,
+      "created_at": "2025-09-19T11:42:12.020604"
+    },
+    "client_40": {
+      "sample_count": 200,
+      "class_distribution": {
+        "0": 199,
+        "1": 1
+      },
+      "is_one_class": false,
+      "strategy_used": null,
+      "created_at": "2025-09-19T11:42:12.036158"
+    },
+    "client_41": {
+      "sample_count": 200,
+      "class_distribution": {
+        "0": 91,
+        "1": 109
+      },
+      "is_one_class": false,
+      "strategy_used": null,
+      "created_at": "2025-09-19T11:42:12.070313"
+    },
+    "client_42": {
+      "sample_count": 200,
+      "class_distribution": {
+        "0": 200
+      },
+      "is_one_class": true,
+      "strategy_used": "combined",
+      "created_at": "2025-09-19T11:42:12.085651"
+    },
+    "client_43": {
+      "sample_count": 200,
+      "class_distribution": {
+        "0": 172,
+        "1": 28
+      },
+      "is_one_class": false,
+      "strategy_used": null,
+      "created_at": "2025-09-19T11:42:12.103479"
+    },
+    "client_44": {
+      "sample_count": 200,
+      "class_distribution": {
+        "0": 1,
+        "1": 199
+      },
+      "is_one_class": false,
+      "strategy_used": null,
+      "created_at": "2025-09-19T11:42:12.121419"
+    },
+    "client_45": {
+      "sample_count": 200,
+      "class_distribution": {
+        "0": 108,
+        "1": 92
+      },
+      "is_one_class": false,
+      "strategy_used": null,
+      "created_at": "2025-09-19T11:42:12.135430"
+    },
+    "client_46": {
+      "sample_count": 200,
+      "class_distribution": {
+        "0": 200
+      },
+      "is_one_class": true,
+      "strategy_used": "combined",
+      "created_at": "2025-09-19T11:42:12.149959"
+    },
+    "client_47": {
+      "sample_count": 200,
+      "class_distribution": {
+        "1": 200
+      },
+      "is_one_class": true,
+      "strategy_used": "combined",
+      "created_at": "2025-09-19T11:42:12.165479"
+    },
+    "client_48": {
+      "sample_count": 200,
+      "class_distribution": {
+        "0": 64,
+        "1": 136
+      },
+      "is_one_class": false,
+      "strategy_used": null,
+      "created_at": "2025-09-19T11:42:12.181936"
+    },
+    "client_49": {
+      "sample_count": 200,
+      "class_distribution": {
+        "0": 139,
+        "1": 61
+      },
+      "is_one_class": false,
+      "strategy_used": null,
+      "created_at": "2025-09-19T11:42:12.198802"
+    },
+    "client_50": {
+      "sample_count": 200,
+      "class_distribution": {
+        "0": 48,
+        "1": 152
+      },
+      "is_one_class": false,
+      "strategy_used": null,
+      "created_at": "2025-09-19T11:42:12.216626"
+    },
+    "client_51": {
+      "sample_count": 200,
+      "class_distribution": {
+        "0": 44,
+        "1": 156
+      },
+      "is_one_class": false,
+      "strategy_used": null,
+      "created_at": "2025-09-19T11:42:12.232858"
+    },
+    "client_52": {
+      "sample_count": 200,
+      "class_distribution": {
+        "1": 200
+      },
+      "is_one_class": true,
+      "strategy_used": "combined",
+      "created_at": "2025-09-19T11:42:12.251448"
+    },
+    "client_53": {
+      "sample_count": 200,
+      "class_distribution": {
+        "1": 200
+      },
+      "is_one_class": true,
+      "strategy_used": "combined",
+      "created_at": "2025-09-19T11:42:12.269986"
+    },
+    "client_54": {
+      "sample_count": 200,
+      "class_distribution": {
+        "0": 147,
+        "1": 53
+      },
+      "is_one_class": false,
+      "strategy_used": null,
+      "created_at": "2025-09-19T11:42:12.289876"
+    },
+    "client_55": {
+      "sample_count": 200,
+      "class_distribution": {
+        "0": 6,
+        "1": 194
+      },
+      "is_one_class": false,
+      "strategy_used": null,
+      "created_at": "2025-09-19T11:42:12.304297"
+    },
+    "client_56": {
+      "sample_count": 200,
+      "class_distribution": {
+        "0": 165,
+        "1": 35
+      },
+      "is_one_class": false,
+      "strategy_used": null,
+      "created_at": "2025-09-19T11:42:12.320267"
+    },
+    "client_57": {
+      "sample_count": 200,
+      "class_distribution": {
+        "1": 200
+      },
+      "is_one_class": true,
+      "strategy_used": "combined",
+      "created_at": "2025-09-19T11:42:12.335280"
+    },
+    "client_58": {
+      "sample_count": 200,
+      "class_distribution": {
+        "0": 125,
+        "1": 75
+      },
+      "is_one_class": false,
+      "strategy_used": null,
+      "created_at": "2025-09-19T11:42:12.350664"
+    },
+    "client_59": {
+      "sample_count": 200,
+      "class_distribution": {
+        "1": 200
+      },
+      "is_one_class": true,
+      "strategy_used": "combined",
+      "created_at": "2025-09-19T11:42:12.369784"
     }
   },
-  "summary_generated_at": "2025-09-19T11:12:01.484153"
+  "summary_generated_at": "2025-09-19T11:42:12.385771"
 }

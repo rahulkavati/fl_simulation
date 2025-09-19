@@ -130,24 +130,32 @@ Examples:
         total_time = time.time() - start_time
         avg_round_time = np.mean([r['round_time'] for r in round_results])
         
-        # Calculate all timing metrics
+        # Calculate all timing metrics with proper separation
         total_client_training_time = sum([r.get('client_training_time', 0) for r in round_results])
-        total_edge_encryption_time = sum([r.get('total_edge_encryption_time', 0) for r in round_results])
+        total_edge_encryption_wall_time = sum([r.get('edge_encryption_wall_time', 0) for r in round_results])
+        total_pure_encryption_time = sum([r.get('total_pure_encryption_time', 0) for r in round_results])
         total_server_aggregation_time = sum([r.get('server_aggregation_time', 0) for r in round_results])
         total_internal_aggregation_time = sum([r.get('internal_aggregation_time', 0) for r in round_results])
         total_evaluation_time = sum([r.get('evaluation_time', 0) for r in round_results])
         
+        # Calculate averages
         avg_client_training_time = total_client_training_time / len(round_results) if round_results else 0
-        avg_edge_encryption_time = total_edge_encryption_time / len(round_results) if round_results else 0
+        avg_edge_encryption_wall_time = total_edge_encryption_wall_time / len(round_results) if round_results else 0
+        avg_pure_encryption_time = total_pure_encryption_time / len(round_results) if round_results else 0
         avg_server_aggregation_time = total_server_aggregation_time / len(round_results) if round_results else 0
         avg_internal_aggregation_time = total_internal_aggregation_time / len(round_results) if round_results else 0
         avg_evaluation_time = total_evaluation_time / len(round_results) if round_results else 0
+        
+        # Calculate average encryption per client (should be constant)
+        avg_encryption_per_client = np.mean([r.get('avg_encryption_per_client', 0) for r in round_results])
         
         print(f"\nTiming Statistics:")
         print(f"  Total Time: {total_time:.2f}s")
         print(f"  Average Round Time: {avg_round_time:.2f}s")
         print(f"  Average Client Training Time: {avg_client_training_time:.4f}s")
-        print(f"  Average Edge Encryption Time: {avg_edge_encryption_time:.4f}s")
+        print(f"  Average Edge Encryption Wall Time: {avg_edge_encryption_wall_time:.4f}s")
+        print(f"  Average Pure Encryption Time: {avg_pure_encryption_time:.4f}s")
+        print(f"  Average Encryption per Client: {avg_encryption_per_client:.6f}s")
         print(f"  Average Server Aggregation Time: {avg_server_aggregation_time:.4f}s")
         print(f"  Average Internal Aggregation Time: {avg_internal_aggregation_time:.4f}s")
         print(f"  Average Evaluation Time: {avg_evaluation_time:.4f}s")
@@ -167,21 +175,26 @@ Examples:
                 'total_time': total_time,
                 'avg_round_time': avg_round_time,
                 'avg_client_training_time': avg_client_training_time,
-                'avg_edge_encryption_time': avg_edge_encryption_time,
+                'avg_edge_encryption_wall_time': avg_edge_encryption_wall_time,
+                'avg_pure_encryption_time': avg_pure_encryption_time,
+                'avg_encryption_per_client': avg_encryption_per_client,
                 'avg_server_aggregation_time': avg_server_aggregation_time,
                 'avg_internal_aggregation_time': avg_internal_aggregation_time,
                 'avg_evaluation_time': avg_evaluation_time
             },
             'timing_statistics': {
                 'total_client_training_time': total_client_training_time,
-                'total_edge_encryption_time': total_edge_encryption_time,
+                'total_edge_encryption_wall_time': total_edge_encryption_wall_time,
+                'total_pure_encryption_time': total_pure_encryption_time,
                 'total_server_aggregation_time': total_server_aggregation_time,
                 'total_internal_aggregation_time': total_internal_aggregation_time,
                 'total_evaluation_time': total_evaluation_time,
                 'total_time': total_time,
                 'avg_round_time': avg_round_time,
                 'avg_client_training_time': avg_client_training_time,
-                'avg_edge_encryption_time': avg_edge_encryption_time,
+                'avg_edge_encryption_wall_time': avg_edge_encryption_wall_time,
+                'avg_pure_encryption_time': avg_pure_encryption_time,
+                'avg_encryption_per_client': avg_encryption_per_client,
                 'avg_server_aggregation_time': avg_server_aggregation_time,
                 'avg_internal_aggregation_time': avg_internal_aggregation_time,
                 'avg_evaluation_time': avg_evaluation_time

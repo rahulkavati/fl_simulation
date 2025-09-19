@@ -470,7 +470,8 @@ class EdgeFederatedLearningCoordinator:
             print("  🔒 Phase 2: Edge Device Encryption")
             edge_encryption_start = time.time()
             edge_results = []
-            total_edge_encryption_time = 0.0
+            individual_encryption_times = []
+            
             for i, config in enumerate(edge_device_configs):
                 # CRITICAL FIX: Use shared encryption manager for context consistency
                 edge_device = EdgeDeviceProcess(config, shared_encryption_manager)
@@ -482,8 +483,12 @@ class EdgeFederatedLearningCoordinator:
                     round_num
                 )
                 edge_results.append(result)
-                total_edge_encryption_time += result.get('encryption_time', 0.0)
-            edge_encryption_time = time.time() - edge_encryption_start
+                individual_encryption_times.append(result.get('encryption_time', 0.0))
+            
+            # Calculate proper timing metrics for sequential processing
+            edge_encryption_wall_time = time.time() - edge_encryption_start
+            total_pure_encryption_time = sum(individual_encryption_times)
+            avg_encryption_per_client = np.mean(individual_encryption_times) if individual_encryption_times else 0.0
             
             # Phase 3: Cloud Server Aggregation
             print("  ☁️ Phase 3: Cloud Server Aggregation")
@@ -551,8 +556,9 @@ class EdgeFederatedLearningCoordinator:
                 'mce': metrics['mce'],
                 'round_time': round_time,
                 'client_training_time': client_training_time,
-                'edge_encryption_time': edge_encryption_time,
-                'total_edge_encryption_time': total_edge_encryption_time,
+                'edge_encryption_wall_time': edge_encryption_wall_time,
+                'total_pure_encryption_time': total_pure_encryption_time,
+                'avg_encryption_per_client': avg_encryption_per_client,
                 'server_aggregation_time': server_aggregation_time,
                 'internal_aggregation_time': internal_aggregation_time,
                 'evaluation_time': evaluation_time,
