@@ -1,0 +1,81 @@
+{
+  "timestamp": "20250918_194136",
+  "configuration": {
+    "rounds": 3,
+    "clients": 5,
+    "patience": 999
+  },
+  "round_results": [
+    {
+      "round": 1,
+      "accuracy": 0.85,
+      "f1_score": 0.8110831234256927,
+      "precision": 0.6822033898305084,
+      "recall": 1.0,
+      "auc": 0.9999816779347368,
+      "pr_auc": 0.9999618946004649,
+      "ece": 0.15461474470330067,
+      "mce": 0.855007640954317,
+      "mae": 0.15597819356743423,
+      "rmse": 0.324832791254773,
+      "encryption_time": 0.05238962173461914,
+      "aggregation_time": 0.039525508880615234,
+      "decryption_time": 0.0,
+      "total_time": 0.09191513061523438,
+      "is_encrypted": true,
+      "improvement": 0.85,
+      "best_accuracy": 0.85
+    },
+    {
+      "round": 2,
+      "accuracy": 0.804,
+      "f1_score": 0.7666666666666667,
+      "precision": 0.6216216216216216,
+      "recall": 1.0,
+      "auc": 0.9997205885047362,
+      "pr_auc": 0.9994480811333937,
+      "ece": 0.18898828171529208,
+      "mce": 0.8507289095198278,
+      "mae": 0.1890967341859613,
+      "rmse": 0.3939271276189311,
+      "encryption_time": 0.06148958206176758,
+      "aggregation_time": 0.043999433517456055,
+      "decryption_time": 0.0,
+      "total_time": 0.10548901557922363,
+      "is_encrypted": true,
+      "improvement": -0.04599999999999993,
+      "best_accuracy": 0.85
+    },
+    {
+      "round": 3,
+      "accuracy": 0.807,
+      "f1_score": 0.7694145758661888,
+      "precision": 0.625242718446602,
+      "recall": 1.0,
+      "auc": 0.9995465288847359,
+      "pr_auc": 0.9991512242248678,
+      "ece": 0.18517039139788904,
+      "mce": 0.8518216293635116,
+      "mae": 0.18527564615523923,
+      "rmse": 0.38840006840802693,
+      "encryption_time": 0.08239150047302246,
+      "aggregation_time": 0.06601524353027344,
+      "decryption_time": 0.0,
+      "total_time": 0.1484067440032959,
+      "is_encrypted": true,
+      "improvement": -0.04299999999999993,
+      "best_accuracy": 0.85
+    }
+  ],
+  "final_summary": {
+    "rounds_completed": 3,
+    "initial_accuracy": 0.85,
+    "final_accuracy": 0.807,
+    "best_accuracy": 0.85,
+    "total_improvement": 0.0,
+    "avg_encryption_time": 0.06542356808980306,
+    "avg_aggregation_time": 0.04984672864278158,
+    "avg_total_time": 0.11527029673258464,
+    "total_pipeline_time": 2.3454232215881348
+  }
+}

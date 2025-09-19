@@ -696,11 +696,17 @@ class EnhancedFederatedLearningPipeline:
                 self.encrypted_global_model, aggregated_update
             )
             
-            # Update global model reference with decrypted values (only for local training)
+        # Update global model reference with decrypted values (only for local training)
             decrypted_update = np.array(aggregated_update.decrypt())
             global_weights = decrypted_update[:-1]
             global_bias = float(decrypted_update[-1])
             self.update_global_model_reference(global_weights, global_bias)
+            # Debug numeric state
+            try:
+                w_norm = float(np.linalg.norm(global_weights))
+                print(f"  🔧 Debug(Global) - Weight range: [{global_weights.min():.6f}, {global_weights.max():.6f}] L2: {w_norm:.6f}; Bias: {global_bias:.6f}")
+            except Exception:
+                pass
             
             aggregation_time = time.time() - aggregation_start
             print("  Aggregation completed - result remains ENCRYPTED")
@@ -715,6 +721,24 @@ class EnhancedFederatedLearningPipeline:
             decrypted_weights, decrypted_bias = self.encryption_manager.decrypt_for_evaluation(
                 self.encrypted_global_model
             )
+            # Debug after decrypt
+            try:
+                print(f"  🔍 Debug(Eval) - Weight L2-norm: {float(np.linalg.norm(decrypted_weights)):.6f}; Bias: {float(decrypted_bias):.6f}")
+            except Exception:
+                pass
+            # Prediction histogram for comparison
+            try:
+                tmp_model = LogisticRegression(random_state=42, max_iter=1000)
+                tmp_model.coef_ = decrypted_weights.reshape(1, -1)
+                tmp_model.intercept_ = np.array([decrypted_bias])
+                tmp_model.classes_ = np.array([0, 1])
+                test_data = self._create_test_data()
+                X_test, y_test = test_data['X'], test_data['y']
+                y_pred_tmp = tmp_model.predict(X_test)
+                unique_preds, pred_counts = np.unique(y_pred_tmp, return_counts=True)
+                print(f"  🔍 Debug(Eval) - Predictions: {dict(zip(unique_preds, map(int, pred_counts)))}")
+            except Exception:
+                pass
             
             # Create a simple logistic regression model for evaluation
             eval_model = LogisticRegression(random_state=42, max_iter=1000)

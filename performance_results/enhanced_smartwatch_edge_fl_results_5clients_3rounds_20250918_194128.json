@@ -1,0 +1,262 @@
+{
+  "timestamp": "20250918_194128",
+  "configuration": {
+    "rounds": 3,
+    "clients": 5,
+    "batch_size": 2,
+    "max_workers": 2,
+    "advanced_aggregation": {
+      "adaptive_weighting": true,
+      "momentum": true,
+      "fednova": true,
+      "client_selection": true
+    }
+  },
+  "round_results": [
+    {
+      "round": 1,
+      "accuracy": 0.322,
+      "f1_score": 0.48714069591527986,
+      "precision": 0.322,
+      "recall": 1.0,
+      "auc": 0.5,
+      "pr_auc": 0.322,
+      "ece": 0.6779999999999999,
+      "mce": 0.6779999999999999,
+      "mae": 0.678,
+      "rmse": 0.8234075540095561,
+      "smartwatch_training_time": 0.017577299964614213,
+      "edge_encryption_time": 1.4385908000404015,
+      "server_aggregation_time": 0.0058877000119537115,
+      "global_update_time": 0.0019499999471008778,
+      "evaluation_time": 0.01014749996829778,
+      "round_time": 1.484374761581421,
+      "total_time": 1.484374761581421,
+      "best_accuracy": 0.322,
+      "improvement": 0.322,
+      "clients_processed": 5,
+      "aggregation_stats": {
+        "selected_clients": 3,
+        "total_clients": 5,
+        "outlier_count": 0,
+        "adaptive_lr": 0.95,
+        "momentum_applied": true,
+        "fednova_applied": true,
+        "quality_scores": {
+          "client_0": 0.0,
+          "client_1": 0.0,
+          "client_2": 0.0,
+          "client_3": 0.0,
+          "client_4": 0.0
+        },
+        "selection_scores": {
+          "client_0": 0.3333333333333333,
+          "client_1": 0.3333333333333333,
+          "client_2": 0.3333333333333333,
+          "client_3": 0.0,
+          "client_4": 0.0
+        }
+      }
+    },
+    {
+      "round": 2,
+      "accuracy": 0.322,
+      "f1_score": 0.48714069591527986,
+      "precision": 0.322,
+      "recall": 1.0,
+      "auc": 0.5,
+      "pr_auc": 0.322,
+      "ece": 0.6779999999999999,
+      "mce": 0.6779999999999999,
+      "mae": 0.678,
+      "rmse": 0.8234075540095561,
+      "smartwatch_training_time": 0.010372600052505732,
+      "edge_encryption_time": 1.3276055000023916,
+      "server_aggregation_time": 0.021376300021074712,
+      "global_update_time": 0.006145999999716878,
+      "evaluation_time": 0.0200314000248909,
+      "round_time": 1.3903295993804932,
+      "total_time": 1.3903295993804932,
+      "best_accuracy": 0.322,
+      "improvement": 0.0,
+      "clients_processed": 5,
+      "aggregation_stats": {
+        "selected_clients": 3,
+        "total_clients": 5,
+        "outlier_count": 0,
+        "adaptive_lr": 0.9025,
+        "momentum_applied": true,
+        "fednova_applied": true,
+        "quality_scores": {
+          "client_0": 0.0,
+          "client_1": 0.0,
+          "client_2": 0.0,
+          "client_3": 0.0,
+          "client_4": 0.0
+        },
+        "selection_scores": {
+          "client_0": 0.3333333333333333,
+          "client_1": 0.3333333333333333,
+          "client_2": 0.3333333333333333,
+          "client_3": 0.0,
+          "client_4": 0.0
+        }
+      }
+    },
+    {
+      "round": 3,
+      "accuracy": 0.201,
+      "f1_score": 0.126775956284153,
+      "precision": 0.09780775716694773,
+      "recall": 0.18012422360248448,
+      "auc": 0.19228091390461538,
+      "pr_auc": 0.2795528249196975,
+      "ece": 0.5379999999996097,
+      "mce": 0.9021922428330522,
+      "mae": 0.7990000000003902,
+      "rmse": 0.8938679992034618,
+      "smartwatch_training_time": 0.028472500038333237,
+      "edge_encryption_time": 1.3703787999693304,
+      "server_aggregation_time": 0.0043880000011995435,
+      "global_update_time": 0.006994399940595031,
+      "evaluation_time": 0.01312420004978776,
+      "round_time": 1.4366788864135742,
+      "total_time": 1.4366788864135742,
+      "best_accuracy": 0.322,
+      "improvement": -0.121,
+      "clients_processed": 5,
+      "aggregation_stats": {
+        "selected_clients": 3,
+        "total_clients": 5,
+        "outlier_count": 0,
+        "adaptive_lr": 0.8573749999999999,
+        "momentum_applied": true,
+        "fednova_applied": true,
+        "quality_scores": {
+          "client_0": 0.0,
+          "client_1": 0.0,
+          "client_2": 0.0,
+          "client_3": 0.0,
+          "client_4": 0.0
+        },
+        "selection_scores": {
+          "client_0": 0.3333333333333333,
+          "client_1": 0.3333333333333333,
+          "client_2": 0.3333333333333333,
+          "client_3": 0.0,
+          "client_4": 0.0
+        }
+      }
+    }
+  ],
+  "final_statistics": {
+    "avg_accuracy": 0.2816666666666667,
+    "avg_f1_score": 0.3670191160382376,
+    "avg_precision": 0.24726925238898256,
+    "avg_recall": 0.7267080745341614,
+    "avg_auc": 0.3974269713015384,
+    "final_accuracy": 0.201,
+    "best_accuracy": 0.322,
+    "accuracy_std": 0.05703994701571484,
+    "avg_smartwatch_training_time": 0.01880746668515106,
+    "avg_edge_encryption_time": 1.378858366670708,
+    "avg_server_aggregation_time": 0.01055066667807599,
+    "avg_evaluation_time": 0.014434366680992147,
+    "avg_round_time": 1.4371277491251628,
+    "total_time": 4.311383247375488,
+    "convergence_rate": -0.0605,
+    "stability_score": 0.9429600529842852
+  },
+  "timing_statistics": {
+    "smartwatch_training_times": [
+      0.017577299964614213,
+      0.010372600052505732,
+      0.028472500038333237
+    ],
+    "edge_encryption_times": [
+      1.4385908000404015,
+      1.3276055000023916,
+      1.3703787999693304
+    ],
+    "cloud_aggregation_times": [
+      0.0058877000119537115,
+      0.021376300021074712,
+      0.0043880000011995435
+    ],
+    "advanced_aggregation_stats": [
+      {
+        "selected_clients": 3,
+        "total_clients": 5,
+        "outlier_count": 0,
+        "adaptive_lr": 0.95,
+        "momentum_applied": true,
+        "fednova_applied": true,
+        "quality_scores": {
+          "client_0": 0.0,
+          "client_1": 0.0,
+          "client_2": 0.0,
+          "client_3": 0.0,
+          "client_4": 0.0
+        },
+        "selection_scores": {
+          "client_0": 0.3333333333333333,
+          "client_1": 0.3333333333333333,
+          "client_2": 0.3333333333333333,
+          "client_3": 0.0,
+          "client_4": 0.0
+        }
+      },
+      {
+        "selected_clients": 3,
+        "total_clients": 5,
+        "outlier_count": 0,
+        "adaptive_lr": 0.9025,
+        "momentum_applied": true,
+        "fednova_applied": true,
+        "quality_scores": {
+          "client_0": 0.0,
+          "client_1": 0.0,
+          "client_2": 0.0,
+          "client_3": 0.0,
+          "client_4": 0.0
+        },
+        "selection_scores": {
+          "client_0": 0.3333333333333333,
+          "client_1": 0.3333333333333333,
+          "client_2": 0.3333333333333333,
+          "client_3": 0.0,
+          "client_4": 0.0
+        }
+      },
+      {
+        "selected_clients": 3,
+        "total_clients": 5,
+        "outlier_count": 0,
+        "adaptive_lr": 0.8573749999999999,
+        "momentum_applied": true,
+        "fednova_applied": true,
+        "quality_scores": {
+          "client_0": 0.0,
+          "client_1": 0.0,
+          "client_2": 0.0,
+          "client_3": 0.0,
+          "client_4": 0.0
+        },
+        "selection_scores": {
+          "client_0": 0.3333333333333333,
+          "client_1": 0.3333333333333333,
+          "client_2": 0.3333333333333333,
+          "client_3": 0.0,
+          "client_4": 0.0
+        }
+      }
+    ]
+  },
+  "performance_summary": {
+    "initial_accuracy": 0.322,
+    "final_accuracy": 0.201,
+    "best_accuracy": 0.322,
+    "total_improvement": 0.0,
+    "rounds_completed": 3
+  }
+}

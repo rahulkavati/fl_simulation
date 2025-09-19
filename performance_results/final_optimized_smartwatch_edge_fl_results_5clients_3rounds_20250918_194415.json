@@ -1,0 +1,241 @@
+{
+  "timestamp": "20250918_194415",
+  "configuration": {
+    "rounds": 3,
+    "clients": 5,
+    "batch_size": 2,
+    "max_workers": 2,
+    "optimization_focus": "85%+ Accuracy Target"
+  },
+  "round_results": [
+    {
+      "round": 1,
+      "accuracy": 0.678,
+      "f1_score": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "auc": 0.5,
+      "pr_auc": 0.322,
+      "ece": 0,
+      "mce": 0,
+      "mae": 0.322,
+      "rmse": 0.5674504383644443,
+      "smartwatch_training_time": 0.01152529998216778,
+      "edge_encryption_time": 1.3213018000824377,
+      "server_aggregation_time": 0.003559600096195936,
+      "global_update_time": 0.0016469000838696957,
+      "evaluation_time": 0.010870300000533462,
+      "round_time": 1.3460922241210938,
+      "total_time": 1.3460922241210938,
+      "best_accuracy": 0.678,
+      "improvement": 0.678,
+      "clients_processed": 5,
+      "final_optimization_stats": {
+        "quality_scores": {
+          "client_0": 0.1,
+          "client_1": 0.1,
+          "client_2": 0.1,
+          "client_3": 0.1,
+          "client_4": 0.1
+        },
+        "adaptive_weights": {
+          "client_0": 0.19999999999999998,
+          "client_1": 0.19999999999999998,
+          "client_2": 0.19999999999999998,
+          "client_3": 0.19999999999999998,
+          "client_4": 0.19999999999999998
+        },
+        "total_clients": 5,
+        "aggregation_method": "final_optimized_weighted",
+        "round_number": 1
+      }
+    },
+    {
+      "round": 2,
+      "accuracy": 0.333,
+      "f1_score": 0.48967100229533284,
+      "precision": 0.3248730964467005,
+      "recall": 0.9937888198757764,
+      "auc": 0.5064814305868558,
+      "pr_auc": 0.32485525112715574,
+      "ece": 0.665,
+      "mce": 0.6751269035532995,
+      "mae": 0.667,
+      "rmse": 0.8167006795638168,
+      "smartwatch_training_time": 0.013843799941241741,
+      "edge_encryption_time": 1.311206000042148,
+      "server_aggregation_time": 0.004640100058168173,
+      "global_update_time": 0.004989300039596856,
+      "evaluation_time": 0.022504399996250868,
+      "round_time": 1.3616626262664795,
+      "total_time": 1.3616626262664795,
+      "best_accuracy": 0.678,
+      "improvement": -0.34500000000000003,
+      "clients_processed": 5,
+      "final_optimization_stats": {
+        "quality_scores": {
+          "client_0": 0.1,
+          "client_1": 0.1,
+          "client_2": 0.1,
+          "client_3": 0.1,
+          "client_4": 0.1
+        },
+        "adaptive_weights": {
+          "client_0": 0.19999999999999998,
+          "client_1": 0.19999999999999998,
+          "client_2": 0.19999999999999998,
+          "client_3": 0.19999999999999998,
+          "client_4": 0.19999999999999998
+        },
+        "total_clients": 5,
+        "aggregation_method": "final_optimized_weighted",
+        "round_number": 2
+      }
+    },
+    {
+      "round": 3,
+      "accuracy": 0.849,
+      "f1_score": 0.7827338129496403,
+      "precision": 0.7292225201072386,
+      "recall": 0.84472049689441,
+      "auc": 0.8475329339123107,
+      "pr_auc": 0.6659892095315805,
+      "ece": 0.10099999999999998,
+      "mce": 0.27077747989276135,
+      "mae": 0.151,
+      "rmse": 0.38858718455450897,
+      "smartwatch_training_time": 0.021066599991172552,
+      "edge_encryption_time": 1.3979741999646649,
+      "server_aggregation_time": 0.0072791000129655,
+      "global_update_time": 0.004558500018902123,
+      "evaluation_time": 0.014839199953712523,
+      "round_time": 1.4533805847167969,
+      "total_time": 1.4533805847167969,
+      "best_accuracy": 0.849,
+      "improvement": 0.516,
+      "clients_processed": 5,
+      "final_optimization_stats": {
+        "quality_scores": {
+          "client_0": 0.1,
+          "client_1": 0.1,
+          "client_2": 0.1,
+          "client_3": 0.1,
+          "client_4": 0.1
+        },
+        "adaptive_weights": {
+          "client_0": 0.19999999999999998,
+          "client_1": 0.19999999999999998,
+          "client_2": 0.19999999999999998,
+          "client_3": 0.19999999999999998,
+          "client_4": 0.19999999999999998
+        },
+        "total_clients": 5,
+        "aggregation_method": "final_optimized_weighted",
+        "round_number": 3
+      }
+    }
+  ],
+  "final_statistics": {
+    "avg_accuracy": 0.62,
+    "avg_f1_score": 0.42413493841499106,
+    "avg_precision": 0.35136520551797973,
+    "avg_recall": 0.6128364389233955,
+    "avg_auc": 0.6180047881663889,
+    "final_accuracy": 0.849,
+    "best_accuracy": 0.849,
+    "accuracy_std": 0.21461127649776465,
+    "avg_smartwatch_training_time": 0.015478566638194025,
+    "avg_edge_encryption_time": 1.3434940000297502,
+    "avg_server_aggregation_time": 0.0051596000557765365,
+    "avg_evaluation_time": 0.01607129998349895,
+    "avg_round_time": 1.38704514503479,
+    "total_time": 4.16113543510437,
+    "convergence_rate": 0.08549999999999999,
+    "stability_score": 0.7853887235022353,
+    "target_achievement": false
+  },
+  "timing_statistics": {
+    "smartwatch_training_times": [
+      0.01152529998216778,
+      0.013843799941241741,
+      0.021066599991172552
+    ],
+    "edge_encryption_times": [
+      1.3213018000824377,
+      1.311206000042148,
+      1.3979741999646649
+    ],
+    "cloud_aggregation_times": [
+      0.003559600096195936,
+      0.004640100058168173,
+      0.0072791000129655
+    ],
+    "final_optimization_stats": [
+      {
+        "quality_scores": {
+          "client_0": 0.1,
+          "client_1": 0.1,
+          "client_2": 0.1,
+          "client_3": 0.1,
+          "client_4": 0.1
+        },
+        "adaptive_weights": {
+          "client_0": 0.19999999999999998,
+          "client_1": 0.19999999999999998,
+          "client_2": 0.19999999999999998,
+          "client_3": 0.19999999999999998,
+          "client_4": 0.19999999999999998
+        },
+        "total_clients": 5,
+        "aggregation_method": "final_optimized_weighted",
+        "round_number": 1
+      },
+      {
+        "quality_scores": {
+          "client_0": 0.1,
+          "client_1": 0.1,
+          "client_2": 0.1,
+          "client_3": 0.1,
+          "client_4": 0.1
+        },
+        "adaptive_weights": {
+          "client_0": 0.19999999999999998,
+          "client_1": 0.19999999999999998,
+          "client_2": 0.19999999999999998,
+          "client_3": 0.19999999999999998,
+          "client_4": 0.19999999999999998
+        },
+        "total_clients": 5,
+        "aggregation_method": "final_optimized_weighted",
+        "round_number": 2
+      },
+      {
+        "quality_scores": {
+          "client_0": 0.1,
+          "client_1": 0.1,
+          "client_2": 0.1,
+          "client_3": 0.1,
+          "client_4": 0.1
+        },
+        "adaptive_weights": {
+          "client_0": 0.19999999999999998,
+          "client_1": 0.19999999999999998,
+          "client_2": 0.19999999999999998,
+          "client_3": 0.19999999999999998,
+          "client_4": 0.19999999999999998
+        },
+        "total_clients": 5,
+        "aggregation_method": "final_optimized_weighted",
+        "round_number": 3
+      }
+    ]
+  },
+  "performance_summary": {
+    "initial_accuracy": 0.678,
+    "final_accuracy": 0.849,
+    "best_accuracy": 0.849,
+    "total_improvement": 0.17099999999999993,
+    "rounds_completed": 3,
+    "target_achieved": false
+  }
+}

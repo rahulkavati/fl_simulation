@@ -1,0 +1,62 @@
+{
+  "pipeline_info": {
+    "type": "fhe",
+    "rounds": 1,
+    "clients": 60,
+    "timestamp": "2025-09-18 16:53:04",
+    "total_samples": 12000,
+    "one_class_clients": 17,
+    "one_class_percentage": 28.333333333333332
+  },
+  "final_performance": {
+    "accuracy": 0.987,
+    "f1_score": 0.9866300994172095,
+    "precision": 0.9777475794122643,
+    "recall": 0.9956754886697803,
+    "auc": 0.9996815479644978,
+    "pr_auc": 0.9996896015905512,
+    "mae": 0.0819505886575858,
+    "rmse": 0.14941561327285136,
+    "ece": 0.07880503081394864,
+    "mce": 0.484802274082737
+  },
+  "performance_trends": {
+    "initial_accuracy": 0.987,
+    "final_accuracy": 0.987,
+    "accuracy_improvement": 0,
+    "best_accuracy": 0.987,
+    "final_f1": 0.9866300994172095,
+    "best_f1": 0.9866300994172095
+  },
+  "timing_statistics": {
+    "total_encryption_time": 0.5655806064605713,
+    "total_aggregation_time": 0.5396091938018799,
+    "total_evaluation_time": 0,
+    "total_time": 1.1051898002624512,
+    "avg_round_time": 1.1051898002624512,
+    "avg_encryption_time": 0.5655806064605713,
+    "avg_aggregation_time": 0.5396091938018799
+  },
+  "round_details": [
+    {
+      "round": 1,
+      "accuracy": 0.987,
+      "f1_score": 0.9866300994172095,
+      "precision": 0.9777475794122643,
+      "recall": 0.9956754886697803,
+      "auc": 0.9996815479644978,
+      "pr_auc": 0.9996896015905512,
+      "ece": 0.07880503081394864,
+      "mce": 0.484802274082737,
+      "mae": 0.0819505886575858,
+      "rmse": 0.14941561327285136,
+      "encryption_time": 0.5655806064605713,
+      "aggregation_time": 0.5396091938018799,
+      "decryption_time": 0.0,
+      "total_time": 1.1051898002624512,
+      "is_encrypted": true,
+      "improvement": 0.987,
+      "best_accuracy": 0.987
+    }
+  ]
+}
