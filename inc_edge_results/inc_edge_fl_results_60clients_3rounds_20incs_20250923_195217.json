@@ -1,0 +1,283 @@
+{
+  "pipeline_type": "inc_edge_fl",
+  "configuration": {
+    "clients": 60,
+    "rounds": 3,
+    "incs": 20,
+    "patience": 999,
+    "poly_modulus_degree": 8192,
+    "scale_bits": 40
+  },
+  "inc_configuration": [
+    {
+      "inc_id": "inc_0",
+      "edge_device_ids": [
+        "edge_client_0",
+        "edge_client_1",
+        "edge_client_2"
+      ],
+      "edge_count": 3
+    },
+    {
+      "inc_id": "inc_1",
+      "edge_device_ids": [
+        "edge_client_3",
+        "edge_client_4",
+        "edge_client_5"
+      ],
+      "edge_count": 3
+    },
+    {
+      "inc_id": "inc_2",
+      "edge_device_ids": [
+        "edge_client_6",
+        "edge_client_7",
+        "edge_client_8"
+      ],
+      "edge_count": 3
+    },
+    {
+      "inc_id": "inc_3",
+      "edge_device_ids": [
+        "edge_client_9",
+        "edge_client_10",
+        "edge_client_11"
+      ],
+      "edge_count": 3
+    },
+    {
+      "inc_id": "inc_4",
+      "edge_device_ids": [
+        "edge_client_12",
+        "edge_client_13",
+        "edge_client_14"
+      ],
+      "edge_count": 3
+    },
+    {
+      "inc_id": "inc_5",
+      "edge_device_ids": [
+        "edge_client_15",
+        "edge_client_16",
+        "edge_client_17"
+      ],
+      "edge_count": 3
+    },
+    {
+      "inc_id": "inc_6",
+      "edge_device_ids": [
+        "edge_client_18",
+        "edge_client_19",
+        "edge_client_20"
+      ],
+      "edge_count": 3
+    },
+    {
+      "inc_id": "inc_7",
+      "edge_device_ids": [
+        "edge_client_21",
+        "edge_client_22",
+        "edge_client_23"
+      ],
+      "edge_count": 3
+    },
+    {
+      "inc_id": "inc_8",
+      "edge_device_ids": [
+        "edge_client_24",
+        "edge_client_25",
+        "edge_client_26"
+      ],
+      "edge_count": 3
+    },
+    {
+      "inc_id": "inc_9",
+      "edge_device_ids": [
+        "edge_client_27",
+        "edge_client_28",
+        "edge_client_29"
+      ],
+      "edge_count": 3
+    },
+    {
+      "inc_id": "inc_10",
+      "edge_device_ids": [
+        "edge_client_30",
+        "edge_client_31",
+        "edge_client_32"
+      ],
+      "edge_count": 3
+    },
+    {
+      "inc_id": "inc_11",
+      "edge_device_ids": [
+        "edge_client_33",
+        "edge_client_34",
+        "edge_client_35"
+      ],
+      "edge_count": 3
+    },
+    {
+      "inc_id": "inc_12",
+      "edge_device_ids": [
+        "edge_client_36",
+        "edge_client_37",
+        "edge_client_38"
+      ],
+      "edge_count": 3
+    },
+    {
+      "inc_id": "inc_13",
+      "edge_device_ids": [
+        "edge_client_39",
+        "edge_client_40",
+        "edge_client_41"
+      ],
+      "edge_count": 3
+    },
+    {
+      "inc_id": "inc_14",
+      "edge_device_ids": [
+        "edge_client_42",
+        "edge_client_43",
+        "edge_client_44"
+      ],
+      "edge_count": 3
+    },
+    {
+      "inc_id": "inc_15",
+      "edge_device_ids": [
+        "edge_client_45",
+        "edge_client_46",
+        "edge_client_47"
+      ],
+      "edge_count": 3
+    },
+    {
+      "inc_id": "inc_16",
+      "edge_device_ids": [
+        "edge_client_48",
+        "edge_client_49",
+        "edge_client_50"
+      ],
+      "edge_count": 3
+    },
+    {
+      "inc_id": "inc_17",
+      "edge_device_ids": [
+        "edge_client_51",
+        "edge_client_52",
+        "edge_client_53"
+      ],
+      "edge_count": 3
+    },
+    {
+      "inc_id": "inc_18",
+      "edge_device_ids": [
+        "edge_client_54",
+        "edge_client_55",
+        "edge_client_56"
+      ],
+      "edge_count": 3
+    },
+    {
+      "inc_id": "inc_19",
+      "edge_device_ids": [
+        "edge_client_57",
+        "edge_client_58",
+        "edge_client_59"
+      ],
+      "edge_count": 3
+    }
+  ],
+  "round_results": [
+    {
+      "round": 1,
+      "accuracy": 0.5550833333333334,
+      "f1_score": 0.5189656725831155,
+      "precision": 0.5415569763068823,
+      "recall": 0.49818370524130773,
+      "auc": 0.5,
+      "mae": 0.5,
+      "rmse": 0.5,
+      "timing_statistics": {
+        "client_training_time": 0.09389376640319824,
+        "edge_encryption_wall_time": 0.28775453567504883,
+        "total_pure_encryption_time": 0.2769660949707031,
+        "avg_encryption_per_client": 0.004616101582845052,
+        "inc_aggregation_time": 0.05868935585021973,
+        "cloud_update_time": 0.02000880241394043,
+        "inc_distribution_time": 0.08807229995727539,
+        "evaluation_time": 0.016451358795166016,
+        "total_round_time": 0.5648701190948486
+      }
+    },
+    {
+      "round": 2,
+      "accuracy": 0.3385,
+      "f1_score": 0.3289940828402367,
+      "precision": 0.321706067118532,
+      "recall": 0.33661996194430027,
+      "auc": 0.5,
+      "mae": 0.5,
+      "rmse": 0.5,
+      "timing_statistics": {
+        "client_training_time": 0.13152194023132324,
+        "edge_encryption_wall_time": 0.2470700740814209,
+        "total_pure_encryption_time": 0.2470700740814209,
+        "avg_encryption_per_client": 0.004117834568023682,
+        "inc_aggregation_time": 0.05741143226623535,
+        "cloud_update_time": 0.01673603057861328,
+        "inc_distribution_time": 0.08215808868408203,
+        "evaluation_time": 0.0164947509765625,
+        "total_round_time": 0.5513923168182373
+      }
+    },
+    {
+      "round": 3,
+      "accuracy": 0.413,
+      "f1_score": 0.45028874668331514,
+      "precision": 0.41020901464524384,
+      "recall": 0.4990486075073517,
+      "auc": 0.5,
+      "mae": 0.5,
+      "rmse": 0.5,
+      "timing_statistics": {
+        "client_training_time": 0.12531280517578125,
+        "edge_encryption_wall_time": 0.2590184211730957,
+        "total_pure_encryption_time": 0.2590184211730957,
+        "avg_encryption_per_client": 0.004316973686218262,
+        "inc_aggregation_time": 0.04686379432678223,
+        "cloud_update_time": 0.02022838592529297,
+        "inc_distribution_time": 0.07766604423522949,
+        "evaluation_time": 0.016544103622436523,
+        "total_round_time": 0.5456335544586182
+      }
+    }
+  ],
+  "final_metrics": {
+    "final_accuracy": 0.413,
+    "best_accuracy": 0.5550833333333334,
+    "total_rounds": 3
+  },
+  "timing_statistics": {
+    "total_time": 1.9670476913452148,
+    "avg_round_time": 0.6556825637817383,
+    "total_client_training_time": 0.35072851181030273,
+    "total_edge_encryption_wall_time": 0.7938430309295654,
+    "total_pure_encryption_time": 0.7830545902252197,
+    "avg_encryption_per_client": 0.0043503032790289985,
+    "total_inc_aggregation_time": 0.1629645824432373,
+    "total_cloud_update_time": 0.05697321891784668,
+    "total_inc_distribution_time": 0.24789643287658691,
+    "total_evaluation_time": 0.04949021339416504,
+    "avg_client_training_time": 0.11690950393676758,
+    "avg_edge_encryption_wall_time": 0.2646143436431885,
+    "avg_pure_encryption_time": 0.2610181967417399,
+    "avg_inc_aggregation_time": 0.0543215274810791,
+    "avg_cloud_update_time": 0.01899107297261556,
+    "avg_inc_distribution_time": 0.08263214429219563,
+    "avg_evaluation_time": 0.016496737798055012
+  },
+  "timestamp": "20250923_195217"
+}

@@ -1,0 +1,113 @@
+{
+  "pipeline_type": "inc_edge_fl",
+  "configuration": {
+    "clients": 4,
+    "rounds": 3,
+    "incs": 1,
+    "patience": 999,
+    "poly_modulus_degree": 8192,
+    "scale_bits": 40
+  },
+  "inc_configuration": [
+    {
+      "inc_id": "inc_0",
+      "edge_device_ids": [
+        "edge_client_0",
+        "edge_client_1",
+        "edge_client_2",
+        "edge_client_3"
+      ],
+      "edge_count": 4
+    }
+  ],
+  "round_results": [
+    {
+      "round": 1,
+      "accuracy": 0.88375,
+      "f1_score": 0.8731241473396999,
+      "precision": 0.774818401937046,
+      "recall": 1.0,
+      "auc": 0.9999804687499999,
+      "mae": 0.4999999999988877,
+      "rmse": 0.4999999999988878,
+      "timing_statistics": {
+        "client_training_time": 0.005735635757446289,
+        "edge_encryption_wall_time": 0.016728878021240234,
+        "total_pure_encryption_time": 0.016728878021240234,
+        "avg_encryption_per_client": 0.004182219505310059,
+        "inc_aggregation_time": 0.010228157043457031,
+        "cloud_update_time": 0.0034224987030029297,
+        "inc_distribution_time": 0.003100156784057617,
+        "evaluation_time": 0.008127212524414062,
+        "total_round_time": 0.047342538833618164
+      }
+    },
+    {
+      "round": 2,
+      "accuracy": 0.9225,
+      "f1_score": 0.9116809116809117,
+      "precision": 0.837696335078534,
+      "recall": 1.0,
+      "auc": 0.9999804687499999,
+      "mae": 0.49999999999679884,
+      "rmse": 0.49999999999679884,
+      "timing_statistics": {
+        "client_training_time": 0.016804218292236328,
+        "edge_encryption_wall_time": 0.016728639602661133,
+        "total_pure_encryption_time": 0.016728639602661133,
+        "avg_encryption_per_client": 0.004182159900665283,
+        "inc_aggregation_time": 0.008159875869750977,
+        "cloud_update_time": 0.0018770694732666016,
+        "inc_distribution_time": 0.006185054779052734,
+        "evaluation_time": 0.008129119873046875,
+        "total_round_time": 0.05788397789001465
+      }
+    },
+    {
+      "round": 3,
+      "accuracy": 0.9225,
+      "f1_score": 0.9116809116809117,
+      "precision": 0.837696335078534,
+      "recall": 1.0,
+      "auc": 0.9999804687499999,
+      "mae": 0.49999999999679884,
+      "rmse": 0.49999999999679884,
+      "timing_statistics": {
+        "client_training_time": 0.010860919952392578,
+        "edge_encryption_wall_time": 0.02272200584411621,
+        "total_pure_encryption_time": 0.02272200584411621,
+        "avg_encryption_per_client": 0.005680501461029053,
+        "inc_aggregation_time": 0.0,
+        "cloud_update_time": 0.0,
+        "inc_distribution_time": 0.008063793182373047,
+        "evaluation_time": 0.008590936660766602,
+        "total_round_time": 0.05023765563964844
+      }
+    }
+  ],
+  "final_metrics": {
+    "final_accuracy": 0.9225,
+    "best_accuracy": 0.9225,
+    "total_rounds": 3
+  },
+  "timing_statistics": {
+    "total_time": 0.48694849014282227,
+    "avg_round_time": 0.16231616338094076,
+    "total_client_training_time": 0.033400774002075195,
+    "total_edge_encryption_wall_time": 0.05617952346801758,
+    "total_pure_encryption_time": 0.05617952346801758,
+    "avg_encryption_per_client": 0.004681626955668132,
+    "total_inc_aggregation_time": 0.018388032913208008,
+    "total_cloud_update_time": 0.005299568176269531,
+    "total_inc_distribution_time": 0.0173490047454834,
+    "total_evaluation_time": 0.02484726905822754,
+    "avg_client_training_time": 0.011133591334025065,
+    "avg_edge_encryption_wall_time": 0.018726507822672527,
+    "avg_pure_encryption_time": 0.018726507822672527,
+    "avg_inc_aggregation_time": 0.006129344304402669,
+    "avg_cloud_update_time": 0.001766522725423177,
+    "avg_inc_distribution_time": 0.0057830015818278,
+    "avg_evaluation_time": 0.00828242301940918
+  },
+  "timestamp": "20250923_192554"
+}

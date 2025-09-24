@@ -1,0 +1,77 @@
+{
+  "pipeline_type": "inc_edge_fl",
+  "configuration": {
+    "clients": 4,
+    "rounds": 1,
+    "incs": 2,
+    "patience": 999,
+    "poly_modulus_degree": 8192,
+    "scale_bits": 40
+  },
+  "inc_configuration": [
+    {
+      "inc_id": "inc_0",
+      "edge_device_ids": [
+        "edge_client_0",
+        "edge_client_1"
+      ],
+      "edge_count": 2
+    },
+    {
+      "inc_id": "inc_1",
+      "edge_device_ids": [
+        "edge_client_2",
+        "edge_client_3"
+      ],
+      "edge_count": 2
+    }
+  ],
+  "round_results": [
+    {
+      "round": 1,
+      "accuracy": 0.8125,
+      "f1_score": 0.810126582278481,
+      "precision": 0.6808510638297872,
+      "recall": 1.0,
+      "auc": 0.9999544270833334,
+      "mae": 0.4999999999989395,
+      "rmse": 0.4999999999989395,
+      "timing_statistics": {
+        "client_training_time": 0.005502223968505859,
+        "edge_encryption_wall_time": 0.024940013885498047,
+        "total_pure_encryption_time": 0.024940013885498047,
+        "avg_encryption_per_client": 0.006235003471374512,
+        "inc_aggregation_time": 0.0031719207763671875,
+        "cloud_update_time": 0.001814126968383789,
+        "inc_distribution_time": 0.006011962890625,
+        "evaluation_time": 0.008218526840209961,
+        "total_round_time": 0.049658775329589844
+      }
+    }
+  ],
+  "final_metrics": {
+    "final_accuracy": 0.8125,
+    "best_accuracy": 0.8125,
+    "total_rounds": 1
+  },
+  "timing_statistics": {
+    "total_time": 0.3956606388092041,
+    "avg_round_time": 0.3956606388092041,
+    "total_client_training_time": 0.005502223968505859,
+    "total_edge_encryption_wall_time": 0.024940013885498047,
+    "total_pure_encryption_time": 0.024940013885498047,
+    "avg_encryption_per_client": 0.006235003471374512,
+    "total_inc_aggregation_time": 0.0031719207763671875,
+    "total_cloud_update_time": 0.001814126968383789,
+    "total_inc_distribution_time": 0.006011962890625,
+    "total_evaluation_time": 0.008218526840209961,
+    "avg_client_training_time": 0.005502223968505859,
+    "avg_edge_encryption_wall_time": 0.024940013885498047,
+    "avg_pure_encryption_time": 0.024940013885498047,
+    "avg_inc_aggregation_time": 0.0031719207763671875,
+    "avg_cloud_update_time": 0.001814126968383789,
+    "avg_inc_distribution_time": 0.006011962890625,
+    "avg_evaluation_time": 0.008218526840209961
+  },
+  "timestamp": "20250923_194818"
+}

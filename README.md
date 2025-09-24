@@ -49,17 +49,17 @@ fl_simulation/
 ## Quick Start
 
 1. Install dependencies:
-   ```bash
+```bash
    pip install -r requirements.txt
-   ```
+```
 
 2. Run FHE Edge FL:
-   ```bash
+```bash
    python scripts/run_edge_fl.py --clients 10 --rounds 10
-   ```
+```
 
 3. Run Plaintext Edge FL:
-   ```bash
+```bash
    python scripts/run_plaintext_edge_fl.py --clients 10 --rounds 10
    ```
 
