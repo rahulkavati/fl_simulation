@@ -4,8 +4,8 @@
 
 **Project**: Federated Learning Simulation Framework  
 **Status**: Individual Research Project  
-**Contact**: [Your contact information]  
-**Institution**: [Your institution]  
+**Contact**: rahulkavati.us@gmail.com
+**Institution**: California State University, Dominguez Hills
 **Research Area**: Federated Learning, Machine Learning, Privacy-Preserving AI
 
 ## 📋 **Project Overview**
@@ -46,32 +46,6 @@ This Federated Learning Simulation Framework is a comprehensive, production-read
 - **Open Source**: Community-driven FL research platform
 - **Academic Impact**: High-quality research publications
 
-## 🤝 **Collaboration Opportunities**
-
-While this is currently an individual project, the framework is designed to be easily extended for collaborative research:
-
-### **Potential Areas**
-- **Encryption Integration**: Homomorphic encryption specialists
-- **Advanced Aggregation**: Custom aggregation algorithm researchers
-- **Multi-party Computation**: Secure computation experts
-- **Blockchain Integration**: Decentralized systems researchers
-
-### **Integration Points**
-- **Modular Architecture**: Easy to add new components
-- **Standardized Interfaces**: Well-defined APIs for extensions
-- **Comprehensive Testing**: Quality assurance for new features
-- **Documentation**: Clear integration guidelines
-
-## 📚 **Academic Background**
-
-[Add your academic background, research interests, and relevant experience]
-
-## 🔗 **Professional Links**
-
-- **GitHub**: [Your GitHub profile]
-- **LinkedIn**: [Your LinkedIn profile]
-- **Research Profile**: [Your research profile/Google Scholar]
-- **Email**: [Your email address]
 
 ## 📄 **License and Usage**
 
@@ -79,4 +53,4 @@ This project is open source and available for research and educational purposes.
 
 ---
 
-**Note**: This is an individual research project by Rahul Kavati. The framework is designed to be easily extended for future collaborative work, but all current implementation and design decisions are made independently.
+**Note**: This is an group research project, technical programming is developed by Rahul Kavati. The framework is designed to be easily extended for future collaborative work.
