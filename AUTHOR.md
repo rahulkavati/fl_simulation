@@ -4,8 +4,8 @@
 
 **Project**: Federated Learning Simulation Framework  
 **Status**: Individual Research Project  
-**Contact**: rahulkavati.us@gmail.com
-**Institution**: California State University, Dominguez Hills
+**Contact**: rahulkavati.us@gmail.com  
+**Institution**: California State University, Dominguez Hills  
 **Research Area**: Federated Learning, Machine Learning, Privacy-Preserving AI
 
 ## 📋 **Project Overview**
